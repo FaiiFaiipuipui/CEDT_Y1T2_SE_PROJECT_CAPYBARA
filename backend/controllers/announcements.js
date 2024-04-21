@@ -69,6 +69,25 @@ exports.getAnnouncement = async (req, res, next) => {
     }
   };
 
+// @desc:    Create a new announcement
+// @route:   POST /api/v1/announcements
+// @access:  Private
+exports.createAnnouncement = async (req, res, next) => {
+  try {
+    const announcement = await Announcement.create(req.body);
+
+    res.status(201).json({
+      success: true,
+      data: announcement,
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: "Cannot create Announcement",
+    });
+  }
+};
+
 // @desc:    Update a announcement with an id
 // @route:   PUT /api/v1/announcements
 // @access:  Private
