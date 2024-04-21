@@ -27,6 +27,15 @@ export interface AppointmentItem {
   user: string;
   campground: Object;
   createdAt: Date;
+  transaction: TransactionAppt;
+}
+
+export interface TransactionAppt {
+  _id: string;
+  status: string;
+  submitted_slip_images: string[];
+  successful_payment_slip_image: string | null;
+  appointment: string;
 }
 
 export interface AppointmentJson {
@@ -41,7 +50,7 @@ export interface PaymentItem {
   status: string;
   rent_date: Date;
   successful_payment_date: Date;
-  submitted_slip_images: String[];
+  submitted_slip_images: string[];
   successful_payment_slip_image: Object;
   campground: CampgroundItem;
   user: UserItem;
@@ -49,7 +58,7 @@ export interface PaymentItem {
 }
 
 export interface Slip {
-  _id: string,
+  _id: string;
   slip_image: Buffer;
   submit_time: Date;
   payment_id: string;
@@ -71,7 +80,7 @@ export interface UserItem {
   createdAt: Date;
 }
 
-export interface OnePaymentJson{
+export interface OnePaymentJson {
   success: boolean;
   data: PaymentItem;
   campgroundPrice: string;
