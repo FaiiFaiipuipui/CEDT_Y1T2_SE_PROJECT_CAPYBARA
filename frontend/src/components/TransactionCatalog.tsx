@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Session } from "next-auth";
 import TransactionCard from "./TransactionCard";
-import { PaymentJson, PaymentItem } from "interface";
+import { PaymentJson, PaymentItem, AppointmentJson, AppointmentItem } from "interface";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -19,15 +19,14 @@ const prompt = Prompt({
 });
 
 export default function TransactionCatalog({
-  transactionJson,
+  appointmentJson,
   session,
   role,
 }: {
-  transactionJson: PaymentJson;
+  appointmentJson: AppointmentJson;
   session: Session;
   role: string;
 }) {
-  const transactionJsonReady = transactionJson;
 
   const [statusFilter, setStatusFilter] = useState("Default");
   const statusList = [
@@ -114,13 +113,13 @@ export default function TransactionCatalog({
           <div className="w-1/5"></div>
         </div>
         {/*.filter((transactionItem:PaymentItem) => transactionItem.status === "REJECTED")*/}
-        {transactionJsonReady.data.map((transactionItem: PaymentItem) =>
-          transactionItem.status === statusFilter ||
+        {appointmentJson.data.map((apptItem: AppointmentItem) =>
+          apptItem.transaction.status === statusFilter ||
           statusFilter === "Default" ? (
             <TransactionCard
-              key={transactionItem._id}
-              tid={transactionItem._id}
-              user={transactionItem.user.name}
+              key={apptItem._id}
+              tid={apptItem.transaction._id}
+              user={apptItem.transaction.}
               campground={transactionItem.campground}
               date={new Date(transactionItem.rent_date)}
               status={transactionItem.status}

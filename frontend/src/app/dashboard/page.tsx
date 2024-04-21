@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import getUserDashboard from "../../libs/getUserDashboard";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import getAppointments from "@/libs/getAppointments";
+import { AppointmentItem } from "interface";
 
 export default async function DashbordPage() {
   const session = await getServerSession(authOptions);
@@ -47,7 +48,7 @@ export default async function DashbordPage() {
       : null
       }
       <Suspense fallback={<Skeleton />}>
-        <TransactionCatalog transactionJson={transactions} session={session} role={profile.data.role}/>
+        <TransactionCatalog appointmentJson={appointments} session={session} role={profile.data.role}/>
       </Suspense>
     </main>
   );
