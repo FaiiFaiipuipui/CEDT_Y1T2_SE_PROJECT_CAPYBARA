@@ -13,7 +13,7 @@ exports.deleteAnnouncement = async (req, res, next) => {
         message: `No announcement with the id of ${req.params.id}`,
       });
     }
-    // Make sure user is the announcement owner
+
     if (req.user.role !== "admin") {
       return res.status(401).json({
         success: false,
