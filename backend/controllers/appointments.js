@@ -14,6 +14,9 @@ exports.getAppointments = async (req, res, next) => {
     }).populate({
       path: "transaction",
       select: "status successful_payment_slip_image submitted_slip_images successful_payment_date",
+    }).populate({
+      path: "user",
+      select: "name",
     });
   } else {
     // If you are an admin, you can see all!
@@ -27,6 +30,9 @@ exports.getAppointments = async (req, res, next) => {
       }).populate({
         path: "transaction",
         select: "status successful_payment_slip_image submitted_slip_images successful_payment_date",
+      }).populate({
+        path: "user",
+        select: "name",
       });
     } else
       query = Appointment.find().populate({
@@ -35,6 +41,9 @@ exports.getAppointments = async (req, res, next) => {
       }).populate({
         path: "transaction",
         select: "status successful_payment_slip_image submitted_slip_images successful_payment_date",
+      }).populate({
+        path: "user",
+        select: "name",
       });
   }
   try {
@@ -63,6 +72,9 @@ exports.getAppointment = async (req, res, next) => {
     }).populate({
       path: "transaction",
       select: "status successful_payment_slip_image submitted_slip_images successful_payment_date",
+    }).populate({
+      path: "user",
+      select: "name",
     });
 
     if (!appointment) {
