@@ -22,7 +22,7 @@ const AppointmentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+},  { toJSON: { virtuals: true }, toObject: { virtuals: true }, id: false });
 
 //Cascade update transaction's status: CANCEL when appointment deleted
 AppointmentSchema.pre(
@@ -34,5 +34,13 @@ AppointmentSchema.pre(
     next();
   }
 );
+
+// Transaction populate with virtual
+AppointmentSchema.virtual("transaction", {
+  ref: "Transaction",
+  localField: "_id",
+  foreignField: "appointment",
+  justOne: true,
+});
 
 module.exports = mongoose.model("Appointment", AppointmentSchema);
