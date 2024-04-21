@@ -81,7 +81,7 @@ exports.createAnnouncement = async (req, res, next) => {
       data: announcement,
     });
   } catch (err) {
-    res.status(400).json({
+    res.status(500).json({
       success: false,
       message: "Cannot create Announcement",
     });
@@ -111,7 +111,7 @@ exports.updateAnnouncement = async (req, res, next) => {
       data: announcement,
     });
   } catch (err) {
-    res.status(400).json({
+    res.status(500).json({
       success: false,
       message: "Cannot update Announcement"
     });
