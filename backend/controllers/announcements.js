@@ -64,7 +64,37 @@ exports.getAnnouncement = async (req, res, next) => {
     } catch (err) {
       res.status(400).json({
         success: false,
-        error: err.message,
+        message: "Cannot find Announcement",
       });
     }
   };
+
+// @desc:    Update a announcement with an id
+// @route:   PUT /api/v1/announcements
+// @access:  Private
+exports.updateAnnouncement = async (req, res, next) => {
+  try {
+    const announcement = await Announcement.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!announcement) {
+      return res.status(400).json({ success: false });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: announcement,
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: "Cannot update Announcement"
+    });
+  }
+};
