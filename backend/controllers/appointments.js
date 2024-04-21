@@ -11,6 +11,9 @@ exports.getAppointments = async (req, res, next) => {
     query = Appointment.find({ user: req.user.id }).populate({
       path: "campground",
       select: "name province tel price promptpayTel",
+    }).populate({
+      path: "transaction",
+      select: "status successful_payment_slip_image submitted_slip_images successful_payment_date",
     });
   } else {
     // If you are an admin, you can see all!
@@ -21,11 +24,17 @@ exports.getAppointments = async (req, res, next) => {
       }).populate({
         path: "campground",
         select: "name province tel price promptpayTel",
+      }).populate({
+        path: "transaction",
+        select: "status successful_payment_slip_image submitted_slip_images successful_payment_date",
       });
     } else
       query = Appointment.find().populate({
         path: "campground",
         select: "name province tel price promptpayTel",
+      }).populate({
+        path: "transaction",
+        select: "status successful_payment_slip_image submitted_slip_images successful_payment_date",
       });
   }
   try {
@@ -51,6 +60,9 @@ exports.getAppointment = async (req, res, next) => {
     const appointment = await Appointment.findById(req.params.id).populate({
       path: "campground",
       select: "name province tel price promptpayTel",
+    }).populate({
+      path: "transaction",
+      select: "status successful_payment_slip_image submitted_slip_images successful_payment_date",
     });
 
     if (!appointment) {
