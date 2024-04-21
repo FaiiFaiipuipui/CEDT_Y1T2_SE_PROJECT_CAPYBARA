@@ -11,7 +11,7 @@ const { protect, authorize } = require("../middleware/auth");
 
 router.route("/")
     .get(getAnnouncements)
-    .post(createAnnouncement);
+    .post(protect, authorize("admin"), createAnnouncement);
 router.route("/:id")
     .get(getAnnouncement)
     .put(protect, authorize("admin"), updateAnnouncement);
