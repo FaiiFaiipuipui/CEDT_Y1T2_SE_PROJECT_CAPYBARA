@@ -119,11 +119,11 @@ export default function TransactionCatalog({
             <TransactionCard
               key={apptItem._id}
               tid={apptItem.transaction._id}
-              user={apptItem.transaction.}
-              campground={transactionItem.campground}
-              date={new Date(transactionItem.rent_date)}
-              status={transactionItem.status}
-              submitImage={transactionItem.submitted_slip_images}
+              user={apptItem.user.name}
+              campground={apptItem.campground}
+              date={new Date(apptItem.apptDate)}
+              status={apptItem.transaction.status}
+              submitImage={apptItem.transaction.submitted_slip_images}
               role={role}
             />
           ) : null

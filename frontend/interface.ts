@@ -24,8 +24,8 @@ export interface CampgroundJson {
 export interface AppointmentItem {
   _id: string;
   apptDate: string;
-  user: string;
-  campground: Object;
+  user: UserAppt;
+  campground: CampgroundAppt;
   createdAt: Date;
   transaction: TransactionAppt;
 }
@@ -36,6 +36,19 @@ export interface TransactionAppt {
   submitted_slip_images: string[];
   successful_payment_slip_image: string | null;
   appointment: string;
+}
+
+export interface UserAppt {
+  _id:string;
+  name: string;
+}
+
+export interface CampgroundAppt {
+  _id: string;
+  name: string;
+  province: string;
+  price: Decimal128;
+  promptpayTel: string;
 }
 
 export interface AppointmentJson {

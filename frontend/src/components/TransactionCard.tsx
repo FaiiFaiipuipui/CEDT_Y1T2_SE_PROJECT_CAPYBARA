@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CampgroundAppt } from "interface";
 
 export default function TransactionCard({
   tid,
@@ -11,7 +12,7 @@ export default function TransactionCard({
 }: {
   tid: string;
   user: string;
-  campground: any;
+  campground: CampgroundAppt;
   date: Date;
   status: string;
   submitImage: String[];
@@ -79,7 +80,7 @@ export default function TransactionCard({
             </button>
           </Link>
         ) : (
-          <div className="w-1/5"></div>
+          <div className="w-1/5">{role}</div>
         )}
       </div>
     </main>
