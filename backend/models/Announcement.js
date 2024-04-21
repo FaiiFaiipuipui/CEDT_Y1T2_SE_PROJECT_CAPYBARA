@@ -3,20 +3,20 @@ const mongoose = require('mongoose')
 const AnnouncementSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: ['Please add a title ',true]
+        required: ['Please add a title ', true]
     },
     content: {
         type: String,
-        required: ['Please add a content',true]
+        required: ['Please add a content', true]
     },
     startDate: {
         type: Date,
-        required: ['Please add a start date',true],
+        required: ['Please add a start date', true],
         default: Date.now
     },
     endDate: {
         type: Date,
-        required: ['Please add an end date',true],
+        required: [true, 'Please add an end date or set it to null']
     },
     campground: {
         type: mongoose.Schema.Types.ObjectId,
