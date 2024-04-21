@@ -36,9 +36,9 @@ exports.getAnnouncements = async (req, res, next) => {
     console.log("success", announcements.length);
   } catch (err) {
     console.log(err.stack);
-    res.status(400).json({
+    res.status(500).json({
       success: false,
-      message: "Cannot find any Announcements",
+      message: "Cannot find Announcements",
     });
   }
 };
@@ -62,7 +62,7 @@ exports.getAnnouncement = async (req, res, next) => {
         data: announcement,
       });
     } catch (err) {
-      res.status(400).json({
+      res.status(500).json({
         success: false,
         message: "Cannot find Announcement",
       });
