@@ -18,40 +18,47 @@ export default async function CampgroundDetailPage({
   const profile = await getUserDashboard(session.user.token);
 
   return (
-    <main>
-      <div className="block w-screen h-[550px] relative">
+    <main className="flex">
+      <div className="w-[60%] h-screen relative">
         <Image
           src={campgroundDetail.data.picture}
           alt="Campground Picture"
           fill={true}
           className="object-cover"
         ></Image>
-        <div className="relative top-[200px] z-20 text-center text-white text-4xl font-medium">
+        <div className="relative top-[40%] z-20 text-center text-white text-4xl font-medium">
           {campgroundDetail.data.name}
         </div>
       </div>
-      <div className="text-xl font-medium mt-[50px] text-left text-black text-center">
-        General Information
-      </div>
-      <div className="my-[10px] text-left text-black text-center">
-        <div className="text-md font-medium mt-[20px]">Name</div>
+      <div className="w-[40%] h-screen bg-emerald-100">
+      <div className="mx-[5%]">
+      <div className="text-3xl font-medium mt-[50px] text-left text-black">General Information</div>
+      <div className=" text-left text-black">
+        <div className="text-md font-medium mt-[5px]">Name</div>
         <div className="text-md">{campgroundDetail.data.name}</div>
-        <div className="flex flex-row justify-center ">
-          <div>
-            <div className="text-md font-medium mt-[20px]">Province</div>
+        <div className="flex flex-row">
+        <div>
+            <div className="text-md font-medium mt-[5px]">Province</div>
             <div className="text-md">{campgroundDetail.data.province}</div>
           </div>
-          <div className="ml-20">
-            <div className="text-md font-medium mt-[20px]">Region</div>
+          <div className="ml-40">
+            <div className="text-md font-medium mt-[5px]">Region</div>
             <div className="text-md">{campgroundDetail.data.region}</div>
           </div>
         </div>
-        <div className="text-md font-medium mt-[20px]">Coordinate</div>
-        <div className="text-md">{campgroundDetail.data.coordinate}</div>
-        <div className="text-md font-medium mt-[20px]">Postal Code</div>
-        <div className="text-md">{campgroundDetail.data.postalcode}</div>
-        <div className="text-md font-medium mt-[20px]">Phone Number</div>
+        <div className="flex flex-row">
+          <div>
+            <div className="text-md font-medium mt-[5px]">Coordinate</div>
+            <div className="text-md">{campgroundDetail.data.coordinate}</div>
+          </div>
+          <div className="ml-20">
+            <div className="text-md font-medium mt-[5px]">Postal Code</div>
+            <div className="text-md">{campgroundDetail.data.postalcode}</div>
+          </div>
+        </div>
+        <div className="text-md font-medium mt-[5px]">Phone Number</div>
         <div className="text-md">{campgroundDetail.data.telephone}</div>
+      </div>
       </div>
       <div className="text-center my-20">
         <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:bg-emerald-500 hover:text-white">
@@ -82,6 +89,7 @@ export default async function CampgroundDetailPage({
             </Link>
           </>
         ) : null}
+      </div>
       </div>
     </main>
   );

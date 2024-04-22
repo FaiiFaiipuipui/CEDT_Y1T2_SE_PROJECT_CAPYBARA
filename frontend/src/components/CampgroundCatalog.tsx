@@ -9,7 +9,7 @@ export default async function CampgroundCatalog({
 }) {
   const campgroundJsonReady = await campgroundJson;
   return (
-    <div className="flex flex-row flex-wrap place-items-around justify-around ml-[10%]">
+    <div className="flex flex-row flex-wrap place-items-around justify-around">
       {campgroundJsonReady.data.map((campgroundItem: CampgroundItem) => (
         <Link
           href={`/campground/${campgroundItem._id}`}

@@ -15,9 +15,11 @@ export default async function Campground() {
   if (!campgrounds) return null;
   return (
     <main className="text-center p-5 mx-[4%] flex flex-row">
+      
       <Announcement/>
-      <div>
-      <div className="text-4xl font-bold mt-10 mb-5 ml-[12%] text-left">Campground</div>
+
+      <div className="ml-[5%]">
+      <div className="text-4xl font-bold mt-10 mb-5 text-left">Campground</div>
 
       {profile.data.role == "admin" ? (
         <Link href="/campground/manage/add">
@@ -26,7 +28,6 @@ export default async function Campground() {
           </button>
         </Link>
       ) : null}
-
       <Suspense
         fallback={
           <p>
@@ -35,7 +36,7 @@ export default async function Campground() {
           </p>
         }
       >
-        <CampgroundCatalog campgroundJson={campgrounds} />
+        <CampgroundCatalog campgroundJson={campgrounds}/>
       </Suspense>
       </div>
     </main>
