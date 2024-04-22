@@ -238,13 +238,14 @@ exports.addTransaction = async (req, res, next) => {
         message: `No appointment with the id of ${req.params.appointmentId}`,
       });
     }
-    
+
     //Check appointment already has transaction
-    const transactionOld = await Transaction.findById(req.params.appointmentId);
-    if(transactionOld){
+    let transactionOld = await Transaction.findOne({ appointment: req.params.appointmentId });
+
+    if (transactionOld) {
       return res.status(401).json({
         success: false,
-        message: `Appointment with the id of ${req.params.appointmentId} already has transaction ${transaction._id}`,
+        message: `Appointment with the id of ${req.params.appointmentId} already has transaction ${transactionOld._id}`,
       });
     }
 
@@ -316,17 +317,24 @@ exports.updateTransaction = async (req, res, next) => {
       });
     }
 
+    if (
+      req.body.status === "WAITING" &&
+      req.body.status !== "VERIFYING" &&
+      req.body.status === "CANCELED") {
+      return res.status(401).json({
+        success: false,
+        message: `Cannot update transaction with the id of ${req.params.id}'s status is not available to update status, [Updating Status: ${req.body.status}]`,
+      });
+    }
+
     /* Check Status that will be updated */
     if (
-      req.body.status !== "WAITING" &&
-      req.body.status !== "VERIFYING" &&
       req.body.status !== "COMPLETED" &&
-      req.body.status !== "REJECTED" &&
-      req.body.status !== "CANCELED"
+      req.body.status !== "REJECTED"
     ) {
       return res.status(401).json({
         success: false,
-        message: `Cannot update transaction with the id of ${req.params.id}'s status is not a valid format, [New Status: ${req.body.status}]`,
+        message: `Cannot update transaction with the id of ${req.params.id}'s status is not a valid format, [Updating Status: ${req.body.status}]`,
       });
     }
 
@@ -339,7 +347,7 @@ exports.updateTransaction = async (req, res, next) => {
     if (transaction.status === "COMPLETED") {
       const transactionSlipId =
         transaction.submitted_slip_images[
-          transaction.submitted_slip_images.length - 1
+        transaction.submitted_slip_images.length - 1
         ];
       const transactionSlip = await TransactionSlip.findById(transactionSlipId);
       transaction.set({
