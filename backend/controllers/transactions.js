@@ -238,13 +238,13 @@ exports.addTransaction = async (req, res, next) => {
         message: `No appointment with the id of ${req.params.appointmentId}`,
       });
     }
-
+    
     //Check appointment already has transaction
-    const transactionOld = Transaction.findById(req.params.appointmentId);
+    const transactionOld = await Transaction.findById(req.params.appointmentId);
     if(transactionOld){
       return res.status(401).json({
         success: false,
-        message: `Appointment with the id of ${req.params.appointmentId} already has transaction`,
+        message: `Appointment with the id of ${req.params.appointmentId} already has transaction ${transaction._id}`,
       });
     }
 
@@ -283,7 +283,7 @@ exports.addTransaction = async (req, res, next) => {
 // @access  Private
 exports.updateTransaction = async (req, res, next) => {
   try {
-    const transaction = await Transaction.findById(req.params.id);
+    let transaction = await Transaction.findById(req.params.id);
 
     //check transaction
     if (!transaction) {
