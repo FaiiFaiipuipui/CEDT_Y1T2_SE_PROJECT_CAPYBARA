@@ -19,11 +19,11 @@ const prompt = Prompt({
 });
 
 export default function TransactionCatalog({
-  appointmentJson,
+  appointments,
   session,
   role,
 }: {
-  appointmentJson: AppointmentJson;
+  appointments: AppointmentItem[];
   session: Session;
   role: string;
 }) {
@@ -57,7 +57,6 @@ export default function TransactionCatalog({
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   return (
     <main className="text-center">
       <div className="rounded-[50px] items-center justify-center border border-solid pb-3">
@@ -113,21 +112,40 @@ export default function TransactionCatalog({
           <div className="w-1/5"></div>
         </div>
         {/*.filter((transactionItem:PaymentItem) => transactionItem.status === "REJECTED")*/}
-        {appointmentJson.data.map((apptItem: AppointmentItem) =>
-          apptItem.transaction.status === statusFilter ||
-          statusFilter === "Default" ? (
-            <TransactionCard
-              key={apptItem._id}
-              tid={apptItem.transaction._id}
-              user={apptItem.user.name}
-              campground={apptItem.campground}
-              date={new Date(apptItem.apptDate)}
-              status={apptItem.transaction.status}
-              submitImage={apptItem.transaction.submitted_slip_images}
-              role={role}
-            />
-          ) : null
+        {statusFilter === "Default" ? (
+          <div>
+            {appointments.map(apptItem => (
+              <TransactionCard
+                key={apptItem._id}
+                tid={apptItem.transaction._id}
+                user={apptItem.user.name}
+                campground={apptItem.campground}
+                date={new Date(apptItem.apptDate)}
+                status={apptItem.transaction.status}
+                submitImage={apptItem.transaction.submitted_slip_images}
+                role={role}
+              />
+            ))}
+          </div>
+        ) : (
+          <div>
+            {appointments
+              .filter(apptItem => apptItem.transaction.status === statusFilter || statusFilter === "Default")
+              .map(apptItem => (
+                <TransactionCard
+                  key={apptItem._id}
+                  tid={apptItem.transaction._id}
+                  user={apptItem.user.name}
+                  campground={apptItem.campground}
+                  date={new Date(apptItem.apptDate)}
+                  status={apptItem.transaction.status}
+                  submitImage={apptItem.transaction.submitted_slip_images}
+                  role={role}
+                />
+              ))}
+          </div>
         )}
+
       </div>
     </main>
   );

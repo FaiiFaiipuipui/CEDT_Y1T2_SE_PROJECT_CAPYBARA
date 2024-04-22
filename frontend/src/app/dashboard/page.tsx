@@ -48,7 +48,7 @@ export default async function DashbordPage() {
       : null
       }
       <Suspense fallback={<Skeleton />}>
-        <TransactionCatalog appointmentJson={appointments} session={session} role={profile.data.role}/>
+        <TransactionCatalog appointments={appointments.data} session={session} role={profile.data.role}/>
       </Suspense>
     </main>
   );

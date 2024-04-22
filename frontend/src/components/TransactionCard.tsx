@@ -15,7 +15,7 @@ export default function TransactionCard({
   campground: CampgroundAppt;
   date: Date;
   status: string;
-  submitImage: String[];
+  submitImage: string[];
   role: string;
 }) {
   return (
