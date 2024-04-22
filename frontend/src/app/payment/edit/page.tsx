@@ -2,20 +2,20 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import React, { ReactNode, useState } from "react";
-import Modal from "react-modal";
+import React, { ReactNode, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import getTransaction from "@/libs/getUserTransaction";
-import createTransactionSlip from "@/libs/createTransactionSlip";
-import createPromptpayQR from "@/libs/createPromptpayQR";
+import {
+  getTransaction,
+  createTransactionSlip,
+  createPromptpayQR,
+} from "@/libs";
 import { PaymentItem } from "interface";
-import { useEffect } from "react";
+import { QrCodeComponent, UploadSlip } from "@/components";
 
 export default function PaymentPage() {
   // This use State is for save image data
   const [imagePreview, setImagePreview] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
   const [name, setName] = useState<string>("");
@@ -92,26 +92,6 @@ export default function PaymentPage() {
     setImagePreview(null);
   };
 
-  const upload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files[0];
-    const fileReader = new FileReader();
-
-    fileReader.onload = (event) => {
-      setImagePreview(fileReader.result);
-      console.log(fileReader.result);
-    };
-
-    if (file) {
-      fileReader.readAsDataURL(file);
-    }
-  };
-
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
   return (
     <main className="text-center p-5 mx-[8%]">
       <div className="text-4xl font-bold m-10 text-left">Edit Payment</div>
@@ -168,41 +148,10 @@ export default function PaymentPage() {
           </div>
         </div>
         <div
-          className="p-11 text-left flex flex-col rounded-r-[50px] w-1/2 border-ash border-y-2 border-r-2"
+          className="p-11 flex flex-col rounded-r-[50px] w-1/2 border-ash border-y-2 border-r-2"
           id="showQr"
         >
-          <div className="flex flex-row place-items-center">
-            <div className="mt-8 ml-12 text-4xl text-teal-700 font-medium">
-              Total price
-            </div>
-            <div className="mt-10 ml-3 text-lg text-lightteal font-semibold">
-              (Tax included)
-            </div>
-          </div>
-          {promptpayQr ? (
-            <div className="mt-3 ml-12 text-3xl text-gray-700 font-medium">
-              THB {price}.00
-            </div>
-          ) : (
-            <div className="mt-3 ml-12 text-xl text-rose-500">Pending...</div>
-          )}
-
-          <div className="flex items-center justify-center mt-2 ">
-            <div className="relative h-[38vh] w-[38vh]">
-              {promptpayQr ? (
-                <Image
-                  src={`data:image/svg+xml;base64,${promptpayQr}`}
-                  alt="qrcode"
-                  fill={true}
-                  object-fit="contain"
-                />
-              ) : (
-                <div className="mt-10 ml-12 text-xl text-rose-500">
-                  Loading QR code...
-                </div>
-              )}
-            </div>
-          </div>
+          <QrCodeComponent campgroundPrice={price} promptpayQr={promptpayQr} />
           <div className="mt-9 text-center">
             <button className="bg-white border-[2px] border-fern px-8 py-1 mr-10 text-fern font-medium rounded-full">
               Cancel
@@ -222,56 +171,8 @@ export default function PaymentPage() {
           <div className="mt-8 ml-12 text-2xl text-teal-700 font-semibold">
             Upload new receipt
           </div>
-
-          {imagePreview ? (
-            <div className="flex items-center justify-center">
-              <Image
-                src={imagePreview}
-                alt="Preview Uploaded Image"
-                width={280}
-                height={370}
-                className="mt-5 object-contain"
-              ></Image>
-              <div
-                className="absolute py-2 px-10 rounded-lg bg-gray-100 hover:bg-gray-400 hover:text-white cursor-pointer shadow-lg"
-                id="preview_button"
-                onClick={openModal}
-              >
-                Click for Preview
-              </div>
-            </div>
-          ) : (
-            <div className="mx-10 mt-5 text-center py-28 bg-emerald-50">
-              <button
-                className="mt-2 border-[2px] border-fern bg-fern px-10 py-1 text-white rounded-full"
-                onClick={() => document.getElementById("upload_slip").click()}
-              >
-                Browse files
-              </button>
-              <input
-                type="file"
-                id="upload_slip"
-                className="hidden"
-                onChange={(event) => upload(event)}
-              />
-            </div>
-          )}
-          <div onClick={closeModal}>
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              contentLabel="Enlarged Image"
-              className="flex items-center justify-center mt-5"
-            >
-              <div className="flex flex-col items-center justify-center mt-20">
-                <Image
-                  src={imagePreview}
-                  alt="Preview Uploaded Image"
-                  width={350}
-                  height={350}
-                ></Image>
-              </div>
-            </Modal>
+          <div className="mx-10 mb-20">
+            <UploadSlip />
           </div>
           <div className="mt-5 text-center">
             <button
