@@ -239,6 +239,15 @@ exports.addTransaction = async (req, res, next) => {
       });
     }
 
+    //Check appointment already has transaction
+    const transactionOld = Transaction.findById(req.params.appointmentId);
+    if(transactionOld){
+      return res.status(401).json({
+        success: false,
+        message: `Appointment with the id of ${req.params.appointmentId} already has transaction`,
+      });
+    }
+
     req.body.appointment = req.params.appointmentId;
 
     //Add campground Id to req body
@@ -274,7 +283,7 @@ exports.addTransaction = async (req, res, next) => {
 // @access  Private
 exports.updateTransaction = async (req, res, next) => {
   try {
-    let transaction = await Transaction.findById(req.params.id);
+    const transaction = await Transaction.findById(req.params.id);
 
     //check transaction
     if (!transaction) {
