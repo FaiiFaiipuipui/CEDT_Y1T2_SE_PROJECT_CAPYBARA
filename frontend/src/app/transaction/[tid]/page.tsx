@@ -30,9 +30,9 @@ export default async function TransactionPage({
   return (
     <main className="w-[100vw] h-full flex justify-center items-center px-[45px] ">
       <div className="space-y-[30px] w-[100%] h-[100%] p-[50px] m-50">
-        {status === "PENDING" ? (
+        {status === "VERIFYING" ? (
           <p className="font-bold text-4xl text-left">Transaction Details</p>
-        ) : status === "COMPLETE" ? (
+        ) : status === "COMPLETED" ? (
           <p className="font-bold text-4xl text-left">Booking Details</p>
         ) : null}
 
