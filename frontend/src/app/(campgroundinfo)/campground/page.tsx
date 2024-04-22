@@ -6,6 +6,7 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import getUserDashboard from "@/libs/getUserDashboard";
+import Announcement from "@/components/Announcement";
 
 export default async function Campground() {
   const campgrounds = getCampgrounds(50);
@@ -13,12 +14,14 @@ export default async function Campground() {
   const profile = await getUserDashboard(session.user.token);
   if (!campgrounds) return null;
   return (
-    <main className="text-center p-5 mx-[8%]">
-      <div className="text-4xl font-bold m-10 text-left">Campground</div>
+    <main className="text-center p-5 mx-[4%] flex flex-row">
+      <Announcement/>
+      <div>
+      <div className="text-4xl font-bold mt-10 mb-5 ml-[12%] text-left">Campground</div>
 
       {profile.data.role == "admin" ? (
         <Link href="/campground/manage/add">
-          <button className="absolute top-[17%] right-[12%] bg-emerald-500 px-4 py-1 text-white font-medium rounded-full hover:bg-white hover:text-emerald-500 border-[2px] border-emerald-500">
+          <button className="absolute top-[17%] right-[6%] bg-emerald-500 px-4 py-1 text-white font-medium rounded-full hover:bg-white hover:text-emerald-500 border-[2px] border-emerald-500">
             Add Campground
           </button>
         </Link>
@@ -34,6 +37,7 @@ export default async function Campground() {
       >
         <CampgroundCatalog campgroundJson={campgrounds} />
       </Suspense>
+      </div>
     </main>
   );
 }
