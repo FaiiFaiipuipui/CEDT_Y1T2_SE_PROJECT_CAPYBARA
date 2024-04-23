@@ -14,12 +14,6 @@ exports.deleteAnnouncement = async (req, res, next) => {
       });
     }
 
-    if (req.user.role !== "admin") {
-      return res.status(401).json({
-        success: false,
-        message: `User is not authorized to delete this announcement`,
-      });
-    }
     await announcement.deleteOne();
 
     res.status(200).json({
