@@ -1,10 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import React, { ReactNode, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 import {
   getTransaction,
   createTransactionSlip,
