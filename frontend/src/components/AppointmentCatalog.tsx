@@ -33,7 +33,7 @@ export default function AppointmentCatalog({
           <AppointmentCard
             key={appointmentItem._id}
             aid={appointmentItem._id}
-            userId={appointmentItem.user}
+            userId={appointmentItem.user._id}
             campground={appointmentItem.campground}
             appointmentDate={new Date(appointmentItem.apptDate)}
           />
