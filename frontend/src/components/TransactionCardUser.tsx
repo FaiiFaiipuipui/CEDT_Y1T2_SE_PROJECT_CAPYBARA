@@ -34,10 +34,10 @@ export default function TransactionCardUser({ status, transaction,
                             }}
                         />
                     </div>
-                    <div className={`absolute w-[100%] rounded-bl-[50px] bottom-0 py-[30px]  ${status === 'PENDING' ? 'bg-[#D9D9D9] bg-opacity-70' : status === 'COMPLETE' ? 'bg-fern bg-opacity-60' : 'bg-white'}`}>
+                    <div className={`absolute w-[100%] rounded-bl-[50px] bottom-0 py-[30px]  ${status === 'VERIFYING' ? 'bg-[#D9D9D9] bg-opacity-70' : status === 'COMPLETED' ? 'bg-fern bg-opacity-60' : 'bg-white'}`}>
                         {
-                            status === "PENDING" ? <div className="flex flex-row justify-center items-center space-x-[20px]"><PendingIcon sx={{ fontSize: '50px', color: '#626262' }} /><div className="font-bold text-[40px] text-white drop-shadow-md">Payment Pending</div></div>
-                                : status === "COMPLETE" ? <div className="flex flex-row justify-center items-center space-x-[20px]"> <CheckCircleIcon sx={{ fontSize: '50px', color: '#29FB57' }} /><div className="font-bold text-[40px] text-white drop-shadow-md">Payment Completed</div></div>
+                            status === "VERIFYING" ? <div className="flex flex-row justify-center items-center space-x-[20px]"><PendingIcon sx={{ fontSize: '50px', color: '#626262' }} /><div className="font-bold text-[40px] text-white drop-shadow-md">Payment Pending</div></div>
+                                : status === "COMPLETED" ? <div className="flex flex-row justify-center items-center space-x-[20px]"> <CheckCircleIcon sx={{ fontSize: '50px', color: '#29FB57' }} /><div className="font-bold text-[40px] text-white drop-shadow-md">Payment Completed</div></div>
                                     : null
                         }
                     </div>
