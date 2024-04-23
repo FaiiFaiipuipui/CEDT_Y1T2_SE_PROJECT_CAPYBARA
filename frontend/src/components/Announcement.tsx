@@ -1,4 +1,23 @@
+"use client"
+import { useState } from "react";
+import CampGroundSelection from "@/components/CampGroundSelection";
+
 export default function Announcement(){
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [noEndDate, setNoEndDate] = useState(false);
+    const handleOptionChange = (newOption: string) => {
+        setSelectedCampground(newOption);
+    };
+
+    const handleEndDateChange = (e) => {
+        setEndDate(e.target.value);
+    };
+
+    const handleNoEndDateChange = (e) => {
+        setNoEndDate(e.target.checked);
+    };
+    
     return (
         <div className="bg-cadetblue rounded-[20px] py-2 px-10 my-10 w-[35%] flex flex-col h-full">
             <div className="flex flex-row">
@@ -13,7 +32,7 @@ export default function Announcement(){
 
             </div>
             <div className="flex flex-col my-[3%]">
-            <div className="bg-white rounded-[20px] py-2 px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
+            <div className="bg-white rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
                 <div className="text-left font-semibold text-xl pb-2">อุทยานแห่งชาติคลองลาน จังหวัดกำแพงเพชร</div>
                 <div className="border-t-2 border-black pb-2"></div>
                 <div className="text-sm text-left pb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  
@@ -39,104 +58,135 @@ export default function Announcement(){
 
             {/* admin add announcement */}
 
-            <div className="bg-white rounded-[20px] py-2 px-10 my-5 max-w-lg min-w-sm w-full ">
-                <div className="flex flex-row">
-                <div className="text-left font-semibold text-xl pb-2">อุทยานแห่งชาติคลองลาน จังหวัดกำแพงเพชร</div>
-                <button>
-                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7 10L0.937822 0.25L13.0622 0.25L7 10Z" fill="black"/>
-                </svg>
-                </button>
+            <div className="bg-white rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm w-full ">
+                <div className="flex flex-col mb-2 ">
+                <div className="text-left text-lg font-medium">Create an annoucement</div>
+                <CampGroundSelection onSelection={handleOptionChange} />
                 </div>
-                <div className="border-t-2 border-black pb-2"></div>
                 <div className="flex flex-row">
                     <div className="flex flex-col">
-                        <div className="pr-20">Start Date</div>
-                        <div className="w-32 h-10 bg-white border border-gray-400 rounded-lg pr-1 py-1 flex items-center justify-end w-full">
-                        <svg className="" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_1049_1549)">
-                            <path d="M29.75 0H4.25C3.12283 0 2.04183 0.447767 1.2448 1.2448C0.447767 2.04183 0 3.12283 0 4.25L0 29.75C0 30.8772 0.447767 31.9582 1.2448 32.7552C2.04183 33.5522 3.12283 34 4.25 34H29.75C30.8772 34 31.9582 33.5522 32.7552 32.7552C33.5522 31.9582 34 30.8772 34 29.75V4.25C34 3.12283 33.5522 2.04183 32.7552 1.2448C31.9582 0.447767 30.8772 0 29.75 0ZM2.125 8.19613C2.125 7.191 3.077 6.375 4.25 6.375H29.75C30.923 6.375 31.875 7.191 31.875 8.19613V30.0539C31.875 31.059 30.923 31.875 29.75 31.875H4.25C3.077 31.875 2.125 31.059 2.125 30.0539V8.19613Z" fill="#004907"/>
-                            <path d="M13.8125 14.875C14.3761 14.875 14.9166 14.6511 15.3151 14.2526C15.7136 13.8541 15.9375 13.3136 15.9375 12.75C15.9375 12.1864 15.7136 11.6459 15.3151 11.2474C14.9166 10.8489 14.3761 10.625 13.8125 10.625C13.2489 10.625 12.7084 10.8489 12.3099 11.2474C11.9114 11.6459 11.6875 12.1864 11.6875 12.75C11.6875 13.3136 11.9114 13.8541 12.3099 14.2526C12.7084 14.6511 13.2489 14.875 13.8125 14.875ZM20.1875 14.875C20.7511 14.875 21.2916 14.6511 21.6901 14.2526C22.0886 13.8541 22.3125 13.3136 22.3125 12.75C22.3125 12.1864 22.0886 11.6459 21.6901 11.2474C21.2916 10.8489 20.7511 10.625 20.1875 10.625C19.6239 10.625 19.0834 10.8489 18.6849 11.2474C18.2864 11.6459 18.0625 12.1864 18.0625 12.75C18.0625 13.3136 18.2864 13.8541 18.6849 14.2526C19.0834 14.6511 19.6239 14.875 20.1875 14.875ZM26.5625 14.875C27.1261 14.875 27.6666 14.6511 28.0651 14.2526C28.4636 13.8541 28.6875 13.3136 28.6875 12.75C28.6875 12.1864 28.4636 11.6459 28.0651 11.2474C27.6666 10.8489 27.1261 10.625 26.5625 10.625C25.9989 10.625 25.4584 10.8489 25.0599 11.2474C24.6614 11.6459 24.4375 12.1864 24.4375 12.75C24.4375 13.3136 24.6614 13.8541 25.0599 14.2526C25.4584 14.6511 25.9989 14.875 26.5625 14.875ZM7.4375 21.25C8.00109 21.25 8.54159 21.0261 8.9401 20.6276C9.33862 20.2291 9.5625 19.6886 9.5625 19.125C9.5625 18.5614 9.33862 18.0209 8.9401 17.6224C8.54159 17.2239 8.00109 17 7.4375 17C6.87391 17 6.33341 17.2239 5.9349 17.6224C5.53638 18.0209 5.3125 18.5614 5.3125 19.125C5.3125 19.6886 5.53638 20.2291 5.9349 20.6276C6.33341 21.0261 6.87391 21.25 7.4375 21.25ZM13.8125 21.25C14.3761 21.25 14.9166 21.0261 15.3151 20.6276C15.7136 20.2291 15.9375 19.6886 15.9375 19.125C15.9375 18.5614 15.7136 18.0209 15.3151 17.6224C14.9166 17.2239 14.3761 17 13.8125 17C13.2489 17 12.7084 17.2239 12.3099 17.6224C11.9114 18.0209 11.6875 18.5614 11.6875 19.125C11.6875 19.6886 11.9114 20.2291 12.3099 20.6276C12.7084 21.0261 13.2489 21.25 13.8125 21.25ZM20.1875 21.25C20.7511 21.25 21.2916 21.0261 21.6901 20.6276C22.0886 20.2291 22.3125 19.6886 22.3125 19.125C22.3125 18.5614 22.0886 18.0209 21.6901 17.6224C21.2916 17.2239 20.7511 17 20.1875 17C19.6239 17 19.0834 17.2239 18.6849 17.6224C18.2864 18.0209 18.0625 18.5614 18.0625 19.125C18.0625 19.6886 18.2864 20.2291 18.6849 20.6276C19.0834 21.0261 19.6239 21.25 20.1875 21.25ZM26.5625 21.25C27.1261 21.25 27.6666 21.0261 28.0651 20.6276C28.4636 20.2291 28.6875 19.6886 28.6875 19.125C28.6875 18.5614 28.4636 18.0209 28.0651 17.6224C27.6666 17.2239 27.1261 17 26.5625 17C25.9989 17 25.4584 17.2239 25.0599 17.6224C24.6614 18.0209 24.4375 18.5614 24.4375 19.125C24.4375 19.6886 24.6614 20.2291 25.0599 20.6276C25.4584 21.0261 25.9989 21.25 26.5625 21.25ZM7.4375 27.625C8.00109 27.625 8.54159 27.4011 8.9401 27.0026C9.33862 26.6041 9.5625 26.0636 9.5625 25.5C9.5625 24.9364 9.33862 24.3959 8.9401 23.9974C8.54159 23.5989 8.00109 23.375 7.4375 23.375C6.87391 23.375 6.33341 23.5989 5.9349 23.9974C5.53638 24.3959 5.3125 24.9364 5.3125 25.5C5.3125 26.0636 5.53638 26.6041 5.9349 27.0026C6.33341 27.4011 6.87391 27.625 7.4375 27.625ZM13.8125 27.625C14.3761 27.625 14.9166 27.4011 15.3151 27.0026C15.7136 26.6041 15.9375 26.0636 15.9375 25.5C15.9375 24.9364 15.7136 24.3959 15.3151 23.9974C14.9166 23.5989 14.3761 23.375 13.8125 23.375C13.2489 23.375 12.7084 23.5989 12.3099 23.9974C11.9114 24.3959 11.6875 24.9364 11.6875 25.5C11.6875 26.0636 11.9114 26.6041 12.3099 27.0026C12.7084 27.4011 13.2489 27.625 13.8125 27.625ZM20.1875 27.625C20.7511 27.625 21.2916 27.4011 21.6901 27.0026C22.0886 26.6041 22.3125 26.0636 22.3125 25.5C22.3125 24.9364 22.0886 24.3959 21.6901 23.9974C21.2916 23.5989 20.7511 23.375 20.1875 23.375C19.6239 23.375 19.0834 23.5989 18.6849 23.9974C18.2864 24.3959 18.0625 24.9364 18.0625 25.5C18.0625 26.0636 18.2864 26.6041 18.6849 27.0026C19.0834 27.4011 19.6239 27.625 20.1875 27.625Z" fill="#004907"/>
-                            </g>
-                            <defs>
-                            <clipPath id="clip0_1049_1549">
-                            <rect width="34" height="34" fill="white"/>
-                            </clipPath>
-                            </defs>
-                        </svg>
-                        </div>
+                        <div className="text-left">Start Date</div>
+                        <input
+                            type="date"
+                            required
+                            id="startdate"
+                            name="startdate"
+                            placeholder="Select the date here"
+                            className="bg-white border-[2px] border-gray-500 rounded-lg w-[90%] text-sm py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                        ></input>
                     </div>
                     <div className="flex flex-col">
-                        <div className="text-left">End Date</div>
-                        <div className="w-32 h-10 bg-white border border-gray-400 rounded-lg pr-1 py-1 flex items-center justify-end ml-2">
-                        <svg className="" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_1049_1549)">
-                            <path d="M29.75 0H4.25C3.12283 0 2.04183 0.447767 1.2448 1.2448C0.447767 2.04183 0 3.12283 0 4.25L0 29.75C0 30.8772 0.447767 31.9582 1.2448 32.7552C2.04183 33.5522 3.12283 34 4.25 34H29.75C30.8772 34 31.9582 33.5522 32.7552 32.7552C33.5522 31.9582 34 30.8772 34 29.75V4.25C34 3.12283 33.5522 2.04183 32.7552 1.2448C31.9582 0.447767 30.8772 0 29.75 0ZM2.125 8.19613C2.125 7.191 3.077 6.375 4.25 6.375H29.75C30.923 6.375 31.875 7.191 31.875 8.19613V30.0539C31.875 31.059 30.923 31.875 29.75 31.875H4.25C3.077 31.875 2.125 31.059 2.125 30.0539V8.19613Z" fill="#004907"/>
-                            <path d="M13.8125 14.875C14.3761 14.875 14.9166 14.6511 15.3151 14.2526C15.7136 13.8541 15.9375 13.3136 15.9375 12.75C15.9375 12.1864 15.7136 11.6459 15.3151 11.2474C14.9166 10.8489 14.3761 10.625 13.8125 10.625C13.2489 10.625 12.7084 10.8489 12.3099 11.2474C11.9114 11.6459 11.6875 12.1864 11.6875 12.75C11.6875 13.3136 11.9114 13.8541 12.3099 14.2526C12.7084 14.6511 13.2489 14.875 13.8125 14.875ZM20.1875 14.875C20.7511 14.875 21.2916 14.6511 21.6901 14.2526C22.0886 13.8541 22.3125 13.3136 22.3125 12.75C22.3125 12.1864 22.0886 11.6459 21.6901 11.2474C21.2916 10.8489 20.7511 10.625 20.1875 10.625C19.6239 10.625 19.0834 10.8489 18.6849 11.2474C18.2864 11.6459 18.0625 12.1864 18.0625 12.75C18.0625 13.3136 18.2864 13.8541 18.6849 14.2526C19.0834 14.6511 19.6239 14.875 20.1875 14.875ZM26.5625 14.875C27.1261 14.875 27.6666 14.6511 28.0651 14.2526C28.4636 13.8541 28.6875 13.3136 28.6875 12.75C28.6875 12.1864 28.4636 11.6459 28.0651 11.2474C27.6666 10.8489 27.1261 10.625 26.5625 10.625C25.9989 10.625 25.4584 10.8489 25.0599 11.2474C24.6614 11.6459 24.4375 12.1864 24.4375 12.75C24.4375 13.3136 24.6614 13.8541 25.0599 14.2526C25.4584 14.6511 25.9989 14.875 26.5625 14.875ZM7.4375 21.25C8.00109 21.25 8.54159 21.0261 8.9401 20.6276C9.33862 20.2291 9.5625 19.6886 9.5625 19.125C9.5625 18.5614 9.33862 18.0209 8.9401 17.6224C8.54159 17.2239 8.00109 17 7.4375 17C6.87391 17 6.33341 17.2239 5.9349 17.6224C5.53638 18.0209 5.3125 18.5614 5.3125 19.125C5.3125 19.6886 5.53638 20.2291 5.9349 20.6276C6.33341 21.0261 6.87391 21.25 7.4375 21.25ZM13.8125 21.25C14.3761 21.25 14.9166 21.0261 15.3151 20.6276C15.7136 20.2291 15.9375 19.6886 15.9375 19.125C15.9375 18.5614 15.7136 18.0209 15.3151 17.6224C14.9166 17.2239 14.3761 17 13.8125 17C13.2489 17 12.7084 17.2239 12.3099 17.6224C11.9114 18.0209 11.6875 18.5614 11.6875 19.125C11.6875 19.6886 11.9114 20.2291 12.3099 20.6276C12.7084 21.0261 13.2489 21.25 13.8125 21.25ZM20.1875 21.25C20.7511 21.25 21.2916 21.0261 21.6901 20.6276C22.0886 20.2291 22.3125 19.6886 22.3125 19.125C22.3125 18.5614 22.0886 18.0209 21.6901 17.6224C21.2916 17.2239 20.7511 17 20.1875 17C19.6239 17 19.0834 17.2239 18.6849 17.6224C18.2864 18.0209 18.0625 18.5614 18.0625 19.125C18.0625 19.6886 18.2864 20.2291 18.6849 20.6276C19.0834 21.0261 19.6239 21.25 20.1875 21.25ZM26.5625 21.25C27.1261 21.25 27.6666 21.0261 28.0651 20.6276C28.4636 20.2291 28.6875 19.6886 28.6875 19.125C28.6875 18.5614 28.4636 18.0209 28.0651 17.6224C27.6666 17.2239 27.1261 17 26.5625 17C25.9989 17 25.4584 17.2239 25.0599 17.6224C24.6614 18.0209 24.4375 18.5614 24.4375 19.125C24.4375 19.6886 24.6614 20.2291 25.0599 20.6276C25.4584 21.0261 25.9989 21.25 26.5625 21.25ZM7.4375 27.625C8.00109 27.625 8.54159 27.4011 8.9401 27.0026C9.33862 26.6041 9.5625 26.0636 9.5625 25.5C9.5625 24.9364 9.33862 24.3959 8.9401 23.9974C8.54159 23.5989 8.00109 23.375 7.4375 23.375C6.87391 23.375 6.33341 23.5989 5.9349 23.9974C5.53638 24.3959 5.3125 24.9364 5.3125 25.5C5.3125 26.0636 5.53638 26.6041 5.9349 27.0026C6.33341 27.4011 6.87391 27.625 7.4375 27.625ZM13.8125 27.625C14.3761 27.625 14.9166 27.4011 15.3151 27.0026C15.7136 26.6041 15.9375 26.0636 15.9375 25.5C15.9375 24.9364 15.7136 24.3959 15.3151 23.9974C14.9166 23.5989 14.3761 23.375 13.8125 23.375C13.2489 23.375 12.7084 23.5989 12.3099 23.9974C11.9114 24.3959 11.6875 24.9364 11.6875 25.5C11.6875 26.0636 11.9114 26.6041 12.3099 27.0026C12.7084 27.4011 13.2489 27.625 13.8125 27.625ZM20.1875 27.625C20.7511 27.625 21.2916 27.4011 21.6901 27.0026C22.0886 26.6041 22.3125 26.0636 22.3125 25.5C22.3125 24.9364 22.0886 24.3959 21.6901 23.9974C21.2916 23.5989 20.7511 23.375 20.1875 23.375C19.6239 23.375 19.0834 23.5989 18.6849 23.9974C18.2864 24.3959 18.0625 24.9364 18.0625 25.5C18.0625 26.0636 18.2864 26.6041 18.6849 27.0026C19.0834 27.4011 19.6239 27.625 20.1875 27.625Z" fill="#004907"/>
-                            </g>
-                            <defs>
-                            <clipPath id="clip0_1049_1549">
-                            <rect width="34" height="34" fill="white"/>
-                            </clipPath>
-                            </defs>
-                        </svg>
+                        <div className="text-left" 
+                            onChange={handleEndDateChange}
+                            style={{ display: noEndDate ? 'none' : 'block' }}>
+                                End Date
                         </div>
+                        <input
+                            type="date"
+                            required
+                            id="enddate"
+                            name="enddate"
+                            placeholder="Select the date here"
+                            className="bg-white border-[2px] border-gray-500 rounded-lg w-[90%] text-sm py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+                            value={endDate}
+                            onChange={handleEndDateChange}
+                            style={{ display: noEndDate ? 'none' : 'block' }}
+                        ></input>
                     </div>
                 </div>
-                <textarea className="max-w-lg min-w-sm w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-2"></textarea>
+                <textarea className="text-sm max-w-lg min-w-sm w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-2" title="textArea" placeholder="Please enter your annoucement here"></textarea>
                 <div className="flex flex-wrap">
                 <div className="flex flex-row right-0">
-                    <button>
-                    <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="0.5" y="0.5" width="34" height="34" rx="9.5" fill="white" stroke="#009A62"/>
-                        <line x1="8" y1="27.0919" x2="27.0919" y2="7.99999" stroke="#F43F5E" stroke-width="3" stroke-linecap="round"/>
-                        <line x1="8.12132" y1="8" x2="27.2132" y2="27.0919" stroke="#F43F5E" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
-                    </button>
-                    <div className="text-center font-semibold text-lg ml-2 mr-9">Indefinite?</div>
-                    <button className="bg-white border-[2px] border-fern px-3 mr-2 text-fern font-medium rounded-full">
-                        Cancel
-                    </button>
-                    <button className="bg-fern border-[2px] border-fern px-3 mr-2 text-white font-medium rounded-full">
-                        Submit
-                    </button>
+                    <div id="noEndDateCheckbox" className="flex flex-row justify-start items-center">
+                        <input
+                            id="noEndDateCheckbox"
+                            type="checkbox"
+                            placeholder="Indefinite date"
+                            onChange={handleNoEndDateChange}
+                        />
+                        <div className="text-center font-semibold text-sm ml-2 mr-6">No end date</div>
+                        </div>
+                            <button className="bg-white border-[2px] border-fern px-3 mr-2 text-fern font-medium rounded-full">
+                                Cancel
+                            </button>
+                            <button className="bg-fern border-[2px] border-fern px-3 mr-2 text-white font-medium rounded-full">
+                                Submit
+                            </button>
+                        </div>
                 </div>
+                
+            </div>
+
+            {/* admin edit announcement */}
+
+            <div className="bg-white rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm w-full ">
+                <div className="flex flex-col mb-2 ">
+                <div className="text-left text-lg font-medium">Edit an annoucement</div>
+                <CampGroundSelection onSelection={handleOptionChange} />
                 </div>
+                <div className="flex flex-row">
+                    <div className="flex flex-col">
+                        <div className="text-left">Start Date</div>
+                        <input
+                            type="date"
+                            required
+                            id="startdate"
+                            name="startdate"
+                            placeholder="Select the date here"
+                            className="bg-white border-[2px] border-gray-500 rounded-lg w-[90%] text-sm py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                        ></input>
+                    </div>
+                    <div className="flex flex-col">
+                        <div className="text-left" 
+                            onChange={handleEndDateChange}
+                            style={{ display: noEndDate ? 'none' : 'block' }}>
+                                End Date
+                        </div>
+                        <input
+                            type="date"
+                            required
+                            id="enddate"
+                            name="enddate"
+                            placeholder="Select the date here"
+                            className="bg-white border-[2px] border-gray-500 rounded-lg w-[90%] text-sm py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
+                            value={endDate}
+                            onChange={handleEndDateChange}
+                            style={{ display: noEndDate ? 'none' : 'block' }}
+                        ></input>
+                    </div>
+                </div>
+                <textarea className="text-sm max-w-lg min-w-sm w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-2" title="textArea" placeholder="Please enter your annoucement here"></textarea>
+                <div className="flex flex-wrap">
+                <div className="flex flex-row right-0">
+                    <div id="noEndDateCheckbox" className="flex flex-row justify-start items-center">
+                        <input
+                            id="noEndDateCheckbox"
+                            type="checkbox"
+                            placeholder="Indefinite date"
+                            onChange={handleNoEndDateChange}
+                        />
+                        <div className="text-center font-semibold text-sm ml-2 mr-6">No end date</div>
+                        </div>
+                            <button className="bg-white border-[2px] border-fern px-3 mr-2 text-fern font-medium rounded-full">
+                                Cancel
+                            </button>
+                            <button className="bg-fern border-[2px] border-fern px-3 mr-2 text-white font-medium rounded-full">
+                                OK
+                            </button>
+                        </div>
+                </div>
+                
             </div>
 
             {/* Announcement */}
 
             </div>
             <div className="flex flex-col my-[3%]">
-            <div className="bg-white rounded-[20px] py-2 px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
-                <div className="text-left font-semibold text-xl pb-2">อุทยานแห่งชาติคลองลาน จังหวัดกำแพงเพชร</div>
-                <div className="border-t-2 border-black pb-2"></div>
-                <div className="text-sm text-left pb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, 
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in </div>
-                    <div className="flex flex-wrap">
-                        <div className="pb-2 text-left pr-[33%]">until 25 Apr | 8 pm </div>
-                        <div className="flex flex-row right-0 z-30">
-                        <button>
-                        <svg className="mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14.1 9L15 9.9L5.9 19H5V18.1L14.1 9ZM17.7 3C17.5 3 17.2 3.1 17 3.3L15.2 5.1L18.9 8.9L20.7 7C21.1 6.6 21.1 6 20.7 5.6L18.4 3.3C18.2 3.1 17.9 3 17.7 3ZM14.1 6.2L3 17.2V21H6.8L17.8 9.9L14.1 6.2ZM7 2V5H10V7H7V10H5V7H2V5H5V2H7Z" fill="black"/>
-                        </svg>
-                        </button>
-                        <button>
-                        <svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6.2487 20.5833C6.2487 21.158 6.46819 21.7091 6.85889 22.1154C7.24959 22.5217 7.7795 22.75 8.33203 22.75H16.6654C17.2179 22.75 17.7478 22.5217 18.1385 22.1154C18.5292 21.7091 18.7487 21.158 18.7487 20.5833V7.58333H6.2487V20.5833ZM8.33203 9.75H16.6654V20.5833H8.33203V9.75ZM16.1445 4.33333L15.1029 3.25H9.89453L8.85286 4.33333H5.20703V6.5H19.7904V4.33333H16.1445Z" fill="black"/>
-                        </svg>
-                        </button>
-                    </div>
-                    </div>
-            </div>
-
-            {/* Announcement */}
-
-            </div>
-            <div className="flex flex-col my-[3%]">
-            <div className="bg-white rounded-[20px] py-2 px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
+            <div className="bg-white rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
                 <div className="text-left font-semibold text-xl pb-2">อุทยานแห่งชาติคลองลาน จังหวัดกำแพงเพชร</div>
                 <div className="border-t-2 border-black pb-2"></div>
                 <div className="text-sm text-left pb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  

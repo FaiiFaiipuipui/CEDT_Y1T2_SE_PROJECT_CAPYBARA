@@ -33,6 +33,7 @@ export default async function CampgroundDetailPage({
       <div className="w-[40%] h-screen bg-emerald-100">
       <div className="mx-[5%]">
       <div className="text-3xl font-medium mt-[50px] text-left text-black">General Information</div>
+      
       <div className=" text-left text-black">
         <div className="text-md font-medium mt-[5px]">Name</div>
         <div className="text-md">{campgroundDetail.data.name}</div>
@@ -58,16 +59,21 @@ export default async function CampgroundDetailPage({
         </div>
         <div className="text-md font-medium mt-[5px]">Phone Number</div>
         <div className="text-md">{campgroundDetail.data.telephone}</div>
+        
       </div>
-      </div>
-      <div className="text-center my-20">
-        <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:bg-emerald-500 hover:text-white">
-          Back
-        </button>
+      
+      <div className="text-center my-5">
+        <Link
+          href={`/campground`}
+        >
+          <button className="bg-white border-[2px] border-emerald-500 px-5 py-1 text-emerald-500 font-medium rounded-full hover:bg-emerald-500 hover:text-white">
+            Back
+          </button>
+        </Link>
         <Link
           href={`/booking/manage/add?id=${params.cid}&name=${campgroundDetail.data.name}`}
         >
-          <button className="border-[2px] border-emerald-800 bg-emerald-800 px-10 py-1 text-white font-medium rounded-full hover:bg-white hover:text-emerald-800">
+          <button className="border-[2px] border-emerald-800 bg-emerald-800 px-5 py-1 mr-6 ml-6 text-white font-medium rounded-full hover:bg-white hover:text-emerald-800">
             Book
           </button>
         </Link>
@@ -76,21 +82,24 @@ export default async function CampgroundDetailPage({
             <Link
               href={`/campground/manage/edit?id=${params.cid}&name=${campgroundDetail.data.name}`}
             >
-              <button className="border-[2px] border-blue-800 bg-blue-800 px-10 py-1 ml-10 mr-10 text-white font-medium rounded-full hover:bg-white hover:text-blue-800">
+              <button className="border-[2px] border-blue-800 bg-blue-800 px-5 py-1 text-white font-medium rounded-full hover:bg-white hover:text-blue-800">
                 Edit
               </button>
             </Link>
             <Link
               href={`/campground/manage/delete?id=${params.cid}&name=${campgroundDetail.data.name}`}
             >
-              <button className="border-[2px] border-red-800 bg-red-800 px-10 py-1 text-white font-medium rounded-full hover:bg-white hover:text-red-800">
+              <button className="border-[2px] border-red-800 bg-red-800 px-5 py-1 ml-6 mr-6 text-white font-medium rounded-full hover:bg-white hover:text-red-800">
                 Delete
               </button>
             </Link>
           </>
         ) : null}
+        <div className="text-3xl font-medium mt-[50px] text-left text-black">Announcement</div>
+        </div>
       </div>
       </div>
+      
     </main>
   );
 }
