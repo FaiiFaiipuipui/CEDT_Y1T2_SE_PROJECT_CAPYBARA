@@ -136,7 +136,7 @@ export default function TransactionCardAdmin({
             <div
               id="tagStatus"
               className={`w-full py-[20px] rounded-br-[50px] bg-opacity-60 ${
-                value === "PENDING"
+                value === "VERIFYING"
                   ? "bg-[#BDBDBD]"
                   : value === "REJECTED"
                   ? "bg-[#FF0000]"
@@ -144,7 +144,7 @@ export default function TransactionCardAdmin({
               }`}
             >
               <div className="">
-                {value === "PENDING" ? (
+                {value === "VERIFYING" ? (
                   <div className="flex flex-row justify-center items-center space-x-[20px]">
                     <PendingIcon sx={{ fontSize: "50px", color: "#626262" }} />
                     <div className="font-bold text-[40px] text-white drop-shadow-md">
@@ -184,12 +184,12 @@ export default function TransactionCardAdmin({
             onChange={handleRadioChange}
           >
             <FormControlLabel
-              value="PENDING"
-              label="Pending"
+              value="VERIFYING"
+              label="Verifying"
               control={<Radio />}
             />
             <FormControlLabel
-              value="COMPLETE"
+              value="COMPLETED"
               label="Completed"
               control={<Radio />}
             />

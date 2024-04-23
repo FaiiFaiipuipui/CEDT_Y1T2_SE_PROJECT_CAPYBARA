@@ -73,8 +73,6 @@ exports.getTransactionSlip = async (req, res, next) => {
 // @access  Private
 exports.addTransactionSlip = async (req, res, next) => {
   try {
-    req.body.payment_id = req.params.transactionId;
-
     //check transaction
     const transaction = await Transaction.findById(req.params.transactionId);
     if (!transaction) {
@@ -84,15 +82,17 @@ exports.addTransactionSlip = async (req, res, next) => {
       });
     }
 
+    req.body.payment_id = req.params.transactionId;
+
     const slips = transaction.submitted_slip_images.length;
     const status = transaction.status;
 
-    //slips = 0 : can create
+    //slips = 0 : can create and status is WAITING
     //slips > 0 : can create, if transaction's status is REJECTED
-    if (slips > 0 && status !== "REJECTED") {
+    if((slips === 0 && status !== "WAITING") || (slips > 0 && status !== "REJECTED")){
       return res.status(400).json({
         success: false,
-        message: `Cannot create a transaction slip for transactionId: ${req.params.transactionId}, waiting admin checking a transaction slip before`,
+        message: `Cannot create a transaction slip for transactionId: ${req.params.transactionId}, waiting admin checking a transaction slip before [Status : ${status}]`,
       });
     }
 
@@ -100,7 +100,7 @@ exports.addTransactionSlip = async (req, res, next) => {
 
     //after created slip, add slip to transaction
     transaction.submitted_slip_images.push(transactionSlip._id);
-    transaction.status = "PENDING";
+    transaction.status = "VERIFYING";
     await transaction.save();
 
     res.status(201).json({

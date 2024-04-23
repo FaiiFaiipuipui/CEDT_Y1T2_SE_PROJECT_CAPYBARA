@@ -230,8 +230,6 @@ exports.getTransaction = async (req, res, next) => {
 // @access: Private
 exports.addTransaction = async (req, res, next) => {
   try {
-    req.body.appointment = req.params.appointmentId;
-    req.body.status = "PENDING";
     const appointment = await Appointment.findById(req.params.appointmentId);
 
     if (!appointment) {
@@ -241,8 +239,17 @@ exports.addTransaction = async (req, res, next) => {
       });
     }
 
-    // Add user Id to req body
-    req.body.user = req.user.id;
+    //Check appointment already has transaction
+    let transactionOld = await Transaction.findOne({ appointment: req.params.appointmentId });
+
+    if (transactionOld) {
+      return res.status(401).json({
+        success: false,
+        message: `Appointment with the id of ${req.params.appointmentId} already has transaction ${transactionOld._id}`,
+      });
+    }
+
+    req.body.appointment = req.params.appointmentId;
 
     //Add campground Id to req body
     const campground = await Campground.findById(appointment.campground);
@@ -256,7 +263,10 @@ exports.addTransaction = async (req, res, next) => {
 
     req.body.campground = campground._id;
 
+    // Add user Id to req body
+    req.body.user = req.user.id;
     req.body.rent_date = appointment.apptDate;
+    req.body.status = "WAITING";
 
     const transaction = await Transaction.create(req.body);
 
@@ -284,11 +294,11 @@ exports.updateTransaction = async (req, res, next) => {
       });
     }
 
-    //Status : [PENDING, COMPLETE, REJECTED, CANCELED]
+    //Status : [WAITING, VERIFYING, COMPLETED, REJECTED, CANCELED]
 
-    //check status transaction is not COMPLETE and CANCELED
+    //check status transaction is not COMPLETED and CANCELED
     if (
-      transaction.status === "COMPLETE" ||
+      transaction.status === "COMPLETED" ||
       transaction.status === "CANCELED"
     ) {
       return res.status(404).json({
@@ -297,26 +307,34 @@ exports.updateTransaction = async (req, res, next) => {
       });
     }
 
-    //ADMIN : Admin can update when transaction was PENDING after user upload slip
+    //ADMIN : Admin can update when transaction was VERIFYING after user upload slip
 
     //Check status of transaction
-    if (transaction.status !== "PENDING") {
+    if (transaction.status !== "VERIFYING") {
       return res.status(404).json({
         success: false,
-        message: `Transaction with the id of ${req.params.id}'s status is not available to check, User doesn't update a transaction slip [Status: REJECTED]`,
+        message: `Transaction with the id of ${req.params.id}'s status is not available to check, User doesn't upload a transaction slip [Status: ${transaction.status}]`,
+      });
+    }
+
+    if (
+      req.body.status === "WAITING" &&
+      req.body.status !== "VERIFYING" &&
+      req.body.status === "CANCELED") {
+      return res.status(401).json({
+        success: false,
+        message: `Cannot update transaction with the id of ${req.params.id}'s status is not available to update status, [Updating Status: ${req.body.status}]`,
       });
     }
 
     /* Check Status that will be updated */
     if (
-      req.body.status !== "PENDING" &&
-      req.body.status !== "COMPLETE" &&
-      req.body.status !== "REJECTED" &&
-      req.body.status !== "CANCELED"
+      req.body.status !== "COMPLETED" &&
+      req.body.status !== "REJECTED"
     ) {
       return res.status(401).json({
         success: false,
-        message: `Cannot update transaction with the id of ${req.params.id}'s status is not a valid format, [New Status: ${req.body.status}]`,
+        message: `Cannot update transaction with the id of ${req.params.id}'s status is not a valid format, [Updating Status: ${req.body.status}]`,
       });
     }
 
@@ -326,10 +344,10 @@ exports.updateTransaction = async (req, res, next) => {
       runValidators: true,
     });
 
-    if (transaction.status === "COMPLETE") {
+    if (transaction.status === "COMPLETED") {
       const transactionSlipId =
         transaction.submitted_slip_images[
-          transaction.submitted_slip_images.length - 1
+        transaction.submitted_slip_images.length - 1
         ];
       const transactionSlip = await TransactionSlip.findById(transactionSlipId);
       transaction.set({
