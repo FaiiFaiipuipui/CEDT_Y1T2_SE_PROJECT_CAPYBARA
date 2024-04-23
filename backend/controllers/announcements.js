@@ -14,8 +14,7 @@ exports.getAnnouncements = async (req, res, next) => {
       path: "campground",
       select: "name",
     });
-  }
-  else {
+  } else {
     query = Announcement.find().populate({
       path: "campground",
       select: "name",
@@ -73,9 +72,14 @@ exports.getAnnouncement = async (req, res, next) => {
 exports.createAnnouncement = async (req, res, next) => {
   try {
     if (req.body.endDate < req.body.startDate) {
-      return res.status(422).json({ success: false, message: "End date's time must be after start date's time" });
+      return res
+        .status(422)
+        .json({
+          success: false,
+          message: "End date's time must be after start date's time",
+        });
     }
-    
+
     const announcement = await Announcement.create(req.body);
     res.status(201).json({
       success: true,
@@ -114,7 +118,36 @@ exports.updateAnnouncement = async (req, res, next) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      message: "Cannot update Announcement"
+      message: "Cannot update Announcement",
     });
+  }
+};
+const Announcement = require("../model/Announcement");
+
+// @desc    Delete announcement
+// @route   DELETE /api/v1/announcement/:id
+// @access  Private
+exports.deleteAnnouncement = async (req, res, next) => {
+  try {
+    const announcement = await Announcement.findById(req.params.id);
+
+    if (!announcement) {
+      return res.status(404).json({
+        success: false,
+        message: `No announcement with the id of ${req.params.id}`,
+      });
+    }
+
+    await announcement.deleteOne();
+
+    res.status(200).json({
+      success: true,
+      data: {},
+    });
+  } catch (err) {
+    console.log(err.stack);
+    return res
+      .status(500)
+      .json({ success: false, message: "Cannot delete Announcement" });
   }
 };
