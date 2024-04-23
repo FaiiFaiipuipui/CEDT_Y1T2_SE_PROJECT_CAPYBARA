@@ -3,8 +3,17 @@ import PendingIcon from '@mui/icons-material/Pending';
 import { PaymentItem } from 'interface';
 import Image from 'next/image';
 
-export default function TransactionCardUser({ status, transaction,
-    imgBase, price}: { status: string, transaction: PaymentItem, imgBase: any, price: string }) {
+export default function TransactionCardUser({
+    status,
+    transaction,
+    imgBase,
+    price
+    }: {
+    status: string,
+    transaction: PaymentItem,
+    imgBase: any,
+    price: string
+    }) {
     const imgArr = imgBase.data.slip_image.data;
 
     // Convert the array to a Uint8Array

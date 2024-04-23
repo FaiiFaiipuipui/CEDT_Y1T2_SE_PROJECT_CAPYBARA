@@ -27,12 +27,14 @@ export default async function TransactionPage({
   const profile = await getUserDashboard(session.user.token);
   // console.log("Role: " + profile.data.role);
 
+  console.log(transaction);
+
   return (
     <main className="w-[100vw] h-full flex justify-center items-center px-[45px] ">
       <div className="space-y-[30px] w-[100%] h-[100%] p-[50px] m-50">
-        {status === "PENDING" ? (
+        {status === "VERIFYING" ? (
           <p className="font-bold text-4xl text-left">Transaction Details</p>
-        ) : status === "COMPLETE" ? (
+        ) : status === "COMPLETED" ? (
           <p className="font-bold text-4xl text-left">Booking Details</p>
         ) : null}
 
@@ -59,11 +61,10 @@ export default async function TransactionPage({
               ) : profile.data.role === "admin" ? (
                 <div className="w-full space-y-[70px]">
                   <TransactionCardAdmin
-                    tid={params.tid}
-                    token={session.user.token}
+                  token={session.user.token}
                     status={status}
-                    imgBase={imgData}
                     transaction={transaction}
+                    imgBase={imgData}
                     price={transactionJson.campgroundPrice}
                   />
                 </div>

@@ -12,20 +12,19 @@ import Image from "next/image";
 import updateTransaction from "@/libs/updateTransaction";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { PaymentItem } from "interface";
 
 export default function TransactionCardAdmin({
-  tid,
   token,
   status,
   imgBase,
   transaction,
   price,
 }: {
-  tid: string;
   token: string;
   status: string;
   imgBase: any;
-  transaction: any;
+  transaction: PaymentItem;
   price: string;
 }) {
   const router = useRouter();
@@ -51,7 +50,7 @@ export default function TransactionCardAdmin({
   };
 
   const handleSubmit = () => {
-    const updateStatus = updateTransaction(tid, token, value);
+    const updateStatus = updateTransaction(transaction._id, token, value);
 
     router.push("/dashboard");
   };
