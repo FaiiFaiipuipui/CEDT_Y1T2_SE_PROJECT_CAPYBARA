@@ -184,11 +184,6 @@ export default function TransactionCardAdmin({
             onChange={handleRadioChange}
           >
             <FormControlLabel
-              value="VERIFYING"
-              label="Verifying"
-              control={<Radio />}
-            />
-            <FormControlLabel
               value="COMPLETED"
               label="Completed"
               control={<Radio />}
