@@ -12,6 +12,7 @@ connectDB();
 
 // Route files
 const campgrounds = require("./routes/campgrounds");
+const announcements = require("./routes/announcements");
 const auth = require("./routes/auth");
 const appointment = require("./routes/appointments");
 const transaction = require("./routes/transactions");
@@ -53,6 +54,7 @@ app.use(cors());
 
 // Mount routers
 app.use("/api/v1/campgrounds", campgrounds);
+app.use("/api/v1/announcements", announcements);
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/appointments", appointment);
 app.use("/api/v1/transactions", transaction);
