@@ -16,7 +16,7 @@ let resSlip;
 describe("transaction initiation", ()=>{
   it("should create a transaction document object", async () => {
     resTransaction = await Transaction.create({
-      status: "PENDING",
+      status: "VERIFYING",
       rent_date : Date.now(),
       successful_payment_date : Date.now(),
       campground : '66024aa295c74eace7ba13a0',
@@ -24,7 +24,7 @@ describe("transaction initiation", ()=>{
       appointment : '6603aa8a90e39a9c8f3be40b'
     });
     expect(resTransaction).toBeDefined();
-    expect(resTransaction).toHaveProperty('status', 'PENDING');
+    expect(resTransaction).toHaveProperty('status', 'VERIFYING');
     expect(resTransaction).toHaveProperty('rent_date');
     expect(resTransaction).toHaveProperty('successful_payment_date');
     expect(resTransaction).toHaveProperty('submitted_slip_images', []);

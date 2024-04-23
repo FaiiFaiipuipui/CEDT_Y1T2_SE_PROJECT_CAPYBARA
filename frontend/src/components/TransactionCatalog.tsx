@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Session } from "next-auth";
 import TransactionCard from "./TransactionCard";
-import { PaymentJson, PaymentItem } from "interface";
+import { PaymentJson, PaymentItem, AppointmentJson, AppointmentItem } from "interface";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -19,15 +19,14 @@ const prompt = Prompt({
 });
 
 export default function TransactionCatalog({
-  transactionJson,
+  appointments,
   session,
   role,
 }: {
-  transactionJson: PaymentJson;
+  appointments: AppointmentItem[];
   session: Session;
   role: string;
 }) {
-  const transactionJsonReady = transactionJson;
 
   const [statusFilter, setStatusFilter] = useState("Default");
   const statusList = [
@@ -58,7 +57,6 @@ export default function TransactionCatalog({
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   return (
     <main className="text-center">
       <div className="rounded-[50px] items-center justify-center border border-solid pb-3">
@@ -114,21 +112,40 @@ export default function TransactionCatalog({
           <div className="w-1/5"></div>
         </div>
         {/*.filter((transactionItem:PaymentItem) => transactionItem.status === "REJECTED")*/}
-        {transactionJsonReady.data.map((transactionItem: PaymentItem) =>
-          transactionItem.status === statusFilter ||
-          statusFilter === "Default" ? (
-            <TransactionCard
-              key={transactionItem._id}
-              tid={transactionItem._id}
-              user={transactionItem.user.name}
-              campground={transactionItem.campground}
-              date={new Date(transactionItem.rent_date)}
-              status={transactionItem.status}
-              submitImage={transactionItem.submitted_slip_images}
-              role={role}
-            />
-          ) : null
+        {statusFilter === "Default" ? (
+          <div>
+            {appointments.map(apptItem => (
+              <TransactionCard
+                key={apptItem._id}
+                tid={apptItem.transaction._id}
+                user={apptItem.user.name}
+                campground={apptItem.campground}
+                date={new Date(apptItem.apptDate)}
+                status={apptItem.transaction.status}
+                submitImage={apptItem.transaction.submitted_slip_images}
+                role={role}
+              />
+            ))}
+          </div>
+        ) : (
+          <div>
+            {appointments
+              .filter(apptItem => apptItem.transaction.status === statusFilter || statusFilter === "Default")
+              .map(apptItem => (
+                <TransactionCard
+                  key={apptItem._id}
+                  tid={apptItem.transaction._id}
+                  user={apptItem.user.name}
+                  campground={apptItem.campground}
+                  date={new Date(apptItem.apptDate)}
+                  status={apptItem.transaction.status}
+                  submitImage={apptItem.transaction.submitted_slip_images}
+                  role={role}
+                />
+              ))}
+          </div>
         )}
+
       </div>
     </main>
   );

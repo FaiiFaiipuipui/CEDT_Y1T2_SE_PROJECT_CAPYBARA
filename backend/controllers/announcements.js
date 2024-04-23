@@ -72,12 +72,7 @@ exports.getAnnouncement = async (req, res, next) => {
 exports.createAnnouncement = async (req, res, next) => {
   try {
     if (req.body.endDate < req.body.startDate) {
-      return res
-        .status(422)
-        .json({
-          success: false,
-          message: "End date's time must be after start date's time",
-        });
+      return res.status(401).json({ success: false, message: "End date's time must be after start date's time" });
     }
 
     const announcement = await Announcement.create(req.body);
