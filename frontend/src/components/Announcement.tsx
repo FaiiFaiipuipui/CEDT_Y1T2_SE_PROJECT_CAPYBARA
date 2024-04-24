@@ -32,7 +32,7 @@ export default function Announcement(){
 
             </div>
             <div className="flex flex-col my-[3%]">
-            <div className="bg-white rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
+            <div className="bg-white rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm min-h-lg w-full border-lg border-green-500">
                 <div className="text-left font-semibold text-xl pb-2">อุทยานแห่งชาติคลองลาน จังหวัดกำแพงเพชร</div>
                 <div className="border-t-2 border-black pb-2"></div>
                 <div className="text-sm text-left pb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  
