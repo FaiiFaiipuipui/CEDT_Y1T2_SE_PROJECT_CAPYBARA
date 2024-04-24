@@ -18,8 +18,8 @@ export default async function Campground() {
   if (!campgrounds) return null;
   return (
     <main className="text-center p-5 mx-[4%] flex flex-row">
-      <div className="bg-cadetblue rounded-[20px] py-2 px-10 my-10 w-[35%] flex flex-col h-full">
-      <div className="flex flex-col my-[3%]">
+      <div className="bg-cadetblue rounded-[20px] py-2 pl-10 pr-6 my-10 w-[35%] flex flex-col h-full">
+      <div className="flex flex-col my-[3%] h-[700px] overflow-y-auto pr-2">
       <Announcement/>
       <AnnouncementCard/>
       <CreateAnnouncementCard/>
