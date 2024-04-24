@@ -56,7 +56,7 @@ export default function SignInPage() {
         </button>
       </div>
       <div className="text-center">
-        Don't have any account?
+        Don&lsquo;t have any account?
         <Link href="/register">
           <button className="ml-1 py-1 my-5 font-bold">Register</button>
         </Link>
