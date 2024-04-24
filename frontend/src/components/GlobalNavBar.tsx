@@ -14,7 +14,7 @@ async function GlobalNavBar() {
           alt="Logo"
           width="160"
           height="100"
-          className="rounded-full inline"
+          className="rounded-full inline bg-white border border-emerald-500"
           priority
         />
       </Link>
