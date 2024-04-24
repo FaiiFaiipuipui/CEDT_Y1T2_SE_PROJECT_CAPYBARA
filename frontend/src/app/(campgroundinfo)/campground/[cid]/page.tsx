@@ -66,6 +66,27 @@ export default async function CampgroundDetailPage({
       </div>
       
       <div className="text-center my-5">
+        <div className="h-[300px] overflow-y-auto mt-10">
+        <div className="bg-emerald-100 rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
+        <div className="flex flex-row">
+        <div className="text-3xl font-medium mt-[20px] ml-[5px] text-left text-black">Announcement</div>
+            <button>
+            <svg className="my-5 ml-40" width="41" height="39" viewBox="0 0 41 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="41" height="38.9758" rx="10" fill="#9A5C00"/>
+                <rect width="41" height="38.9758" rx="10" fill="#009A62"/>
+                <path d="M19.494 24.932V14.4206H22.6759V24.932H19.494ZM15.8293 21.2672V18.0854H26.3406V21.2672H15.8293Z" fill="white"/>
+            </svg>
+            </button>
+            </div>
+              <AnnouncementCard/>
+              <AnnouncementCard/>
+              <EditAnnouncementCard/>
+              <CreateAnnouncementCard/>
+            </div>
+        </div>
+        
+        </div>
+        <div className="flex flex-row text-center justify-center">
         <Link
           href={`/campground`}
         >
@@ -98,26 +119,6 @@ export default async function CampgroundDetailPage({
             </Link>
           </>
         ) : null}
-        
-        <div className="h-[400px] overflow-y-auto mt-10">
-        <div className="bg-emerald-100 rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
-        <div className="flex flex-row">
-        <div className="text-3xl font-medium mt-[20px] ml-[5px] text-left text-black">Announcement</div>
-            <button>
-            <svg className="my-5 ml-40" width="41" height="39" viewBox="0 0 41 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="41" height="38.9758" rx="10" fill="#9A5C00"/>
-                <rect width="41" height="38.9758" rx="10" fill="#009A62"/>
-                <path d="M19.494 24.932V14.4206H22.6759V24.932H19.494ZM15.8293 21.2672V18.0854H26.3406V21.2672H15.8293Z" fill="white"/>
-            </svg>
-            </button>
-            </div>
-    
-            <AnnouncementCard/>
-            <AnnouncementCard/>
-            <EditAnnouncementCard/>
-            <CreateAnnouncementCard/>
-            </div>
-            </div>
         </div>
       </div>
       </div>

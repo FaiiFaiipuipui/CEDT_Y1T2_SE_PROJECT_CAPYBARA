@@ -21,7 +21,7 @@ export default function EditAnnouncementCard(){
     return(
     <div className="bg-white rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm w-full ">
                 <div className="flex flex-col mb-2 ">
-                <div className="text-left text-lg font-medium">Edit an annoucement</div>
+                <div className="text-left text-lg font-medium mb-2">Edit an announcement</div>
                 <CampGroundSelection onSelection={handleOptionChange} />
                 </div>
                 <div className="flex flex-row">
@@ -57,7 +57,7 @@ export default function EditAnnouncementCard(){
                         ></input>
                     </div>
                 </div>
-                <textarea className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-2" title="textArea" placeholder="Please enter your annoucement here"></textarea>
+                <textarea className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-4 mb-4" title="textArea" placeholder="Please enter your annoucement here"></textarea>
                 <div className="flex flex-wrap">
                 <div className="flex flex-row right-0">
                     <div id="noEndDateCheckbox" className="flex flex-row justify-start items-center">
