@@ -13,7 +13,7 @@ const prompt = Prompt({
 });
 
 export const metadata: Metadata = {
-  title: "CBS | Capybara",
+  title: "CAPYBARA CAMPGROUND",
   description: "",
 };
 
