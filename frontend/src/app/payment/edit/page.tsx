@@ -11,11 +11,15 @@ import {
 } from "@/libs";
 import { PaymentItem } from "interface";
 import { QrCodeComponent, UploadSlip } from "@/components";
+import { Button } from "@mui/material";
+import Modal from "react-modal";
+import Resizer from "react-image-file-resizer";
 
 export default function PaymentPage() {
   // This use State is for save image data
   const [imagePreview, setImagePreview] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [name, setName] = useState<string>("");
   const [rentDate, setRentDate] = useState<string>("");
@@ -91,6 +95,68 @@ export default function PaymentPage() {
     setImagePreview(null);
   };
 
+  const resizeFile = (file, callback) => {
+    Resizer.imageFileResizer(
+      file,
+      300,
+      500,
+      "JPEG",
+      100,
+      0,
+      (uri) => {
+        // Callback with the resized file
+        callback(uri);
+      },
+      "base64"
+    );
+  };
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      console.log('originalFile instanceof Blob', file instanceof Blob); // true
+      console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+
+      //resize image before setImagePreview
+      resizeFile(file, (resizedFileBase64) => {
+        console.log('Resized file size:' + resizedFileBase64.length / 1024 / 1024 + ' MB');
+        console.log('Resize Image Base64: ' + resizedFileBase64);
+
+        reader.onloadend = () => {
+          setImagePreview(reader.result);
+          // setImagePreview(resizeFile);
+        };
+
+        //Show Image Preview
+        if (resizedFileBase64) {
+          // Convert base64 string to Blob
+          const byteCharacters = atob(resizedFileBase64.split(',')[1]);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: 'image/jpeg' });
+
+          reader.readAsDataURL(blob);
+        }
+      });
+
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
   return (
     <main className="text-center p-5 mx-[8%]">
       <div className="text-4xl font-bold m-10 text-left">Edit Payment</div>
@@ -152,7 +218,8 @@ export default function PaymentPage() {
         >
           <QrCodeComponent campgroundPrice={price} promptpayQr={promptpayQr} />
           <div className="mt-9 text-center">
-            <button className="bg-white border-[2px] border-fern px-8 py-1 mr-10 text-fern font-medium rounded-full">
+            <button className="bg-white border-[2px] border-fern px-8 py-1 mr-10 text-fern font-medium rounded-full"
+            onClick={cancelUpload}>
               Cancel
             </button>
             <button
@@ -197,9 +264,8 @@ export default function PaymentPage() {
       </div>
 
       <div
-        className={`popup ${
-          showPopup ? "" : "hidden"
-        } my-20 mx-[30%] py-4 px-5 w-[45%] bg-[#EEFFF7] rounded-lg flex flex-row`}
+        className={`popup ${showPopup ? "" : "hidden"
+          } my-20 mx-[30%] py-4 px-5 w-[45%] bg-[#EEFFF7] rounded-lg flex flex-row`}
       >
         <Image
           src="/img/Check.jpg"
