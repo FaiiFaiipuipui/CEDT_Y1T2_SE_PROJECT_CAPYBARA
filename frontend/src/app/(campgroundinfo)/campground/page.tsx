@@ -7,6 +7,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import getUserDashboard from "@/libs/getUserDashboard";
 import Announcement from "@/components/Announcement";
+import CreateAnnouncementCard from "@/components/CreateAnnouncementCard";
+import EditAnnouncementCard from "@/components/EditAnnouncementCard";
+import AnnouncementCard from "@/components/AnnouncementCard";
 
 export default async function Campground() {
   const campgrounds = getCampgrounds(50);
@@ -15,8 +18,17 @@ export default async function Campground() {
   if (!campgrounds) return null;
   return (
     <main className="text-center p-5 mx-[4%] flex flex-row">
-      
+      <div className="bg-cadetblue rounded-[20px] py-2 px-10 my-10 w-[35%] flex flex-col h-full">
+      <div className="flex flex-col my-[3%]">
       <Announcement/>
+      <AnnouncementCard/>
+      <CreateAnnouncementCard/>
+      <EditAnnouncementCard/>
+      <AnnouncementCard/>
+      <AnnouncementCard/>
+      </div>
+      </div>
+
 
       <div className="ml-[5%]">
       <div className="text-4xl font-bold mt-10 mb-5 text-left">Campground</div>
