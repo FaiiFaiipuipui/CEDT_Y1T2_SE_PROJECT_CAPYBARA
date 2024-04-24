@@ -21,7 +21,7 @@ export default async function CampgroundDetailPage({
   const profile = await getUserDashboard(session.user.token);
 
   return (
-    <main className="flex">
+    <main className="flex inset-0">
       <div className="w-[60%] h-screen relative">
         <Image
           src={campgroundDetail.data.picture}

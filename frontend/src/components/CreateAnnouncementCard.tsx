@@ -20,7 +20,7 @@ export default function CreateAnnouncementCard(){
     };
 
     return(
-        <div className="bg-white rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm w-full ">
+        <div className="bg-white rounded-[20px] py-[6%] px-10 my-5 max-w-lg min-w-sm w-full ">
         <div className="flex flex-col mb-2 ">
         <div className="text-left text-lg font-medium mb-2">Create an announcement</div>
         <CampGroundSelection onSelection={handleOptionChange} />
