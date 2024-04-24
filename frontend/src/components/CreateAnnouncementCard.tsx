@@ -70,12 +70,14 @@ export default function CreateAnnouncementCard(){
                 />
                 <div className="text-center font-semibold text-sm ml-2 mr-6">No end date</div>
                 </div>
+    
                     <button className="bg-white border-[2px] border-fern px-3 mr-2 text-fern font-medium rounded-full">
                         Cancel
                     </button>
                     <button className="bg-fern border-[2px] border-fern px-3 mr-2 text-white font-medium rounded-full">
                         OK
                     </button>
+        
                 </div>
         </div>
         
