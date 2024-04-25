@@ -38,13 +38,9 @@ export const authOptions: AuthOptions = {
       return session;
     },
   },
-  /*   pages: {
-    signIn: "/auth/signin",
-    signOut: "/auth/signout",
-    error: "/auth/error",
-    verifyRequest: "/auth/verify-request",
-    newUser: "/auth/register",
-  }, */
+  pages: {
+    signIn: '/auth/signIn'
+  }
 };
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
