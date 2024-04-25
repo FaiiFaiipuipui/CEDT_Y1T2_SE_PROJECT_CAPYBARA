@@ -46,7 +46,7 @@ function CampGroundSelection({ onSelection }: { onSelection: Function }) {
       }}
     >
       <option value={"default"} key={"default"} hidden>
-        Please Select ...
+        Please Select the campground
       </option>
       {campgrounds &&
         campgrounds.data.map((campgroundObj: CampgroundItem) => {

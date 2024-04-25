@@ -14,7 +14,7 @@ export default async function CampgroundCatalog({
         <Link
           href={`/campground/${campgroundItem._id}`}
           key={campgroundItem._id}
-          className="w-1/4 m-10"
+          className="w-1/2 my-10 px-[2%]"
         >
           <Card
             campgroundName={campgroundItem.name}
