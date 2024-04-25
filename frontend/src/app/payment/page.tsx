@@ -96,19 +96,23 @@ export default function PaymentPage() {
   };
 
   const resizeFile = (file, callback) => {
-    Resizer.imageFileResizer(
-      file,
-      300,
-      500,
-      "JPEG",
-      100,
-      0,
-      (uri) => {
-        // Callback with the resized file
-        callback(uri);
-      },
-      "base64"
-    );
+    try {
+      Resizer.imageFileResizer(
+        file,
+        300,
+        500,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          // Callback with the resized file
+          callback(uri);
+        },
+        "base64"
+      );
+    } catch (err) {
+      console.log("Fail to resize the file: " + err);
+    }
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,8 +129,8 @@ export default function PaymentPage() {
         console.log('Resize Image Base64: ' + resizedFileBase64);
 
         reader.onloadend = () => {
-          setImagePreview(reader.result);
-          // setImagePreview(resizeFile);
+          // setImagePreview(reader.result);
+          setImagePreview(resizedFileBase64);
         };
 
         //Show Image Preview
@@ -247,7 +251,7 @@ export default function PaymentPage() {
             <div
               className="border border-green-600 border-solid py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-green-700 font-bold hover:cursor-pointer"
               onClick={() => {
-                window.location.reload();
+                setImagePreview(null);
               }}
             >
               {" "}
