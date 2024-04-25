@@ -40,7 +40,7 @@ export interface TransactionAppt {
 }
 
 export interface UserAppt {
-  _id:string;
+  _id: string;
   name: string;
 }
 
@@ -98,4 +98,21 @@ export interface OnePaymentJson {
   success: boolean;
   data: PaymentItem;
   campgroundPrice: string;
+}
+
+export interface AnnouncementJson {
+  success: boolean;
+  count: number;
+  data: AnnouncementItem[];
+}
+
+export interface AnnouncementItem {
+  _id: string;
+  title: string;
+  content: string;
+  startDate: Date;
+  endDate: Date;
+  campground: CampgroundItem;
+  author: string;
+  createdAt: Date;
 }

@@ -1,6 +1,6 @@
-export default async function getAnnouncement(id: string) {
+export default async function getAnnouncement(cid: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/announcements/${id}`
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/campgrounds/${cid}/announcements`
   );
   if (!response) {
     throw new Error("Failed to fetch announcement");
