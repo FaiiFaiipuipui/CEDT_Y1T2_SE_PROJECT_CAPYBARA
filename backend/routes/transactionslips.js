@@ -8,7 +8,7 @@ const {
 const router = express.Router({ mergeParams: true });
 const { protect, authorize } = require("../middleware/auth");
 
-router.route("/").get(protect, authorize("admin"), getTransactionSlips).post(protect, authorize("user"), addTransactionSlip);
+router.route("/").get(protect, authorize("admin"), getTransactionSlips).post(protect, authorize("admin","user"), addTransactionSlip);
 
 router.route("/:id").get(protect, authorize("admin", "user"), getTransactionSlip);
 
