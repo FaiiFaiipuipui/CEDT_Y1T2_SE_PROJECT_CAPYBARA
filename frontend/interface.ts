@@ -1,4 +1,5 @@
 import { Decimal128 } from "mongoose";
+import { User } from "next-auth";
 
 export interface CampgroundItem {
   _id: string;
@@ -64,7 +65,7 @@ export interface PaymentItem {
   rent_date: Date;
   successful_payment_date: Date;
   submitted_slip_images: string[];
-  successful_payment_slip_image: Object;
+  successful_payment_slip_image: string;
   campground: CampgroundItem;
   user: UserItem;
   appointment: Object;

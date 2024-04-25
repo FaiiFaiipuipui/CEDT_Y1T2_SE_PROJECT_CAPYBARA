@@ -118,7 +118,6 @@ exports.updateAnnouncement = async (req, res, next) => {
   }
 };
 
-
 // @desc    Delete announcement
 // @route   DELETE /api/v1/announcement/:id
 // @access  Private
