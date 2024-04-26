@@ -98,3 +98,12 @@ export interface OnePaymentJson {
   data: PaymentItem;
   campgroundPrice: string;
 }
+
+export interface AnnounmentItem {
+  title : string,
+  content: string,
+  startDate: Date,
+  endDate : Date,
+  campground : string,
+  author : string
+}
