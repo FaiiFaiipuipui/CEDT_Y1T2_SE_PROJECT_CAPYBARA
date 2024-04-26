@@ -31,7 +31,7 @@ export default async function CampgroundDetailPage({
           fill={true}
           className="object-cover"
         ></Image>
-        <div className="relative top-[40%] z-20 text-center text-white text-4xl font-medium">
+        <div className="relative top-[40%] z-20 text-center text-white drop-shadow-[0_2px_2px_rgba(0,0,0,1)] text-4xl font-medium">
           {campgroundDetail.data.name}
         </div>
       </div>
