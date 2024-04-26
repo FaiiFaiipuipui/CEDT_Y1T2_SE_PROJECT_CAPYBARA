@@ -6,10 +6,10 @@ import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-interface ResponseData {
-  message: string;
-  // include other properties
-}
+// interface ResponseData {
+//   message: string;
+//   // include other properties
+// }
 
 export default function BookingPage() {
   const router = useRouter();
@@ -22,30 +22,28 @@ export default function BookingPage() {
   const [date, setDate] = useState("");
 
   if (!session || !session.user.token) return null;
-  const submit = () => {
+  const submit = async () => {
     if (date) {
       try {
         if (date) {
-          const booking = async () => {
-            const response = (await createAppointment(
-              session.user.token,
-              id,
-              date
-            )) as Response;
+          const createApptResponse = (await createAppointment(
+            session.user.token,
+            id,
+            date
+          )) as Response;
+          if (!createApptResponse) {
+            throw new Error("Failed to submit create Appointment form");
+          }
 
-            if (!response) {
-              throw new Error("Failed to submit create Appointment form");
-            }
-          };
+          const createApptResponseData = await createApptResponse.json();
+          const aid = createApptResponseData.data._id;
 
-          const transaction = async () => {
-            const response = (await createTransaction(
-              session.user.token,
-              id
-            )) as Response;
-            if (!response) {
-              throw new Error("Failed to submit create Transaction");
-            }
+          const createTransactionResponse = (await createTransaction(
+            session.user.token,
+            aid
+          )) as Response;
+          if (!createTransactionResponse) {
+            throw new Error("Failed to submit create Transaction");
 
             // const responseData:ResponseData = await response.json();
 
@@ -54,18 +52,17 @@ export default function BookingPage() {
             //   alert('Not Success')
             //   return;
             // }
-
-            alert("Successfully booked!");
-          };
-          booking();
-          transaction();
+          }
+          alert("Successfully booked!");
           router.push("/dashboard");
         } else {
           alert("Please fill in the missing field!");
         }
       } catch (error) {
-        // alert(`${error}, response`);
+        console.log(error);
       }
+    } else {
+      alert("Please fill in the missing field!");
     }
   };
   return (

@@ -1,20 +1,27 @@
-export default function AnnouncementCard() {
+import { AnnouncementItem, AnnouncementJson } from "interface";
+
+export default async function AnnouncementCard({
+  title,
+  campground,
+  content,
+  endDate,
+}: {
+  title: string;
+  campground: string;
+  content: string;
+  endDate: Date;
+}) {
   return (
     <div className="bg-white rounded-[20px] py-[6%] px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
-      <div className="text-left font-semibold text-xl pb-2">
-        อุทยานแห่งชาติคลองลาน จังหวัดกำแพงเพชร
-      </div>
+      <div className="text-left font-semibold text-xl pb-2">{title}</div>
       <div className="border-t-2 border-black pb-2"></div>
-      <div className="text-sm text-left pb-5">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in{" "}
-      </div>
+      <div className="text-sm font-semibold text-left pb-5">{campground}</div>
+      <div className="text-sm text-left pb-5">{content}</div>
       <div className="flex flex-wrap">
         <div className="text-sm font-semibold pb-2 text-left pr-[33%]">
-          until 25 Apr | 8 pm{" "}
+          until {endDate.toDateString()}
         </div>
+
         <div className="flex flex-row right-0 z-30">
           <button>
             <svg

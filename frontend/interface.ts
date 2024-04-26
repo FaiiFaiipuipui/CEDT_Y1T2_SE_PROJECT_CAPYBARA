@@ -1,4 +1,5 @@
 import { Decimal128 } from "mongoose";
+import { User } from "next-auth";
 
 export interface CampgroundItem {
   _id: string;
@@ -64,7 +65,7 @@ export interface PaymentItem {
   rent_date: Date;
   successful_payment_date: Date;
   submitted_slip_images: string[];
-  successful_payment_slip_image: Object;
+  successful_payment_slip_image: string;
   campground: CampgroundItem;
   user: UserItem;
   appointment: Object;
@@ -99,11 +100,19 @@ export interface OnePaymentJson {
   campgroundPrice: string;
 }
 
-export interface AnnounmentItem {
+export interface AnnouncementJson {
+  success: boolean;
+  count: number;
+  data: AnnouncementItem[];
+}
+
+export interface AnnouncementItem {
+  _id: string;
   title: string;
   content: string;
   startDate: Date;
   endDate: Date;
-  campground: string;
+  campground: CampgroundItem;
   author: string;
+  createdAt: Date;
 }

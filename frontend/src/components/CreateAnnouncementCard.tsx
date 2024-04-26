@@ -78,14 +78,18 @@ export default function CreateAnnouncementCard() {
             name="startdate"
             placeholder="Select the date here"
             className="bg-white border-[2px] border-gray-500 rounded-lg w-[90%] text-sm py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
-            onChange={(e) => setStartDate(new Date(e.target.value))}
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
           ></input>
         </div>
-        <div
-          className="flex flex-col"
-          style={{ display: noEndDate ? "none" : "block" }}
-        >
-          <div className="text-left">End Date</div>
+        <div className="flex flex-col">
+          <div
+            className="text-left"
+            onChange={handleEndDateChange}
+            style={{ display: noEndDate ? "none" : "block" }}
+          >
+            End Date
+          </div>
           <input
             type="date"
             required
@@ -93,31 +97,17 @@ export default function CreateAnnouncementCard() {
             name="enddate"
             placeholder="Select the date here"
             className="bg-white border-[2px] border-gray-500 rounded-lg w-[90%] text-sm py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
-            onChange={(e) => {
-              console.log(".");
-              console.log(new Date(e.target.value));
-              console.log(".");
-              setEndDate(new Date(e.target.value));
-            }}
+            value={endDate}
+            onChange={handleEndDateChange}
+            style={{ display: noEndDate ? "none" : "block" }}
           ></input>
         </div>
       </div>
       <textarea
-        className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-4"
+        className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-4 mb-4"
         title="textArea"
-        placeholder="Please enter your annoucement here"
-        onChange={(e) => {
-          setTitle(e.target.value);
-        }}
-      />
-      {/* <textarea
-        className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-2 mb-4"
-        title="textArea"
-        placeholder="Please enter your annoucement here"
-        onChange={(e) => {
-          setContent(e.target.value);
-        }}
-      /> */}
+        placeholder="Please enter your announcement here"
+      ></textarea>
       <div className="flex flex-wrap">
         <div className="flex flex-row right-0">
           <div

@@ -59,7 +59,7 @@ export default function TransactionCatalog({
   };
   return (
     <main className="text-center">
-      <div className="rounded-[50px] items-center justify-center border border-solid pb-3">
+      <div className="rounded-[50px] items-center justify-center border border-solid">
         <div className="flex flex-row bg-cadetblue text-xl h-20 items-center rounded-t-[50px] font-semibold">
           <div className="w-1/5">User</div>
           <div className="w-1/5">Campground</div>
@@ -111,18 +111,16 @@ export default function TransactionCatalog({
           </div>
           <div className="w-1/5"></div>
         </div>
-        {/*.filter((transactionItem:PaymentItem) => transactionItem.status === "REJECTED")*/}
-        {statusFilter === "Default" ? (
+        {
+        statusFilter === "Default" ? (
           <div>
             {appointments.map(apptItem => (
               <TransactionCard
                 key={apptItem._id}
-                tid={apptItem.transaction._id}
                 user={apptItem.user.name}
                 campground={apptItem.campground}
                 date={new Date(apptItem.apptDate)}
-                status={apptItem.transaction.status}
-                submitImage={apptItem.transaction.submitted_slip_images}
+                transaction={apptItem.transaction}
                 role={role}
               />
             ))}
@@ -130,16 +128,14 @@ export default function TransactionCatalog({
         ) : (
           <div>
             {appointments
-              .filter(apptItem => apptItem.transaction.status === statusFilter || statusFilter === "Default")
+              .filter(apptItem => apptItem.transaction.status === statusFilter)
               .map(apptItem => (
                 <TransactionCard
                   key={apptItem._id}
-                  tid={apptItem.transaction._id}
                   user={apptItem.user.name}
                   campground={apptItem.campground}
                   date={new Date(apptItem.apptDate)}
-                  status={apptItem.transaction.status}
-                  submitImage={apptItem.transaction.submitted_slip_images}
+                  transaction={apptItem.transaction}
                   role={role}
                 />
               ))}

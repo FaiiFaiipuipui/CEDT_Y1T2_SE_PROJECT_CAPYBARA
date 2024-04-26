@@ -1,6 +1,6 @@
 "use client";
 import EditAnnouncementCard from "./EditAnnouncementCard";
-import AnnouncementCard from "./AnnouncementCard";
+import AnnouncementCard from "./AnnouncementCatalog";
 import CreateAnnouncementCard from "./CreateAnnouncementCard";
 import { useState } from "react";
 
