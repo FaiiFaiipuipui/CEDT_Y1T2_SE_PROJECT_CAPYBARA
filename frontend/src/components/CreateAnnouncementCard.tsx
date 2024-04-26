@@ -110,14 +110,14 @@ export default function CreateAnnouncementCard() {
           setTitle(e.target.value);
         }}
       />
-      <textarea
+      {/* <textarea
         className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-2 mb-4"
         title="textArea"
         placeholder="Please enter your annoucement here"
         onChange={(e) => {
           setContent(e.target.value);
         }}
-      />
+      /> */}
       <div className="flex flex-wrap">
         <div className="flex flex-row right-0">
           <div

@@ -1,4 +1,12 @@
-export default async function createAnnouncement(token: string, cid: string) {
+export default async function createAnnouncement(
+  token: string,
+  cid: string,
+  title: string,
+  content: string,
+  startDate: Date,
+  endDate: Date,
+  author: string
+) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/campgrounds/${cid}/`,
     {

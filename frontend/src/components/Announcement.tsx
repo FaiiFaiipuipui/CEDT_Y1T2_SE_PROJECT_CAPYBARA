@@ -2,8 +2,15 @@
 import EditAnnouncementCard from "./EditAnnouncementCard";
 import AnnouncementCard from "./AnnouncementCard";
 import CreateAnnouncementCard from "./CreateAnnouncementCard";
+import { useState } from "react";
 
 export default function Announcement() {
+  //   const [createButtonIsClicked, setCreateButtonState] = useState(false);
+
+  //   const openCreateAnnouncementCard = () => {
+  //     setCreateButtonState(true);
+  //   };
+
   return (
     <div className="flex flex-row">
       <div className="text-4xl font-bold my-10 text-left">Announcement</div>
@@ -21,6 +28,7 @@ export default function Announcement() {
           <path
             d="M19.494 24.932V14.4206H22.6759V24.932H19.494ZM15.8293 21.2672V18.0854H26.3406V21.2672H15.8293Z"
             fill="white"
+            // onClick={openCreateAnnouncementCard}
           />
         </svg>
       </button>
