@@ -122,7 +122,6 @@ exports.updateAnnouncement = async (req, res, next) => {
     });
   }
 };
-const Announcement = require("../model/Announcement");
 
 // @desc    Delete announcement
 // @route   DELETE /api/v1/announcement/:id
