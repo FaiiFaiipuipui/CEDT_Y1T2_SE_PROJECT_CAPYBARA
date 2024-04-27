@@ -116,3 +116,12 @@ export interface AnnouncementItem {
   author: string;
   createdAt: Date;
 }
+
+export interface AnnouncementItemForCreateAndEdit {
+  cid: string;
+  title: string;
+  content: string;
+  startDate: Date;
+  endDate: Date;
+  author: string;
+}

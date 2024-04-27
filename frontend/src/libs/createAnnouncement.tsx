@@ -1,20 +1,25 @@
+import { AnnouncementItemForCreateAndEdit } from "interface";
+
 export default async function createAnnouncement(
   token: string,
-  cid: string,
-  title: string,
-  content: string,
-  startDate: Date,
-  endDate: Date,
-  author: string
+  announcementItemForCreateAndEdit: AnnouncementItemForCreateAndEdit
 ) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/campgrounds/${cid}/`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/campgrounds/${announcementItemForCreateAndEdit.cid}/`,
     {
       method: "POST",
       headers: {
         authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        title: announcementItemForCreateAndEdit.title,
+        content: announcementItemForCreateAndEdit.content,
+        startDate: announcementItemForCreateAndEdit.startDate,
+        endDate: announcementItemForCreateAndEdit.endDate,
+        campground: announcementItemForCreateAndEdit.cid,
+        author: announcementItemForCreateAndEdit.author,
+      }),
     }
   );
   if (!response.ok) {

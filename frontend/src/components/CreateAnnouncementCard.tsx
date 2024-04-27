@@ -1,14 +1,19 @@
 "use client";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { AnnounmentItem } from "interface";
+import { AnnouncementItemForCreateAndEdit } from "interface";
 import CampGroundSelection from "@/components/CampGroundSelection";
 import { Announcement } from "@mui/icons-material";
+import createAnnouncement from "@/libs/createAnnouncement";
 
-export default function CreateAnnouncementCard() {
+export default function CreateAnnouncementCard({
+  closeCreateAnnouncement,
+}: {
+  closeCreateAnnouncement: Function;
+}) {
   const { data: session } = useSession();
 
-  if (!session || !session.user.token) return null;
+  if (!session) return null;
 
   const name = session.user.name;
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -17,14 +22,18 @@ export default function CreateAnnouncementCard() {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [selectedCampground, setSelectedCampground] = useState("");
+
   const handleOptionChange = (newOption: string) => {
     setSelectedCampground(newOption);
+  };
+
+  const handleEndDateChange = (e) => {
+    setEndDate(new Date(e.target.value));
   };
 
   const handleNoEndDateChange = (e) => {
     setNoEndDate(e.target.checked);
   };
-
   const onSubmit = () => {
     if (
       title &&
@@ -34,21 +43,29 @@ export default function CreateAnnouncementCard() {
       selectedCampground &&
       name
     ) {
-      const announmentItem: AnnounmentItem = {
+      const announcementItem: AnnouncementItemForCreateAndEdit = {
+        cid: selectedCampground,
         title: title,
         content: content,
         startDate: startDate,
         endDate: endDate,
-        campground: selectedCampground,
         author: name,
       };
       const addAnnouncement = async () => {
-        // await createAnnouncement(session.user.token, announmentItem);
+        await createAnnouncement(session.user.token, announcementItem);
       };
       addAnnouncement();
       alert("Successfully add Annnouncement!!");
     } else {
       alert("Please fill in the missing field!");
+      console.log("///////");
+      console.log(title);
+      console.log(content);
+      console.log(selectedCampground);
+      console.log(startDate);
+      console.log(endDate);
+      console.log(session);
+      console.log("///////");
     }
   };
   const onCancel = () => {
@@ -58,6 +75,7 @@ export default function CreateAnnouncementCard() {
     setContent("");
     setSelectedCampground("");
     setTitle("");
+    closeCreateAnnouncement();
   };
 
   return (
@@ -66,6 +84,22 @@ export default function CreateAnnouncementCard() {
         <div className="text-left text-lg font-medium mb-2">
           Create an announcement
         </div>
+        <textarea
+          className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-4 mb-4"
+          title="textArea"
+          placeholder="Please enter your title here"
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        ></textarea>
+        <textarea
+          className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-4 mb-4"
+          title="textArea"
+          placeholder="Please enter your announcement here"
+          onChange={(e) => {
+            setContent(e.target.value);
+          }}
+        ></textarea>
         <CampGroundSelection onSelection={handleOptionChange} />
       </div>
       <div className="flex flex-row">
@@ -78,14 +112,12 @@ export default function CreateAnnouncementCard() {
             name="startdate"
             placeholder="Select the date here"
             className="bg-white border-[2px] border-gray-500 rounded-lg w-[90%] text-sm py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+            onChange={(e) => setStartDate(new Date(e.target.value))}
           ></input>
         </div>
         <div className="flex flex-col">
           <div
             className="text-left"
-            onChange={handleEndDateChange}
             style={{ display: noEndDate ? "none" : "block" }}
           >
             End Date
@@ -97,22 +129,32 @@ export default function CreateAnnouncementCard() {
             name="enddate"
             placeholder="Select the date here"
             className="bg-white border-[2px] border-gray-500 rounded-lg w-[90%] text-sm py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
-            value={endDate}
             onChange={handleEndDateChange}
             style={{ display: noEndDate ? "none" : "block" }}
           ></input>
         </div>
       </div>
+      {/* <textarea
+        className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-4 mb-4"
+        title="textArea"
+        placeholder="Please enter your title here"
+        onChange={(e) => {
+          setTitle(e.target.value);
+        }}
+      ></textarea>
       <textarea
         className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-4 mb-4"
         title="textArea"
         placeholder="Please enter your announcement here"
-      ></textarea>
+        onChange={(e) => {
+          setContent(e.target.value);
+        }}
+      ></textarea> */}
       <div className="flex flex-wrap">
         <div className="flex flex-row right-0">
           <div
             id="noEndDateCheckbox"
-            className="flex flex-row justify-start items-center"
+            className="flex flex-row justify-start items-center mt-5"
           >
             <input
               id="noEndDateCheckbox"
@@ -126,25 +168,14 @@ export default function CreateAnnouncementCard() {
           </div>
 
           <button
-            className="bg-white border-[2px] border-fern px-3 mr-2 text-fern font-medium rounded-full"
-            onClick={() => {
-              onCancel();
-            }}
+            className="bg-white border-[2px] border-fern px-3 mr-2 mt-5 text-fern font-medium rounded-full"
+            onClick={() => onCancel()}
           >
             Cancel
           </button>
           <button
-            className="bg-fern border-[2px] border-fern px-3 mr-2 text-white font-medium rounded-full"
-            onClick={() => {
-              console.log("/////////////");
-              console.log(startDate);
-              console.log(endDate);
-              console.log(selectedCampground);
-              console.log(title);
-              console.log(content);
-              console.log("/////////////");
-              onSubmit();
-            }}
+            className="bg-fern border-[2px] border-fern px-3 mr-2 mt-5 text-white font-medium rounded-full"
+            onClick={() => onSubmit()}
           >
             OK
           </button>

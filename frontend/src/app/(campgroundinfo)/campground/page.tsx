@@ -1,5 +1,3 @@
-// "use client";
-
 import getCampgrounds from "@/libs/getCampgrounds";
 import CampgroundCatalog from "@/components/CampgroundCatalog";
 import { Suspense } from "react";
@@ -46,7 +44,6 @@ export default async function Campground() {
         <div className="flex flex-col my-[3%] h-[700px] overflow-y-auto pr-2">
           <Announcement />
           <AnnouncementCatalog announcementJson={announcements} />
-          <CreateAnnouncementCard />
           <EditAnnouncementCard />
         </div>
       </div>
