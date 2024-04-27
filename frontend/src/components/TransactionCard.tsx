@@ -34,7 +34,7 @@ export default function TransactionCard({
               </div>
             </div>
           </div> :
-          <div className="flex flex-row text-center items-center justify-center my-5">
+          <div id="transaction-card" className="flex flex-row text-center items-center justify-center my-5">
             <div className="w-1/5">
               <div>{user}</div>
             </div>

@@ -1,6 +1,12 @@
 {
+  "ts-node": {
+    "compilerOptions": {
+      "module": "ES2015",
+      "moduleResolution": "Node"
+    }
+  },
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "lib": [
       "dom",
       "dom.iterable",
