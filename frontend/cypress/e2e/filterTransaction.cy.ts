@@ -84,7 +84,7 @@ describe('Test filtering function', () => {
     });
   });
 
-  it('Complete status includes the complete status', () => {
+  it('Completed status includes the complete status', () => {
     cy.visit('http://localhost:3000')
 
     cy.get('button').contains('SIGN IN').click();
