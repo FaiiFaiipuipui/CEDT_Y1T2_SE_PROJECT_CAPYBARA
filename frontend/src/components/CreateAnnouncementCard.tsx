@@ -8,14 +8,12 @@ import createAnnouncement from "@/libs/createAnnouncement";
 
 export default function CreateAnnouncementCard({
   closeCreateAnnouncement,
+  profileName,
 }: {
   closeCreateAnnouncement: Function;
+  profileName: string;
 }) {
   const { data: session } = useSession();
-
-  if (!session) return null;
-
-  const name = session.user.name;
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [noEndDate, setNoEndDate] = useState(false);
@@ -41,7 +39,7 @@ export default function CreateAnnouncementCard({
       endDate &&
       content &&
       selectedCampground &&
-      name
+      profileName
     ) {
       const announcementItem: AnnouncementItemForCreateAndEdit = {
         cid: selectedCampground,
@@ -49,13 +47,21 @@ export default function CreateAnnouncementCard({
         content: content,
         startDate: startDate,
         endDate: endDate,
-        author: name,
+        author: profileName,
       };
       const addAnnouncement = async () => {
         await createAnnouncement(session.user.token, announcementItem);
       };
       addAnnouncement();
       alert("Successfully add Annnouncement!!");
+      console.log("///////");
+      console.log(title);
+      console.log(content);
+      console.log(selectedCampground);
+      console.log(startDate);
+      console.log(endDate);
+      console.log(profileName);
+      console.log("///////");
     } else {
       alert("Please fill in the missing field!");
       console.log("///////");
@@ -64,7 +70,7 @@ export default function CreateAnnouncementCard({
       console.log(selectedCampground);
       console.log(startDate);
       console.log(endDate);
-      console.log(session);
+      console.log(profileName);
       console.log("///////");
     }
   };

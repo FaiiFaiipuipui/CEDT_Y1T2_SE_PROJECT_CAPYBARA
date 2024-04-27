@@ -4,7 +4,7 @@ import AnnouncementCard from "./AnnouncementCatalog";
 import CreateAnnouncementCard from "./CreateAnnouncementCard";
 import { useState } from "react";
 
-export default function Announcement() {
+export default function Announcement({ profileName }: { profileName: string }) {
   const [createButtonIsClicked, setCreateButtonState] =
     useState<boolean>(false);
 
@@ -46,6 +46,7 @@ export default function Announcement() {
       {createButtonIsClicked ? (
         <CreateAnnouncementCard
           closeCreateAnnouncement={closeCreateAnnouncementCard}
+          profileName={profileName}
         />
       ) : null}
     </div>

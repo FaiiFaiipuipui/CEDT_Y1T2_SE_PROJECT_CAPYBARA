@@ -5,7 +5,7 @@ export default async function createAnnouncement(
   announcementItemForCreateAndEdit: AnnouncementItemForCreateAndEdit
 ) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/campgrounds/${announcementItemForCreateAndEdit.cid}/`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/announcements/`,
     {
       method: "POST",
       headers: {
