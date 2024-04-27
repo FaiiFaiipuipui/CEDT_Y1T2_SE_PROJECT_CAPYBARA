@@ -2,166 +2,170 @@
  * @swagger
  * components:
  *  schemas:
- *    Hospitals:
+ *    Announcement:
  *      type: object
  *      required:
- *        - name
- *        - address
+ *        - title
+ *        - content
+ *        - startDate
+ *        - endDate
+ *        - campground
+ *        - author
  *      properties:
  *        id:
  *          type: string
  *          format: uuid
- *          description: The auto-generated id of the hospital
- *          example: d290f1ee-6c54-4b01-90e6-d701748f0851
- *        ลำดับ:
+ *          description: The auto-generated id of the announcement
+ *        title:
  *          type: string
- *          description: Ordinal number
- *        name:
- *          type: string
- *          description: Hospital name
- *        address:
- *          type: string
- *          description: House No., Street, Road
- *        district:
- *          type: string
- *          description: District
- *        province:
- *          type: string
- *          description: province
- *        postalcode:
- *          type: string
- *          description: 5-digit postal code
- *        tel:
- *          type: string
- *          description: telephone number
- *        region:
- *          type: string
- *          description: region
- *      example:
- *        id: 609bda561452242d88d36e37
- *        ลำดับ: 121
- *        name: Happy Hospital
- *        address: 121 ถ.สุขุมวิท
- *        district: บางนา
- *        province: กรุงเทพมหานคร
- *        postalcode: 10110
- *        tel: 02-2187000
- *        region: กรุงเทพมหานคร(Bangkok)
- */
-/**
- * @swagger
- * tags:
- *  name: Hospitals
- *  description: The hospitals managing API
- */
-/**
- * @swagger
- * /hospitals:
- *  get:
- *    summary: Returns the list of all the hospitals
- *    tags: [Hospitals]
- *    responses:
- *      200:
- *        description: The list of the hospitals
+ *          description: Title of the announcement
  *        content:
- *          application/json:
- *            schema:
- *              type: array
- *              items:
- *                $ref: '#/components/schemas/Hospitals'
- */
-/**
- * @swagger
- * /hospitals/{id}:
- *  get:
- *    summary: Get the hospital by id
- *    tags: [Hospitals]
- *    parameters:
- *      - in: path
- *        name: id
- *        schema:
  *          type: string
- *        required: true
- *        decription: The hospital id
- *    responses:
- *      200:
- *        description: The hospital description by id
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/Hospitals'
- *      404:
- *        description: The hospital was not found
- */
-/**
- * @swagger
- * /hospitals:
- *  post:
- *    summary: Create a new hospital
- *    tags: [Hospitals]
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            $ref: '#/components/schemas/Hospitals'
- *    responses:
- *      201:
- *        description: The hospital was successfully created
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/Hospitals'
- *      500:
- *        description: Some server error
- */
-/**
- * @swagger
- * /hospitals/{id}:
- *  put:
- *    summary: Update the hospital by id
- *    tags: [Hospitals]
- *    parameters:
- *      - in: path
- *        name: id
- *        schema:
+ *          description: Content of the announcement
+ *        startDate:
  *          type: string
- *        required: true
- *        decription: The hospital id
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            $ref: '#/components/schemas/Hospitals'
- *    responses:
- *      200:
- *        description: The hospital was updated
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/Hospitals'
- *      404:
- *        description: The hospital was not found
- *      500:
- *        description: Some error happened
+ *          format: date-time
+ *          description: Start date for announcing
+ *        endDate:
+ *          type: string
+ *          format: date-time
+ *          description: End date for announcing
+ *        campground:
+ *          type: string
+ *          description: ID of campground where owns the announcement
+ *        author:
+ *          type: string
+ *          description: The author's name
+ *    Transaction:
+ *      type: object
+ *      required:
+ *        - status
+ *        - rent_date
+ *        - campground
+ *        - user
+ *        - appointment
+ *      properties:
+ *        id:
+ *          type: string
+ *          format: uuid
+ *          description: The auto-generated id of the transaction
+ *        status:
+ *          type: string
+ *          description: Status of the transaction ["WAITING", "VERIFYING", "COMPLETED", "REJECTED", "CANCELED"]
+ *        rent_date:
+ *          type: string
+ *          format: date-time
+ *          description: Timestamp of Transaction Creation
+ *        successful_payment_date:
+ *          type: string
+ *          format: date-time
+ *          description: Timestamp when the transaction status is "COMPLETED"
+ *        submitted_slip_images:
+ *          type: string[]
+ *          description: ID of transaction slips that have submitted by the user
+ *        successful_payment_slip_image:
+ *          type: string
+ *          description: ID of the transaction slip, applicable only when the transaction status is "COMPLETED"
+ *        campground:
+ *          type: string
+ *          description: ID of campground that transaction paid for
+ *        user:
+ *          type: string
+ *          description: ID of user who make the transaction
+ *        appointment:
+ *          type: string
+ *          description: ID of appointment that linked to the transaction 
+ *    TransactionSlip:
+ *      type: object
+ *      required:
+ *        - slip_image
+ *        - submit_time
+ *        - payment_id
+ *      properties:
+ *        id:
+ *          type: string
+ *          format: uuid
+ *          description: The auto-generated id of the transaction slip
+ *        slip_image:
+ *          type: string
+ *          format: byte
+ *          description: Slip image of the transaction
+ *        submit_time:
+ *          type: string
+ *          format: date-time
+ *          description: Timestamp
+ *        payment_id:
+ *          type: string
+ *          description: ID of the transaction which owns the transaction slip
  */
 /**
  * @swagger
- * /hospitals/{id}:
- *  delete:
- *    summary: Remove the hospital by id
- *    tags: [Hospitals]
- *    parameters:
- *      - in: path
- *        name: id
- *        schema:
- *          type: string
- *        required: true
- *        decription: The hospital id
- *    responses:
- *      200:
- *        description: The hospital was deleted
- *      404:
- *        description: The hospital was not found
+ *  tags:
+ *      name: Announcement APIs
+ *      description: APIs for getting, creating, updating, and deleting announcements.
+ */
+/**
+ * @swagger
+ *  paths:
+ *    /announcements:
+ *      get:
+ *        summary: API for getting all announcements.
+ *        tags:
+ *          - Announcement APIs
+ *        responses:
+ *          200:
+ *            description: Returns a list of all announcements.
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/Announcement'
+ *          500:
+ *            description: Cannot find announcements.
+ *    /campgrounds/{campgroundId}/announcements:
+ *      get:
+ *        summary: API for getting announcements by campground ID.
+ *        tags:
+ *          - Announcement APIs
+ *        parameters:
+ *          - in: path
+ *            name: campgroundId
+ *            schema:
+ *              type: string
+ *            required: true
+ *        responses:
+ *          200:
+ *            description: Returns a list of all announcements associated with the provided campgroundId.
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/Announcement'
+ *          500:
+ *            description: Cannot find announcements.
+ *    /announcements/{announcementId}:
+ *      get:
+ *        summary: API for getting an announcement by announcement ID.
+ *        tags:
+ *          - Announcement APIs
+ *        parameters:
+ *          - in: path
+ *            name: announcementId
+ *            schema:
+ *              type: string
+ *            required: true
+ *        responses:
+ *          200:
+ *            description: Returns an announcements associated with the provided announcementId.
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  items:
+ *                    $ref: '#/components/schemas/Announcement'
+ *          400:
+ *            description: Cannot find an announcement associated with the provided announcementId.
+ *          500:
+ *            description: Cannot find an announcement.
  */

@@ -80,9 +80,9 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "Campground Booking System of Capybara",
     },
-    server: [
+    servers: [
       {
-        url: process.env.HOST + ":" + PORT + "/api/v1",
+        url: `${process.env.HOST}:${PORT}/api/v1`,
       },
     ],
   },
