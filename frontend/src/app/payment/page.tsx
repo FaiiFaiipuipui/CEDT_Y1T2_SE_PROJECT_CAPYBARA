@@ -99,10 +99,10 @@ export default function PaymentPage() {
     try {
       Resizer.imageFileResizer(
         file,
-        300,
-        500,
+        1080,
+        1080,
         "JPEG",
-        100,
+        25,
         0,
         (uri) => {
           // Callback with the resized file
