@@ -34,8 +34,6 @@ export default function EditAnnouncementCard({
   const [editedContent, setEditedContent] = useState(content);
   //const [selectedCampground, setSelectedCampground] = useState(campgroundName);
 
-  const [showPopup, setShowPopup] = useState(false);
-
   const { data: session } = useSession();
 
   // const handleOptionChange = (newOption: string) => {
@@ -64,10 +62,7 @@ export default function EditAnnouncementCard({
           session.user.token
         );
         addAnnoucement();
-        setShowPopup(true);
-        setTimeout(() => {
-          setShowPopup(false);
-        }, 1500);
+        alert('Successfully update announcement');
       }
     } catch (err) {
       console.log(err);
@@ -165,14 +160,6 @@ export default function EditAnnouncementCard({
             OK
           </button>
         </div>
-      </div>
-      <div
-        className={`popup ${
-          showPopup ? "" : "hidden"
-        } absolute top-2/3 my-[15vh] py-4 px-5 w-[45%] bg-[#EEFFF7] rounded-lg flex flex-row`}
-      >
-      {/* <Image src={checkBox} alt="checkbox" className="mr-5" /> */}
-        Successfully upload!
       </div>
     </div>
   );
