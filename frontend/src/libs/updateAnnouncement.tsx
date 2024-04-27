@@ -1,17 +1,21 @@
-import { AnnouncementItem } from "interface";
-
-export default async function updateAnnoucement(announcementItem:AnnouncementItem, id: string, token: string) {
+export default async function updateAnnoucement(
+  title: string,
+  content: string,
+  startDate: Date,
+  endDate: Date,
+  campgroundId: string,
+  announcementId: string,
+  token: string) {
   let bodyData = {
-    title: announcementItem.title,
-    content: announcementItem.content,
-    startDate: announcementItem.startDate,
-    endDate: announcementItem.endDate,
-    campground: announcementItem.campground,
-    author: announcementItem.author
+    title: title,
+    content: content,
+    startDate: startDate,
+    endDate: endDate,
+    campground: campgroundId,
   };
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/announcements/${id}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/announcements/${announcementId}`,
     {
       method: "PUT",
       headers: {

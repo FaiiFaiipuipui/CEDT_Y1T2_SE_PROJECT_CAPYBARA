@@ -1,49 +1,91 @@
 "use client";
 import { useState } from "react";
 import CampGroundSelection from "@/components/CampGroundSelection";
+import { useSession } from "next-auth/react";
+import updateAnnoucement from "@/libs/updateAnnouncement";
+import { AnnouncementItem } from "interface";
 
 export default function EditAnnouncementCard({
   toggle,
   title,
-  campground,
+  campgroundName,
   campgroundId,
   content,
+  startDate,
+  endDate,
   announcementId,
 }: {
   toggle: Function;
   title: string;
-  campground: string;
+  campgroundName: string;
   campgroundId: string;
   content: string;
+  startDate: Date;
+  endDate: Date;
   announcementId: string;
 }) {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [noEndDate, setNoEndDate] = useState(false);
-  const [selectedCampground, setSelectedCampground] = useState("");
+  var currentStartDate = startDate.toISOString().slice(0,10);
+  var currentEndDate = endDate.toISOString().slice(0,10);
 
-  const handleOptionChange = (newOption: string) => {
-    setSelectedCampground(newOption);
-  };
+  const [editedStartDate, setStartDate] = useState<Date>(new Date(currentStartDate));
+  const [editedEndDate, setEndDate] = useState<Date>(new Date(currentEndDate));
+  const [noEndDate, setNoEndDate] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(title);
+  const [editedContent, setEditedContent] = useState(content);
+  //const [selectedCampground, setSelectedCampground] = useState(campgroundName);
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const { data: session } = useSession();
+
+  // const handleOptionChange = (newOption: string) => {
+  //   setSelectedCampground(newOption);
+  // };
 
   const handleEndDateChange = (e) => {
-    setEndDate(e.target.value);
+    setEndDate(new Date(e.target.value));
   };
 
   const handleNoEndDateChange = (e) => {
     setNoEndDate(e.target.checked);
+    setEndDate(null);
   };
+
+  const update = () => {
+    try{
+      if (session.user.token) {
+        const addAnnoucement = async() => await updateAnnoucement(
+          editedTitle,
+          editedContent,
+          editedStartDate,
+          editedEndDate,
+          campgroundId,
+          announcementId,
+          session.user.token
+        );
+        addAnnoucement();
+        setShowPopup(true);
+        setTimeout(() => {
+          setShowPopup(false);
+        }, 1500);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="bg-white rounded-[20px] py-[6%] px-10 my-5 max-w-lg min-w-sm w-full ">
       <div className="flex flex-col mb-2 ">
         <div className="text-left text-lg font-medium mb-2">
           Edit an announcement
         </div>
-        <CampGroundSelection
+        {/* <CampGroundSelection
           onSelection={handleOptionChange}
-          defaultSelected={campground}
-          defaultId={campground}
-        />
+          defaultSelected={campgroundName}
+          defaultId={campgroundName}
+        /> */}
+        <div className="text-left">{campgroundName}</div>
       </div>
       <div className="flex flex-row">
         <div className="flex flex-col">
@@ -55,8 +97,8 @@ export default function EditAnnouncementCard({
             name="startdate"
             placeholder="Select the date here"
             className="bg-white border-[2px] border-gray-500 rounded-lg w-[90%] text-sm py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+            defaultValue={currentStartDate}
+            onChange={(e) => setStartDate(new Date(e.target.value))}
           ></input>
         </div>
         <div className="flex flex-col">
@@ -74,7 +116,7 @@ export default function EditAnnouncementCard({
             name="enddate"
             placeholder="Select the date here"
             className="bg-white border-[2px] border-gray-500 rounded-lg w-[90%] text-sm py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
-            value={endDate}
+            defaultValue={currentEndDate}
             onChange={handleEndDateChange}
             style={{ display: noEndDate ? "none" : "block" }}
           ></input>
@@ -84,13 +126,15 @@ export default function EditAnnouncementCard({
         className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-4"
         title="textArea"
         placeholder="Please enter your announcement here"
-        value={title}
+        defaultValue={title}
+        onChange={(e)=>setEditedTitle(e.target.value)}
       ></textarea>
       <textarea
         className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-4 mb-4"
         title="textArea"
         placeholder="Please enter your announcement here"
-        value={content}
+        defaultValue={content}
+        onChange={(e)=>setEditedContent(e.target.value)}
       ></textarea>
       <div className="flex flex-wrap">
         <div className="flex flex-row right-0">
@@ -116,11 +160,19 @@ export default function EditAnnouncementCard({
           </button>
           <button
             className="bg-fern border-[2px] border-fern px-3 mr-2 text-white font-medium rounded-full"
-            onClick={() => toggle()}
+            onClick={() => {update(); toggle();}}
           >
             OK
           </button>
         </div>
+      </div>
+      <div
+        className={`popup ${
+          showPopup ? "" : "hidden"
+        } absolute top-2/3 my-[15vh] py-4 px-5 w-[45%] bg-[#EEFFF7] rounded-lg flex flex-row`}
+      >
+      {/* <Image src={checkBox} alt="checkbox" className="mr-5" /> */}
+        Successfully upload!
       </div>
     </div>
   );

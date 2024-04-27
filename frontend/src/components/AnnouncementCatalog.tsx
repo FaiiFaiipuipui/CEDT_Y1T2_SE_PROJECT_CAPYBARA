@@ -3,9 +3,10 @@ import AnnouncementCard from "./AnnouncementCard";
 import { Html } from "next/document";
 
 export default async function AnnouncementCatalog({
-  announcementJson,
+  announcementJson, userRole
 }: {
   announcementJson: any;
+  userRole: string;
 }) {
   const announcementJsonReady = await announcementJson;
 
@@ -17,9 +18,11 @@ export default async function AnnouncementCatalog({
           title={announcementItem.title}
           campground={announcementItem.campground.name}
           content={announcementItem.content}
+          startDate={new Date(announcementItem.startDate)}
           endDate={new Date(announcementItem.endDate)}
           campgroundId={announcementItem.campground._id}
           announcementId={announcementItem._id}
+          userRole={userRole}
         />
       ))}
     </main>

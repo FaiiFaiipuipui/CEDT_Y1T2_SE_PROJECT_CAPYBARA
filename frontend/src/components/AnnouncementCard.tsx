@@ -1,23 +1,29 @@
 "use client";
-
 import { AnnouncementItem, AnnouncementJson } from "interface";
 import { useState } from "react";
 import EditAnnouncementCard from "./EditAnnouncementCard";
+import { useSession } from "next-auth/react";
+import { getUserDashboard } from "@/libs";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default function AnnouncementCard({
   title,
   campground,
   content,
+  startDate,
   endDate,
   campgroundId,
   announcementId,
+  userRole
 }: {
   title: string;
   campground: string;
   content: string;
+  startDate: Date;
   endDate: Date;
   campgroundId: string;
   announcementId: string;
+  userRole: string;
 }) {
   const [hidden, setHidden] = useState<boolean>(false);
   const toggle = () => {
@@ -33,12 +39,12 @@ export default function AnnouncementCard({
             {campground}
           </div>
           <div className="text-sm text-left pb-5">{content}</div>
-          <div className="flex flex-wrap">
-            <div className="text-sm font-semibold pb-2 text-left pr-[33%]">
+          <div className="flex flex-row justify-between items-center">
+            <div className="text-sm font-semibold text-left">
               until {endDate.toDateString()}
             </div>
 
-            <div className="flex flex-row right-0 z-30">
+            { userRole === "admin" ? (<div className="flex flex-row z-30">
               <button
                 onClick={() => {
                   toggle();
@@ -72,16 +78,18 @@ export default function AnnouncementCard({
                   />
                 </svg>
               </button>
+            </div>) : null }
             </div>
           </div>
-        </div>
       ) : (
         <EditAnnouncementCard
           toggle={toggle}
           content={content}
           title={title}
-          campground={campground}
+          campgroundName={campground}
           campgroundId={campgroundId}
+          startDate={startDate}
+          endDate={endDate}
           announcementId={announcementId}
         />
       )}
