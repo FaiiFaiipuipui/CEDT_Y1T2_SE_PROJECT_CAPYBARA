@@ -1,6 +1,5 @@
 import { AnnouncementItem, AnnouncementJson } from "interface";
 import AnnouncementCard from "./AnnouncementCard";
-import { Html } from "next/document";
 
 export default async function AnnouncementCatalog({
   announcementJson, userRole
