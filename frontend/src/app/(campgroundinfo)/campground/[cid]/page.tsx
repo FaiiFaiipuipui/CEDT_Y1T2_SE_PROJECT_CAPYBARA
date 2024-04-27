@@ -11,6 +11,8 @@ import AnnouncementCatalog from "@/components/AnnouncementCatalog";
 import EditAnnouncementCard from "@/components/EditAnnouncementCard";
 import CreateAnnouncementCard from "@/components/CreateAnnouncementCard";
 import getAnnouncement from "@/libs/getAnnouncement";
+import { AnnouncementItemForCreateAndEdit } from "interface";
+import Announcement from "@/components/Announcement";
 
 export default async function CampgroundDetailPage({
   params,
@@ -76,7 +78,7 @@ export default async function CampgroundDetailPage({
             <div className="h-[300px] overflow-y-auto mt-10">
               <div className="bg-emerald-100 rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
                 <div className="flex flex-row">
-                  <div className="text-3xl font-medium mt-[20px] ml-[5px] text-left text-black">
+                  {/* <div className="text-3xl font-medium mt-[20px] ml-[5px] text-left text-black">
                     Announcement
                   </div>
                   <button>
@@ -105,11 +107,15 @@ export default async function CampgroundDetailPage({
                         fill="white"
                       />
                     </svg>
-                  </button>
+                  </button> */}
                 </div>
+                <Announcement profileName={profile.data.name} />
                 <AnnouncementCatalog announcementJson={announcement} />
                 <EditAnnouncementCard />
-                <CreateAnnouncementCard />
+                {/* <CreateAnnouncementCard
+                  closeCreateAnnouncement={closeCreateAnnouncementCard}
+                  profileName=""
+                /> */}
               </div>
             </div>
           </div>
