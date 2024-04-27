@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const bodyParser = require("body-parser");
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUI = require("swagger-ui-express");
 
 // Load env variables
 dotenv.config({ path: "./config/config.env" });
@@ -74,7 +76,7 @@ const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
-      title: "CBS API",
+      title: "Capybara API",
       version: "1.0.0",
       description: "Campground Booking System of Capybara",
     },
@@ -84,7 +86,11 @@ const swaggerOptions = {
       },
     ],
   },
+  apis:['./swagger.js'],
 };
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs',swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 // Handle unhandles promise rejections
 process.on("unhandledRejection", (err, promise) => {
