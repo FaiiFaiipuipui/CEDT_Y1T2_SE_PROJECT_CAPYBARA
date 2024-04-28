@@ -41,14 +41,19 @@ export default async function DashbordPage() {
           </tbody>
         </table>
       </div>
-      { (profile.data.role === "admin")?
-      <div className="text-4xl font-bold m-10 text-left">User Transaction</div>
-      : (profile.data.role === "user")? 
-      <div className="text-4xl font-bold m-10 text-left">My Booking</div>
-      : null
-      }
+      {profile.data.role === "admin" ? (
+        <div className="text-4xl font-bold m-10 text-left">
+          User Transaction
+        </div>
+      ) : profile.data.role === "user" ? (
+        <div className="text-4xl font-bold m-10 text-left">My Booking</div>
+      ) : null}
       <Suspense fallback={<Skeleton />}>
-        <TransactionCatalog appointments={appointments.data} session={session} role={profile.data.role}/>
+        <TransactionCatalog
+          appointments={appointments.data}
+          session={session}
+          role={profile.data.role}
+        />
       </Suspense>
     </main>
   );
