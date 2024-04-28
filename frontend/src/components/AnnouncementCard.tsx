@@ -45,7 +45,7 @@ export default function AnnouncementCard({
 
   const confirmDelete = (e) => {
     e.stopPropagation();
-    if (window.confirm("Are sure want to delete?")) {
+    if (window.confirm("Do you confirm your deletion?")) {
       onSubmitDelete();
       alert("Successfully delete Announcement");
     }
