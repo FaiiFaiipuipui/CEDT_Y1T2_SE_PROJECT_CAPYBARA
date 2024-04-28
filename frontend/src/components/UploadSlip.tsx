@@ -60,6 +60,7 @@ export default function UploadSlip() {
               <input
                 id="file-upload"
                 type="file"
+                accept="image/*"
                 className="hidden"
                 onChange={(event) => handleFileUpload(event)}
               />
