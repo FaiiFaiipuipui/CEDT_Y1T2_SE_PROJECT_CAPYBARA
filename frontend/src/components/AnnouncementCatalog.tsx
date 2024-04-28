@@ -16,6 +16,7 @@ export default async function AnnouncementCatalog({
           campground={announcementItem.campground.name}
           content={announcementItem.content}
           endDate={new Date(announcementItem.endDate)}
+          announcementId={announcementItem._id}
         />
       ))}
     </main>

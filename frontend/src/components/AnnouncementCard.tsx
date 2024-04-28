@@ -1,16 +1,42 @@
+"use client";
+import deleteAnnouncement from "@/libs/deleteAnnouncement";
 import { AnnouncementItem, AnnouncementJson } from "interface";
+import { useSession } from "next-auth/react";
 
-export default async function AnnouncementCard({
+export default function AnnouncementCard({
   title,
   campground,
   content,
   endDate,
+  announcementId,
 }: {
   title: string;
   campground: string;
   content: string;
   endDate: Date;
+  announcementId: string;
 }) {
+  const { data: session } = useSession();
+
+  const onSubmitDelete = () => {
+    try {
+      const deleteOne = async () => {
+        await deleteAnnouncement(announcementId, session.user.token);
+      };
+      deleteOne();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const confirmDelete = (e) => {
+    e.stopPropagation();
+    if (window.confirm("Are sure want to delete?")) {
+      onSubmitDelete();
+      alert("Successfully delete Announcement");
+    }
+  };
+
   return (
     <div className="bg-white rounded-[20px] py-[6%] px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
       <div className="text-left font-semibold text-xl pb-2">{title}</div>
@@ -38,7 +64,11 @@ export default async function AnnouncementCard({
               />
             </svg>
           </button>
-          <button>
+          <button
+            onClick={(e) => {
+              confirmDelete(e);
+            }}
+          >
             <svg
               width="25"
               height="26"
