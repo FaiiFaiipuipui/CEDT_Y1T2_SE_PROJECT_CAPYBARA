@@ -1,11 +1,6 @@
 /**
  * @swagger
  * components:
- *  securitySchemas:
- *      BearerAuth:
- *          type: http
- *          scheme: bearer
- *          bearerFormat: JWT
  *  schemas:
  *    Announcement:
  *      type: object
@@ -116,12 +111,38 @@
  *          type: string
  *          format: date-time
  *          description: Created time
- */
-
-/**
- * @swagger
- *  security:
- *    - BearerAuth: []
+ *    User:
+ *      type: object
+ *      required:
+ *        - name
+ *        - telephone
+ *        - email
+ *        - role
+ *        - password
+ *      properties:
+ *        id:
+ *          type: string
+ *          format: uuid
+ *          description: The auto-generated id of the user
+ *        name:
+ *          type: string
+ *          description: The user's name
+ *        telephone:
+ *          type: string
+ *          description: The user's telephone
+ *        email:
+ *          type: string
+ *          description: The user's email for login
+ *        role:
+ *          type: string
+ *          description: The user's role ["user", "admin"]
+ *        password:
+ *          type: string
+ *          description: The user's password for login
+ *        createdAt:
+ *          type: string
+ *          format: date-time
+ *          description: Created time
  */
 
 /** Announcement */
@@ -559,4 +580,94 @@
  *          description: Cannot find a transaction associated with the provided transactionId.
  *        500:
  *          description: Cannot create a transaction slip.
+ */
+
+/** User */
+
+/**
+ * @swagger
+ *  tags:
+ *     name: User APIs
+ *     description: APIs for register, login, getMe, and logout for users.
+ */
+
+/**
+ * @swagger
+ * paths:
+ *  /auth/register:
+ *    post:
+ *      summary: API for register.
+ *      tags:
+ *        - User APIs
+ *      requestBody:
+ *        required: true
+ *        content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *      responses:
+ *        200:
+ *          description: Register successfully.
+ *          content:
+ *              application/json:
+ *        400:
+ *          description: Cannot create a the user's account.
+ */
+/**
+ * @swagger
+ * paths:
+ *  /auth/login:
+ *    post:
+ *      summary: API for login.
+ *      tags:
+ *        - User APIs
+ *      requestBody:
+ *        required: true
+ *        content:
+ *            application/json:
+ *              schema:
+ *                  required:
+ *                    - email
+ *                    - password
+ *                  properties:
+ *                      email:
+ *                          type: string
+ *                      password:
+ *                          type: string
+ *      responses:
+ *        200:
+ *          description: Login successfully.
+ *        400:
+ *          description: Not found user's account.
+ *        401:
+ *          description: Password incorrect.
+ */
+/**
+ * @swagger
+ * paths:
+ *  /auth/login:
+ *    post:
+ *      summary: API for login.
+ *      tags:
+ *        - User APIs
+ *      requestBody:
+ *        required: true
+ *        content:
+ *            application/json:
+ *              schema:
+ *                  required:
+ *                    - email
+ *                    - password
+ *                  properties:
+ *                      email:
+ *                          type: string
+ *                      password:
+ *                          type: string
+ *      responses:
+ *        200:
+ *          description: Login successfully.
+ *        400:
+ *          description: Not found user's account.
+ *        401:
+ *          description: Password incorrect.
  */

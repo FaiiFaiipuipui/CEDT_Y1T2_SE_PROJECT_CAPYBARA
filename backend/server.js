@@ -85,6 +85,18 @@ const swaggerOptions = {
         url: `${process.env.HOST}:${PORT}/api/v1`,
       },
     ],
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [{
+      BearerAuth: []
+    }]
   },
   apis:['./swagger.js'],
 };
