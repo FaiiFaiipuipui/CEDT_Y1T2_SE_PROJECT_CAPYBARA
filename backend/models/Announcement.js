@@ -15,7 +15,7 @@ const AnnouncementSchema = new mongoose.Schema({
         default: Date.now
     },
     endDate: {
-        type: Date,
+        type: Date | null,
         required: ['Please add an end date or set it to null', false],
         default: null
     },
