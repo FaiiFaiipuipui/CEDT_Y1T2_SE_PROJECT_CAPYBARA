@@ -100,8 +100,8 @@ export default function PaymentPage() {
     try {
       Resizer.imageFileResizer(
         file,
-        300,
-        500,
+        1080,
+        1080,
         "JPEG",
         100,
         0,
@@ -250,9 +250,9 @@ export default function PaymentPage() {
                     <Image
                       src={imagePreview}
                       alt="Uploaded Image"
-                      width={150}
-                      height={300}
-                      className="relative mt-10"
+                      width={500}
+                      height={500}
+                      className="relative mt-10 object-contain max-h-[500px]"
                     />
                     <div
                       className="absolute py-2 px-10 rounded-lg bg-gray-100 hover:bg-gray-400 hover:text-white cursor-pointer shadow-lg"
@@ -292,9 +292,9 @@ export default function PaymentPage() {
                       <Image
                         src={imagePreview}
                         alt="Uploaded Image"
-                        width={300}
-                        height={600}
-                        className="flex items-center justify-center flex-col"
+                        width={0}
+                        height={0}
+                        className="flex items-center justify-center flex-col h-1/2 w-auto"
                       />
                     </div>
                   </Modal>
