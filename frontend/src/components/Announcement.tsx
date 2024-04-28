@@ -5,11 +5,11 @@ import CreateAnnouncementCard from "./CreateAnnouncementCard";
 
 export default function Announcement() {
   return (
-    <div className="flex flex-row">
-      <div className="text-4xl font-bold my-10 text-left">Announcement</div>
+    <div className="flex flex-row w-full justify-between items-center">
+      <div className="text-4xl font-bold mt-10 text-left">Announcement</div>
       <button>
         <svg
-          className="my-10 ml-[75px]"
+          className="mt-10"
           width="41"
           height="39"
           viewBox="0 0 41 39"
