@@ -56,7 +56,7 @@ exports.getTransactionSlip = async (req, res, next) => {
     ) {
       return res.status(401).json({
         success: false,
-        message: `User ${req.user.id} is not authorized to get this transaction`,
+        message: `User ${req.user.id} is not authorized to get this transaction slip`,
       });
     }
     res.status(200).json({ success: true, data: transactionSlip });
