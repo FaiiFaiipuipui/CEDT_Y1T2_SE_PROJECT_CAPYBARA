@@ -1,6 +1,11 @@
 /**
  * @swagger
  * components:
+ *  securitySchemas:
+ *      BearerAuth:
+ *          type: http
+ *          scheme: bearer
+ *          bearerFormat: JWT
  *  schemas:
  *    Announcement:
  *      type: object
@@ -113,6 +118,12 @@
  *          description: Created time
  */
 
+/**
+ * @swagger
+ *  security:
+ *    - BearerAuth: []
+ */
+
 /** Announcement */
 
 /**
@@ -193,6 +204,8 @@
  *        summary: API for creating an announcement.
  *        tags:
  *          - Announcement APIs
+ *        security:
+ *          - BearerAuth: []
  *        requestBody:
  *          required: true
  *          content:
@@ -217,6 +230,8 @@
  *        summary: API for updating an announcement by announcement ID.
  *        tags:
  *          - Announcement APIs
+ *        security:
+ *          - BearerAuth: []
  *        parameters:
  *          - in: path
  *            name: announcementId
@@ -249,6 +264,8 @@
  *        summary: API for deleting an announcement by announcement ID.
  *        tags:
  *          - Announcement APIs
+ *        security:
+ *          - BearerAuth: []
  *        parameters:
  *          - in: path
  *            name: announcementId
@@ -280,6 +297,8 @@
  *        summary: API for getting all transactions.
  *        tags:
  *          - Transaction APIs
+ *        security:
+ *          - BearerAuth: []
  *        responses:
  *          200:
  *            description: Returns a list of all transactions.
@@ -296,6 +315,8 @@
  *        summary: API for getting a transaction by transaction ID.
  *        tags:
  *          - Transaction APIs
+ *        security:
+ *          - BearerAuth: []
  *        parameters:
  *          - in: path
  *            name: transactionId
@@ -322,6 +343,8 @@
  *      summary: API for creating a transaction.
  *      tags:
  *        - Transaction APIs
+ *      security:
+ *        - BearerAuth: []
  *      parameters:
  *        - in: path
  *          name: appointmentId
@@ -364,6 +387,8 @@
  *        summary: API for updating a transaction by transaction ID.
  *        tags:
  *          - Transaction APIs
+ *        security:
+ *          - BearerAuth: []
  *        parameters:
  *          - in: path
  *            name: transactionId
@@ -411,6 +436,8 @@
  *      summary: API for creating a promptpayQR for a transaction.
  *      tags:
  *        - PromptpayQR APIs
+ *      security:
+ *        - BearerAuth: []
  *      requestBody:
  *        required: true
  *        content:
@@ -454,6 +481,8 @@
  *        summary: API for getting all transaction slips.
  *        tags:
  *          - Transaction Slip APIs
+ *        security:
+ *          - BearerAuth: []
  *        responses:
  *          200:
  *            description: Returns a list of all transaction slips.
@@ -470,6 +499,8 @@
  *        summary: API for getting a transaction slip by transaction ID.
  *        tags:
  *          - Transaction Slip APIs
+ *        security:
+ *          - BearerAuth: []
  *        parameters:
  *          - in: path
  *            name: transactionSlipId
@@ -498,6 +529,8 @@
  *      summary: API for creating a transaction slip.
  *      tags:
  *        - Transaction Slip APIs
+ *      security:
+ *        - BearerAuth: []
  *      parameters:
  *        - in: path
  *          name: transactionId
