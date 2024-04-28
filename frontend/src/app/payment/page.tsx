@@ -86,10 +86,10 @@ export default function PaymentPage() {
       setTimeout(() => {
         setShowPopup(false);
       }, 1500);
+      router.push("/dashboard");
     } else {
       alert("Please upload Slip");
     }
-    router.push("/dashboard");
   };
 
   return (
@@ -154,4 +154,3 @@ export default function PaymentPage() {
     </div>
   );
 }
-
