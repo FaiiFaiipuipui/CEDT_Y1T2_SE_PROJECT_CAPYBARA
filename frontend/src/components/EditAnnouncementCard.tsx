@@ -2,7 +2,7 @@
 import { useState } from "react";
 import CampGroundSelection from "@/components/CampGroundSelection";
 import { useSession } from "next-auth/react";
-import updateAnnoucement from "@/libs/updateAnnouncement";
+import updateAnnouncement from "@/libs/updateAnnouncement";
 import { AnnouncementItem } from "interface";
 
 export default function EditAnnouncementCard({
@@ -52,7 +52,7 @@ export default function EditAnnouncementCard({
   const update = () => {
     try{
       if (session.user.token) {
-        const addAnnoucement = async() => await updateAnnoucement(
+        const addAnnouncement = async() => await updateAnnouncement(
           editedTitle,
           editedContent,
           editedStartDate,
@@ -61,7 +61,7 @@ export default function EditAnnouncementCard({
           announcementId,
           session.user.token
         );
-        addAnnoucement();
+        addAnnouncement();
         alert('Successfully update announcement');
       }
     } catch (err) {

@@ -1,4 +1,4 @@
-export default async function updateAnnoucement(
+export default async function updateAnnouncement(
   title: string,
   content: string,
   startDate: Date,
