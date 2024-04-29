@@ -8,7 +8,6 @@
  *        - title
  *        - content
  *        - startDate
- *        - endDate
  *        - campground
  *        - author
  *      properties:
@@ -25,6 +24,7 @@
  *        startDate:
  *          type: string
  *          format: date-time
+ *          default: Date.now
  *          description: Start date for announcing
  *        endDate:
  *          type: string
@@ -39,6 +39,7 @@
  *        createdAt:
  *          type: string
  *          format: date-time
+ *          default: Date.now
  *          description: Created time
  *    Transaction:
  *      type: object
@@ -68,9 +69,11 @@
  *          type: array
  *          items:
  *              type: string
+ *          default: []
  *          description: ID of transaction slips that have submitted by the user
  *        successful_payment_slip_image:
  *          type: string
+ *          default: null
  *          description: ID of the transaction slip, applicable only when the transaction status is "COMPLETED"
  *        campground:
  *          type: string
@@ -84,12 +87,12 @@
  *        createdAt:
  *          type: string
  *          format: date-time
+ *          default: Date.now
  *          description: Created time 
  *    TransactionSlip:
  *      type: object
  *      required:
  *        - slip_image
- *        - submit_time
  *        - payment_id
  *      properties:
  *        id:
@@ -103,6 +106,7 @@
  *        submit_time:
  *          type: string
  *          format: date-time
+ *          default: Date.now
  *          description: Timestamp
  *        payment_id:
  *          type: string
@@ -110,6 +114,7 @@
  *        createdAt:
  *          type: string
  *          format: date-time
+ *          default: Date.now
  *          description: Created time
  *    User:
  *      type: object
@@ -117,7 +122,6 @@
  *        - name
  *        - telephone
  *        - email
- *        - role
  *        - password
  *      properties:
  *        id:
@@ -136,12 +140,14 @@
  *        role:
  *          type: string
  *          description: The user's role ["user", "admin"]
+ *          default: "user"
  *        password:
  *          type: string
  *          description: The user's password for login
  *        createdAt:
  *          type: string
  *          format: date-time
+ *          default: Date.now
  *          description: Created time
  */
 
