@@ -46,6 +46,10 @@ export default function CreateAnnouncementCard({
         announcementItem.endDate = endDate;
       }
 
+      if (startDate < new Date(Date.now())) {
+        announcementItem.startDate = new Date(Date.now());
+      }
+
       try {
         await createAnnouncement(session.user.token, announcementItem);
         alert("Successfully added Announcement!!");
