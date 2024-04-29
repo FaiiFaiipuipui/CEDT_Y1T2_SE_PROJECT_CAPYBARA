@@ -19,11 +19,6 @@ export default async function AnnouncementCard({
       <div className="border-t-2 border-black pb-2"></div>
       <div className="text-sm font-semibold text-left pb-5">{campground}</div>
       <div className="text-sm text-left pb-5">{content}</div>
-      {process.env.NODE_ENV === "development" ? (
-        <div className="text-xs text-left">
-          DEV: startDate is {startDate.toDateString()}
-        </div>
-      ) : null}
       <div className="flex flex-wrap">
         {!isNaN(new Date(endDate).getTime()) ? (
           <div className="text-sm font-semibold pb-2 text-left pr-[33%]">
