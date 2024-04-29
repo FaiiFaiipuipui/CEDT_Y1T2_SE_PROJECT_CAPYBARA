@@ -2,21 +2,101 @@ import Image from "next/image";
 import { useState } from "react";
 import { Button } from "@mui/material";
 import Modal from "react-modal";
+import { createTransactionSlip } from "@/libs";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import Resizer from "react-image-file-resizer";
 
-export default function UploadSlip() {
+export default function UploadSlip({
+  token,
+  tid,
+  isEditPage,
+}: {
+  token: string;
+  tid: string;
+  isEditPage: boolean;
+}) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [showButton, setShowButton] = useState(true);
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  const resizeFile = (file, callback) => {
+    try {
+      Resizer.imageFileResizer(
+        file,
+        1080,
+        1080,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          // Callback with the resized file
+          callback(uri);
+        },
+        "base64"
+      );
+    } catch (err) {
+      console.log("Fail to resize the file: " + err);
+    }
+  };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+    try {
+      const file = event.target.files[0];
+      const reader = new FileReader();
 
-    reader.onloadend = () => {
-      setImagePreview(reader.result);
-    };
+      console.log("originalFile instanceof Blob", file instanceof Blob); // true
+      console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
 
-    if (file) {
-      reader.readAsDataURL(file);
+      //resize image before setImagePreview
+      resizeFile(file, (resizedFileBase64) => {
+        console.log(
+          "Resized file size:" + resizedFileBase64.length / 1024 / 1024 + " MB"
+        );
+        console.log("Resize Image Base64: " + resizedFileBase64);
+
+        reader.onloadend = () => {
+          // setImagePreview(reader.result);
+          setImagePreview(resizedFileBase64);
+        };
+
+        //Show Image Preview
+        if (resizedFileBase64) {
+          // Convert base64 string to Blob
+          const byteCharacters = atob(resizedFileBase64.split(",")[1]);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: "image/jpeg" });
+
+          reader.readAsDataURL(blob);
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleSubmit = () => {
+    if (imagePreview != null) {
+      if (session.user && tid) {
+        createTransactionSlip(token, tid, imagePreview);
+        setShowButton(false);
+        setShowPopup(true);
+      }
+
+      // Hide the popup after 3 seconds
+      setTimeout(() => {
+        setShowPopup(false);
+        router.push("/dashboard");
+      }, 3000);
+    } else {
+      alert("Please upload Slip");
     }
   };
 
@@ -27,9 +107,22 @@ export default function UploadSlip() {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  const back = () => {
+    if (isEditPage) {
+      document.getElementById("upload").style.display = "none";
+      document.getElementById("showQr").style.display = "block";
+    } else {
+      router.push("/dashboard");
+    }
+  };
+
+  const cancelUpload = () => {
+    setImagePreview(null);
+  };
   return (
-    <div className="">
-      <div className="">
+    <main>
+      <div>
         {imagePreview ? (
           <div className="flex items-center justify-center">
             <Image
@@ -86,6 +179,46 @@ export default function UploadSlip() {
           </Modal>
         </div>
       </div>
-    </div>
+      {showButton ? (
+        <div className="flex mt-5 text-center">
+          {isEditPage ? (
+            <button
+              className="bg-white border-[2px] border-fern px-8 py-1 mr-10 text-fern font-medium rounded-full"
+              onClick={back}
+            >
+              Back
+            </button>
+          ) : (
+            <div className="px-[7%]"></div>
+          )}
+          <button
+            className="bg-white border-[2px] border-rose-500 px-8 py-1 mr-10 text-rose-500 font-medium rounded-full"
+            onClick={cancelUpload}
+          >
+            Cancel
+          </button>
+          <button
+            className="border-[2px] border-fern bg-fern px-10 py-1 text-white font-medium rounded-full"
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
+        </div>
+      ) : null}
+      <div
+        className={`popup ${
+          showPopup ? "" : "hidden"
+        } my-5 mx-[15%] py-4 px-5 w-[70%] bg-emerald-50 rounded-lg flex flex-row`}
+      >
+        <Image
+          src="/img/Check.jpg"
+          width={25}
+          height={25}
+          alt="checkbox"
+          className="mr-5"
+        />
+        Successfully upload!
+      </div>
+    </main>
   );
 }

@@ -1,15 +1,9 @@
 "use client";
-import { qrcode, checkBox } from "public/img";
-import { useRouter, useSearchParams } from "next/navigation";
-import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import React, { ReactNode, useState, useEffect } from "react";
 import { getSession, useSession } from "next-auth/react";
 import { PaymentItem } from "interface";
-import {
-  createPromptpayQR,
-  getTransaction,
-  createTransactionSlip,
-} from "@/libs";
+import { createPromptpayQR, getTransaction } from "@/libs";
 import {
   QrCodeComponent,
   PaymentInformationDetail,
@@ -17,10 +11,6 @@ import {
 } from "@/components";
 
 export default function PaymentPage() {
-  // This use State is for save image data
-  const [imagePreview, setImagePreview] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
   const [name, setName] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
   const [rentDate, setRentDate] = useState<Date>();
@@ -28,7 +18,6 @@ export default function PaymentPage() {
   const [promptpayQr, setPromptpayQr] = useState<ReactNode | null>(null);
   const [campgroundPrice, setCampgroundPrice] = useState<String | null>();
 
-  const router = useRouter();
   const { data: session } = useSession();
 
   const urlParams = useSearchParams();
@@ -68,30 +57,6 @@ export default function PaymentPage() {
     fetchData(); // Call the async function immediately
   }, [tid]);
 
-  // This function is for recieve the image data from user
-
-  //   This function just for alert to see what we have got from user.
-  //   Note that if in backend wnat to use it, you need to do these steps
-  //        1. Convert the URL --> base64
-  //        2. Convert base64 --> Buffer
-  const handleSubmit = () => {
-    console.log("imagePreview ", imagePreview);
-    if (imagePreview != null) {
-      if (session.user && tid) {
-        createTransactionSlip(session.user.token, tid, imagePreview);
-        setShowPopup(true);
-      }
-
-      // Hide the popup after 3 seconds
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 1500);
-      router.push("/dashboard");
-    } else {
-      alert("Please upload Slip");
-    }
-  };
-
   return (
     <div className=" flex justify-center items-center p-10 flex-col">
       <div className="text-5xl font-black font-bold text-center">
@@ -117,39 +82,10 @@ export default function PaymentPage() {
         {/* Third Column */}
         <div className="flex justify-center flex-col pr-[5vw] rounded-[50px]">
           <div className="pt-7 font-medium text-xl">
-            Please upload your receipt{" "}
+            Please upload your receipt
           </div>
-          <UploadSlip />
-          <div className="flex flex-row p-5 justify-around">
-            <div
-              className="border border-green-600 border-solid py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-green-700 font-bold hover:cursor-pointer"
-              onClick={() => {
-                window.location.reload();
-              }}
-            >
-              {" "}
-              Cancel{" "}
-            </div>
-            <div
-              className="bg-fern py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-white font-bold hover:cursor-pointer"
-              onClick={() => {
-                handleSubmit();
-                // router.push("/dashboard");
-              }}
-            >
-              {" "}
-              Submit{" "}
-            </div>
-          </div>
+          <UploadSlip token={session.user.token} tid={tid} isEditPage={false} />
         </div>
-      </div>
-      <div
-        className={`popup ${
-          showPopup ? "" : "hidden"
-        } absolute top-2/3 my-[15vh] py-4 px-5 w-[45%] bg-[#EEFFF7] rounded-lg flex flex-row`}
-      >
-        <Image src={checkBox} alt="checkbox" className="mr-5" />
-        Successfully upload!
       </div>
     </div>
   );
