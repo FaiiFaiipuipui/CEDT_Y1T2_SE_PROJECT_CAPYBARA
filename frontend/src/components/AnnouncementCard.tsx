@@ -20,7 +20,7 @@ export default async function AnnouncementCard({
       <div className="text-sm font-semibold text-left pb-5">{campground}</div>
       <div className="text-sm text-left pb-5">{content}</div>
       <div className="flex flex-wrap">
-        {!isNaN(new Date(endDate).getTime()) ? (
+        {(!isNaN(new Date(endDate).getTime()) && new Date(endDate).getTime() !== 0) ? (
           <div className="text-sm font-semibold pb-2 text-left pr-[33%]">
             until {endDate.toDateString()}
           </div>
