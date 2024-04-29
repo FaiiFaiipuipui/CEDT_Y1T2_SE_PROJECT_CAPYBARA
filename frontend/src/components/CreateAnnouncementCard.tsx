@@ -32,41 +32,6 @@ export default function CreateAnnouncementCard({
   const handleNoEndDateChange = (e) => {
     setNoEndDate(e.target.checked);
   };
-  // const onSubmit = () => {
-  //   if (title && startDate && content && selectedCampground && profileName) {
-  //     const announcementItem: AnnouncementItemForCreateAndEdit = {
-  //       cid: selectedCampground,
-  //       title: title,
-  //       content: content,
-  //       startDate: startDate,
-  //       if (endDate!==null) {endDate: endDate,},
-  //       author: profileName,
-  //     };
-  //     const addAnnouncement = async () => {
-  //       await createAnnouncement(session.user.token, announcementItem);
-  //     };
-  //     addAnnouncement();
-  //     alert("Successfully add Annnouncement!!");
-  //     console.log("///////");
-  //     console.log(title);
-  //     console.log(content);
-  //     console.log(selectedCampground);
-  //     console.log(startDate);
-  //     console.log(endDate);
-  //     console.log(profileName);
-  //     console.log("///////");
-  //   } else {
-  //     alert("Please fill in the missing field!");
-  //     console.log("///////");
-  //     console.log(title);
-  //     console.log(content);
-  //     console.log(selectedCampground);
-  //     console.log(startDate);
-  //     console.log(endDate);
-  //     console.log(profileName);
-  //     console.log("///////");
-  //   }
-  // };
 
   const onSubmit = async () => {
     if (title && startDate && content && selectedCampground && profileName) {
