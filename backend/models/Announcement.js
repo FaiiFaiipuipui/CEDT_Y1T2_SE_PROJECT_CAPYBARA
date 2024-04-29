@@ -16,7 +16,6 @@ const AnnouncementSchema = new mongoose.Schema({
   },
   endDate: {
     type: Date,
-    required: ["Please add an end date or set it to null", true],
   },
   campground: {
     type: mongoose.Schema.Types.ObjectId,

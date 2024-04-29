@@ -122,6 +122,6 @@ export interface AnnouncementItemForCreateAndEdit {
   title: string;
   content: string;
   startDate: Date;
-  endDate: Date;
+  endDate?: Date;
   author: string;
 }
