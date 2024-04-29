@@ -2,9 +2,10 @@ import { AnnouncementItem, AnnouncementJson } from "interface";
 import AnnouncementCard from "./AnnouncementCard";
 
 export default async function AnnouncementCatalog({
-  announcementJson,
+  announcementJson, userRole
 }: {
   announcementJson: any;
+  userRole: string;
 }) {
   const announcementJsonReady = await announcementJson;
   console.log(announcementJsonReady);
@@ -24,6 +25,7 @@ export default async function AnnouncementCatalog({
       return afterStartRange && beforeEndRange;
     }
   );
+
   return (
     <main>
       {announcementJsonFiltered?.map((announcementItem: AnnouncementItem) => (
@@ -34,6 +36,9 @@ export default async function AnnouncementCatalog({
           content={announcementItem.content}
           startDate={new Date(announcementItem.startDate)}
           endDate={new Date(announcementItem.endDate)}
+          campgroundId={announcementItem.campground._id}
+          announcementId={announcementItem._id}
+          userRole={userRole}
         />
       ))}
     </main>
