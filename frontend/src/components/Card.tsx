@@ -12,7 +12,7 @@ export default function Card({
 }) {
   return (
     <InteractiveCard >
-      <div id="campground-card" className="w-full h-[70%] relative rounded-t-lg">
+      <div id="campground-card" className="campground-card w-full h-[70%] relative rounded-t-lg">
         <Image
           src={imgSrc}
           alt="Campground Picture"
