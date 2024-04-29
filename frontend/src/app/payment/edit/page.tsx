@@ -6,9 +6,6 @@ import { useSession } from "next-auth/react";
 import { getTransaction, createPromptpayQR } from "@/libs";
 import { PaymentItem } from "interface";
 import { QrCodeComponent, UploadSlip } from "@/components";
-import { Button } from "@mui/material";
-import Modal from "react-modal";
-import Resizer from "react-image-file-resizer";
 
 export default function PaymentPage() {
   const [name, setName] = useState<string>("");
@@ -59,73 +56,6 @@ export default function PaymentPage() {
     document.getElementById("showQr").style.display = "none";
   };
 
-
-  const resizeFile = (file, callback) => {
-    try {
-      Resizer.imageFileResizer(
-        file,
-        1080,
-        1080,
-        "JPEG",
-        100,
-        0,
-        (uri) => {
-          // Callback with the resized file
-          callback(uri);
-        },
-        "base64"
-      );
-    } catch (err) {
-      console.log("Fail to resize the file: " + err);
-    }
-  };
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-
-      console.log('originalFile instanceof Blob', file instanceof Blob); // true
-      console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
-
-      //resize image before setImagePreview
-      resizeFile(file, (resizedFileBase64) => {
-        console.log('Resized file size:' + resizedFileBase64.length / 1024 / 1024 + ' MB');
-        console.log('Resize Image Base64: ' + resizedFileBase64);
-
-        reader.onloadend = () => {
-          // setImagePreview(reader.result);
-          setImagePreview(resizedFileBase64);
-        };
-
-        //Show Image Preview
-        if (resizedFileBase64) {
-          // Convert base64 string to Blob
-          const byteCharacters = atob(resizedFileBase64.split(',')[1]);
-          const byteNumbers = new Array(byteCharacters.length);
-          for (let i = 0; i < byteCharacters.length; i++) {
-            byteNumbers[i] = byteCharacters.charCodeAt(i);
-          }
-          const byteArray = new Uint8Array(byteNumbers);
-          const blob = new Blob([byteArray], { type: 'image/jpeg' });
-
-          reader.readAsDataURL(blob);
-        }
-      });
-
-    }
-    catch (err) {
-      console.log(err);
-    }
-  };
-
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
   return (
     <main className="text-center p-5 mx-[8%]">
       <div className="text-4xl font-bold m-10 text-left">Edit Payment</div>

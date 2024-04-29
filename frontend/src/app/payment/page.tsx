@@ -9,9 +9,6 @@ import {
   PaymentInformationDetail,
   UploadSlip,
 } from "@/components";
-import { Button } from "@mui/material";
-import Modal from "react-modal";
-import Resizer from "react-image-file-resizer";
 
 export default function PaymentPage() {
   const [name, setName] = useState<string>("");

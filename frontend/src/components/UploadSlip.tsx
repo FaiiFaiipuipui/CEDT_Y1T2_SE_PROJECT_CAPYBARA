@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import { createTransactionSlip } from "@/libs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Resizer from "react-image-file-resizer";
 
 export default function UploadSlip({
   token,
@@ -22,16 +23,62 @@ export default function UploadSlip({
   const router = useRouter();
   const { data: session } = useSession();
 
+  const resizeFile = (file, callback) => {
+    try {
+      Resizer.imageFileResizer(
+        file,
+        1080,
+        1080,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          // Callback with the resized file
+          callback(uri);
+        },
+        "base64"
+      );
+    } catch (err) {
+      console.log("Fail to resize the file: " + err);
+    }
+  };
+
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+    try {
+      const file = event.target.files[0];
+      const reader = new FileReader();
 
-    reader.onloadend = () => {
-      setImagePreview(reader.result);
-    };
+      console.log("originalFile instanceof Blob", file instanceof Blob); // true
+      console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
 
-    if (file) {
-      reader.readAsDataURL(file);
+      //resize image before setImagePreview
+      resizeFile(file, (resizedFileBase64) => {
+        console.log(
+          "Resized file size:" + resizedFileBase64.length / 1024 / 1024 + " MB"
+        );
+        console.log("Resize Image Base64: " + resizedFileBase64);
+
+        reader.onloadend = () => {
+          // setImagePreview(reader.result);
+          setImagePreview(resizedFileBase64);
+        };
+
+        //Show Image Preview
+        if (resizedFileBase64) {
+          // Convert base64 string to Blob
+          const byteCharacters = atob(resizedFileBase64.split(",")[1]);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: "image/jpeg" });
+
+          reader.readAsDataURL(blob);
+        }
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 
