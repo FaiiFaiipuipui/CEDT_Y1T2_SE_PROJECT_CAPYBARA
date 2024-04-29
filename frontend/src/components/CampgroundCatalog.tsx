@@ -14,6 +14,7 @@ export default async function CampgroundCatalog({
         <div id="campground-selected-card" key={campgroundItem._id} className="min-w-[300px] w-1/2 my-10 px-[2%]">
           <Link
             href={`/campground/${campgroundItem._id}`}
+            id={campgroundItem._id}
           >
             <Card
               campgroundName={campgroundItem.name}

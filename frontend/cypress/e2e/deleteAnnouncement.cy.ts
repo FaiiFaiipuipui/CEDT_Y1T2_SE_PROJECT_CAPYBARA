@@ -1,6 +1,7 @@
 describe('Test filtering function', () => {
 
     beforeEach(() => {
+      cy.viewport(1440, 800);
       cy.visit("http://localhost:3000");
   
       cy.get("button").contains("SIGN IN").click();
@@ -27,7 +28,7 @@ describe('Test filtering function', () => {
 
       cy.wait(1000);
 
-      cy.get("#campground-selected-card").contains("อุทยานแห่งชาติดอยอินทนนท์").click();
+      cy.get("a#66191db24f65e3b7f5ac618e").click();
       cy.url().should("eq", "http://localhost:3000/campground/66191db24f65e3b7f5ac618e");
       
       cy.wait(1000);
