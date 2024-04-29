@@ -26,6 +26,8 @@ export default async function AnnouncementCatalog({
     }
   );
 
+  console.log(announcementJsonFiltered.length);
+
   return (
     <main>
       {announcementJsonFiltered?.map((announcementItem: AnnouncementItem) => (
