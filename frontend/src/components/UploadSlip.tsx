@@ -2,10 +2,25 @@ import Image from "next/image";
 import { useState } from "react";
 import { Button } from "@mui/material";
 import Modal from "react-modal";
+import { createTransactionSlip } from "@/libs";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-export default function UploadSlip() {
+export default function UploadSlip({
+  token,
+  tid,
+  isEditPage,
+}: {
+  token: string;
+  tid: string;
+  isEditPage: boolean;
+}) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [showButton, setShowButton] = useState(true);
+  const router = useRouter();
+  const { data: session } = useSession();
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files[0];
@@ -20,6 +35,24 @@ export default function UploadSlip() {
     }
   };
 
+  const handleSubmit = () => {
+    if (imagePreview != null) {
+      if (session.user && tid) {
+        createTransactionSlip(token, tid, imagePreview);
+        setShowButton(false);
+        setShowPopup(true);
+      }
+
+      // Hide the popup after 3 seconds
+      setTimeout(() => {
+        setShowPopup(false);
+        router.push("/dashboard");
+      }, 3000);
+    } else {
+      alert("Please upload Slip");
+    }
+  };
+
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -27,9 +60,22 @@ export default function UploadSlip() {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  const back = () => {
+    if (isEditPage) {
+      document.getElementById("upload").style.display = "none";
+      document.getElementById("showQr").style.display = "block";
+    } else {
+      router.push("/dashboard");
+    }
+  };
+
+  const cancelUpload = () => {
+    setImagePreview(null);
+  };
   return (
-    <div className="">
-      <div className="">
+    <main>
+      <div>
         {imagePreview ? (
           <div className="flex items-center justify-center">
             <Image
@@ -86,6 +132,46 @@ export default function UploadSlip() {
           </Modal>
         </div>
       </div>
-    </div>
+      {showButton ? (
+        <div className="flex mt-5 text-center">
+          {isEditPage ? (
+            <button
+              className="bg-white border-[2px] border-fern px-8 py-1 mr-10 text-fern font-medium rounded-full"
+              onClick={back}
+            >
+              Back
+            </button>
+          ) : (
+            <div className="px-[7%]"></div>
+          )}
+          <button
+            className="bg-white border-[2px] border-rose-500 px-8 py-1 mr-10 text-rose-500 font-medium rounded-full"
+            onClick={cancelUpload}
+          >
+            Cancel
+          </button>
+          <button
+            className="border-[2px] border-fern bg-fern px-10 py-1 text-white font-medium rounded-full"
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
+        </div>
+      ) : null}
+      <div
+        className={`popup ${
+          showPopup ? "" : "hidden"
+        } my-5 mx-[15%] py-4 px-5 w-[70%] bg-emerald-50 rounded-lg flex flex-row`}
+      >
+        <Image
+          src="/img/Check.jpg"
+          width={25}
+          height={25}
+          alt="checkbox"
+          className="mr-5"
+        />
+        Successfully upload!
+      </div>
+    </main>
   );
 }

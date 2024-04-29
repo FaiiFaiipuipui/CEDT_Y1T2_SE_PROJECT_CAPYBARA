@@ -1,22 +1,13 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import Image from "next/image";
 import React, { ReactNode, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import {
-  getTransaction,
-  createTransactionSlip,
-  createPromptpayQR,
-} from "@/libs";
+import { getTransaction, createPromptpayQR } from "@/libs";
 import { PaymentItem } from "interface";
 import { QrCodeComponent, UploadSlip } from "@/components";
 
 export default function PaymentPage() {
-  // This use State is for save image data
-  const [imagePreview, setImagePreview] = useState(null);
-  const [showPopup, setShowPopup] = useState(false);
-
   const [name, setName] = useState<string>("");
   const [rentDate, setRentDate] = useState<string>("");
   const [campgroundName, setCampgroundName] = useState<string>("");
@@ -60,42 +51,16 @@ export default function PaymentPage() {
     fetchData(); // Call the async function immediately
   }, [tid]);
 
-  const handleSubmit = () => {
-    if (imagePreview != null) {
-      if (session.user && tid) {
-        createTransactionSlip(session.user.token, tid, imagePreview);
-        setShowPopup(true);
-      }
-
-      // Hide the popup after 3 seconds
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 3000);
-
-      router.push("/dashboard");
-    } else {
-      alert("Please upload Slip");
-    }
-  };
-
   const nextUpload = () => {
     document.getElementById("upload").style.display = "block";
     document.getElementById("showQr").style.display = "none";
-  };
-  const back = () => {
-    document.getElementById("upload").style.display = "none";
-    document.getElementById("showQr").style.display = "block";
-  };
-
-  const cancelUpload = () => {
-    setImagePreview(null);
   };
 
   return (
     <main className="text-center p-5 mx-[8%]">
       <div className="text-4xl font-bold m-10 text-left">Edit Payment</div>
 
-      <div className="flex felx-row">
+      <div className="flex flex-row">
         <div className="bg-cadetblue ml-10 p-11 text-left text-lg rounded-l-[50px] w-1/2 border-ash border-y-2 border-l-2">
           <div className="m-8">
             <div className="font-semibold">Name</div>
@@ -152,7 +117,10 @@ export default function PaymentPage() {
         >
           <QrCodeComponent campgroundPrice={price} promptpayQr={promptpayQr} />
           <div className="mt-9 text-center">
-            <button className="bg-white border-[2px] border-fern px-8 py-1 mr-10 text-fern font-medium rounded-full">
+            <button
+              className="bg-white border-[2px] border-fern px-8 py-1 mr-10 text-fern font-medium rounded-full"
+              onClick={() => router.push("/dashboard")}
+            >
               Cancel
             </button>
             <button
@@ -171,44 +139,13 @@ export default function PaymentPage() {
             Upload new receipt
           </div>
           <div className="mx-10 mb-20">
-            <UploadSlip />
-          </div>
-          <div className="mt-5 text-center">
-            <button
-              className="bg-white border-[2px] border-fern px-8 py-1 mr-10 text-fern font-medium rounded-full"
-              onClick={back}
-            >
-              Back
-            </button>
-            <button
-              className="bg-white border-[2px] border-rose-500 px-8 py-1 mr-10 text-rose-500 font-medium rounded-full"
-              onClick={cancelUpload}
-            >
-              Cancel
-            </button>
-            <button
-              className="border-[2px] border-fern bg-fern px-10 py-1 text-white font-medium rounded-full"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
+            <UploadSlip
+              token={session.user.token}
+              tid={tid}
+              isEditPage={true}
+            />
           </div>
         </div>
-      </div>
-
-      <div
-        className={`popup ${
-          showPopup ? "" : "hidden"
-        } my-20 mx-[30%] py-4 px-5 w-[45%] bg-[#EEFFF7] rounded-lg flex flex-row`}
-      >
-        <Image
-          src="/img/Check.jpg"
-          width={32}
-          height={32}
-          alt="checkbox"
-          className="mr-5"
-        />
-        Successfully upload!
       </div>
     </main>
   );
