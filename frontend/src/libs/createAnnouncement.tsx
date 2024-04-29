@@ -23,7 +23,7 @@ export default async function createAnnouncement(
     }
   );
   if (!response.ok) {
-    console.log(response);
+    // console.log(response);
     throw new Error("Cannot create Announcement");
   }
   return await response.json();

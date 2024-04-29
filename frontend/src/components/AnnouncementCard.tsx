@@ -11,17 +11,19 @@ export default async function AnnouncementCard({
   content: string;
   endDate: Date;
 }) {
-  console.log(endDate);
-
   return (
     <div className="bg-white rounded-[20px] py-[6%] px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
       <div className="text-left font-semibold text-xl pb-2">{title}</div>
       <div className="border-t-2 border-black pb-2"></div>
       <div className="text-sm font-semibold text-left pb-5">{campground}</div>
       <div className="text-sm text-left pb-5">{content}</div>
-      <div className="flex flex-wrap">
-        <div className="text-sm font-semibold text-left">
-          until {endDate ? endDate.toDateString() : "-"}
+      <div className="flex flex-wrap justify-between items-center">
+        <div className="text-sm font-semibold text-left ">
+          {endDate.toString() !== "Invalid Date" && endDate ? (
+            <span>until {endDate.toDateString()}</span>
+          ) : (
+            <span className="text-gray-500">NO END DATE</span>
+          )}
         </div>
 
         <div className="flex flex-row right-0 z-30">
