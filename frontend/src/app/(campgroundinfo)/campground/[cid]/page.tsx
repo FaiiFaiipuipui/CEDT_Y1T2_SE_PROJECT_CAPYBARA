@@ -73,15 +73,15 @@ export default async function CampgroundDetailPage({
           </div>
 
           <div className="text-center my-5">
-            <div className="h-[300px] overflow-y-auto mt-10">
-              <div className="bg-emerald-100 rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
-                <div className="flex flex-row">
-                  <div className="text-3xl font-medium mt-[20px] ml-[5px] text-left text-black">
+            <div className="h-[300px] overflow-y-auto mt-10 rounded-[20px]">
+              <div className="bg-emerald-100 py-6 px-10 max-w-lg min-w-sm w-full border-lg border-green-500">
+                <div className="flex flex-row justify-between items-center mt-[15px]">
+                  <div className="text-3xl font-medium text-left text-black">
                     Announcement
                   </div>
                   <button>
                     <svg
-                      className="my-5 ml-40"
+                      className="my-5"
                       width="41"
                       height="39"
                       viewBox="0 0 41 39"

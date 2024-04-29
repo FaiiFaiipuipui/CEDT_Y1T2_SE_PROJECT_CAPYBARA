@@ -11,17 +11,17 @@ export default async function CampgroundCatalog({
   return (
     <div className="flex flex-row flex-wrap place-items-around justify-around">
       {campgroundJsonReady.data.map((campgroundItem: CampgroundItem) => (
-        <Link
-          href={`/campground/${campgroundItem._id}`}
-          key={campgroundItem._id}
-          className="w-1/2 my-10 px-[2%]"
-        >
-          <Card
-            campgroundName={campgroundItem.name}
-            imgSrc={campgroundItem.picture}
-            campgroundProvince={campgroundItem.province}
-          />
-        </Link>
+        <div id="campground-selected-card" key={campgroundItem._id} className="min-w-[300px] w-1/2 my-10 px-[2%]">
+          <Link
+            href={`/campground/${campgroundItem._id}`}
+          >
+            <Card
+              campgroundName={campgroundItem.name}
+              imgSrc={campgroundItem.picture}
+              campgroundProvince={campgroundItem.province}
+            />
+          </Link>
+          </div>
       ))}
     </div>
   );
