@@ -29,6 +29,7 @@ export default function AnnouncementCard({
   const toggle = () => {
     setHidden(!hidden);
   };
+
   return (
     <div className="">
       {!hidden ? (
@@ -41,7 +42,7 @@ export default function AnnouncementCard({
           <div className="text-sm text-left pb-5">{content}</div>
           <div className="flex flex-row justify-between items-center">
             <div className="text-sm font-semibold text-left">
-              until {endDate.toDateString()}
+              {/* until {endDate.toDateString()} */}
             </div>
 
             { userRole === "admin" ? (<div className="flex flex-row z-30">

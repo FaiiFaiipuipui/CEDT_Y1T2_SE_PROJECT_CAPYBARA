@@ -18,7 +18,7 @@ export default async function AnnouncementCatalog({
           campground={announcementItem.campground.name}
           content={announcementItem.content}
           startDate={new Date(announcementItem.startDate)}
-          endDate={new Date(announcementItem.endDate)}
+          endDate={announcementItem.endDate? new Date(announcementItem.endDate):null}
           campgroundId={announcementItem.campground._id}
           announcementId={announcementItem._id}
           userRole={userRole}
