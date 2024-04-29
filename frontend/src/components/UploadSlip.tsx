@@ -47,21 +47,25 @@ export default function UploadSlip() {
             </div>
           </div>
         ) : (
-          <div className="flex justify-center items-center bg-emerald-50 w-full min-h-[30vh] mt-8 cursor-default normal-case rounded-[20px]">
-            <button
-              className="mt-2 border-[2px] border-fern bg-fern px-10 py-2 text-white rounded-full"
-              onClick={() => document.getElementById("file-upload").click()}
+          <Button
+            variant="contained"
+            component="label"
+            className="bg-emerald-50 w-[100%] min-h-[30vh] mt-8 hover:bg-emerald-50 flex flex-col text-black cursor-default normal-case rounded-[20px]"
+          >
+            <label
+              htmlFor="file-upload"
+              className="w-[10vw] h-[5vh] flex items-center justify-center block rounded-[20vh] bg-[#009a62] p-2 mt-2 text-white cursor-pointer shadow-xl"
             >
-              Browse file
-            </button>
-            <input
-              id="file-upload"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={(event) => handleFileUpload(event)}
-            />
-          </div>
+              <span>Browse file</span>
+              <input
+                id="file-upload"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(event) => handleFileUpload(event)}
+              />
+            </label>
+          </Button>
         )}
         <div onClick={closeModal}>
           <Modal

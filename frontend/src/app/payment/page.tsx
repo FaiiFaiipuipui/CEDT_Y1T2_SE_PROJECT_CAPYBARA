@@ -117,26 +117,29 @@ export default function PaymentPage() {
         {/* Third Column */}
         <div className="flex justify-center flex-col pr-[5vw] rounded-[50px]">
           <div className="pt-7 font-medium text-xl">
-            Please upload your receipt
+            Please upload your receipt{" "}
           </div>
           <UploadSlip />
           <div className="flex flex-row p-5 justify-around">
-            <button
+            <div
               className="border border-green-600 border-solid py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-green-700 font-bold hover:cursor-pointer"
               onClick={() => {
                 window.location.reload();
               }}
             >
-              Cancel
-            </button>
-            <button
+              {" "}
+              Cancel{" "}
+            </div>
+            <div
               className="bg-fern py-1 lg:px-8 px-2 border-2 rounded-[5vh] text-white font-bold hover:cursor-pointer"
               onClick={() => {
                 handleSubmit();
+                // router.push("/dashboard");
               }}
             >
-              Submit
-            </button>
+              {" "}
+              Submit{" "}
+            </div>
           </div>
         </div>
       </div>
