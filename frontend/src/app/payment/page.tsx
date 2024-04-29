@@ -9,6 +9,9 @@ import {
   PaymentInformationDetail,
   UploadSlip,
 } from "@/components";
+import { Button } from "@mui/material";
+import Modal from "react-modal";
+import Resizer from "react-image-file-resizer";
 
 export default function PaymentPage() {
   const [name, setName] = useState<string>("");
@@ -82,7 +85,7 @@ export default function PaymentPage() {
         {/* Third Column */}
         <div className="flex justify-center flex-col pr-[5vw] rounded-[50px]">
           <div className="pt-7 font-medium text-xl">
-            Please upload your receipt{" "}
+            Please upload your receipt
           </div>
           <UploadSlip token={session.user.token} tid={tid} isEditPage={false} />
         </div>
