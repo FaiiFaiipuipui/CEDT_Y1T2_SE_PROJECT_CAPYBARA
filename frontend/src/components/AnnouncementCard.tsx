@@ -29,7 +29,11 @@ export default async function AnnouncementCard({
           <div className="text-sm font-semibold pb-2 text-left pr-[33%]">
             until {endDate.toDateString()}
           </div>
-        ) : null}
+        ) : (
+          <div className="text-sm font-semibold pb-2 text-left pr-[33%]">
+            until -
+          </div>
+        )}
 
         <div className="flex flex-row right-0 z-30">
           <button>
