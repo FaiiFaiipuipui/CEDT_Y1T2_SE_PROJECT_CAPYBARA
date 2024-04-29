@@ -14,8 +14,7 @@ exports.getAnnouncements = async (req, res, next) => {
       path: "campground",
       select: "name",
     });
-  }
-  else {
+  } else {
     query = Announcement.find().populate({
       path: "campground",
       select: "name",
@@ -73,9 +72,9 @@ exports.getAnnouncement = async (req, res, next) => {
 exports.createAnnouncement = async (req, res, next) => {
   try {
     if (req.body.endDate < req.body.startDate) {
-      return res.status(422).json({ success: false, message: "End date's time must be after start date's time" });
+      return res.status(401).json({ success: false, message: "End date's time must be after start date's time" });
     }
-    
+
     const announcement = await Announcement.create(req.body);
     res.status(201).json({
       success: true,
@@ -94,7 +93,36 @@ exports.createAnnouncement = async (req, res, next) => {
 // @access:  Private
 exports.updateAnnouncement = async (req, res, next) => {
   try {
-    const announcement = await Announcement.findByIdAndUpdate(
+    let announcement = await Announcement.findById(
+      req.params.id
+    );
+
+    console.log(req.body);
+    console.log(announcement);
+
+    if (!announcement) {
+      return res.status(400).json({ success: false });
+    }
+
+    if (req.body.endDate && req.body.startDate) {
+      if (req.body.endDate < req.body.startDate) {
+        return res.status(401).json({ success: false, message: "End date's time must be after start date's time" });
+      }
+    }
+
+    if (req.body.endDate) {
+      if (req.body.endDate < announcement.startDate) {
+        return res.status(401).json({ success: false, message: "End date's time must be after start date's time" });
+      }
+    }
+
+    if (req.body.startDate) {
+      if (announcement.endDate < req.body.startDate) {
+        return res.status(401).json({ success: false, message: "End date's time must be after start date's time" });
+      }
+    }
+
+    announcement = await Announcement.findByIdAndUpdate(
       req.params.id,
       req.body,
       {
@@ -103,10 +131,6 @@ exports.updateAnnouncement = async (req, res, next) => {
       }
     );
 
-    if (!announcement) {
-      return res.status(400).json({ success: false });
-    }
-
     res.status(200).json({
       success: true,
       data: announcement,
@@ -114,7 +138,35 @@ exports.updateAnnouncement = async (req, res, next) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      message: "Cannot update Announcement"
+      message: "Cannot update Announcement",
     });
+  }
+};
+
+// @desc    Delete announcement
+// @route   DELETE /api/v1/announcement/:id
+// @access  Private
+exports.deleteAnnouncement = async (req, res, next) => {
+  try {
+    const announcement = await Announcement.findById(req.params.id);
+
+    if (!announcement) {
+      return res.status(404).json({
+        success: false,
+        message: `No announcement with the id of ${req.params.id}`,
+      });
+    }
+
+    await announcement.deleteOne();
+
+    res.status(200).json({
+      success: true,
+      data: {},
+    });
+  } catch (err) {
+    console.log(err.stack);
+    return res
+      .status(500)
+      .json({ success: false, message: "Cannot delete Announcement" });
   }
 };
