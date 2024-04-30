@@ -107,9 +107,10 @@ export default async function CampgroundDetailPage({
                     </svg>
                   </button>
                 </div>
-                <AnnouncementCatalog announcementJson={announcement} />
-                <EditAnnouncementCard />
-                <CreateAnnouncementCard />
+                <AnnouncementCatalog
+                  announcementJson={announcement}
+                  userRole={profile.data.role}
+                />
               </div>
             </div>
           </div>
