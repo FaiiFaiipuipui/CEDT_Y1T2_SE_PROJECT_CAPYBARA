@@ -35,7 +35,7 @@ describe("Test create transaction function", () => {
       expect(str).to.equal("Please upload Slip");
     });
   });
-
+ 
   it("Upload not image file type to a transaction", () => {
     cy.get("button").contains("DASHBOARD").click();
     cy.wait(1000);
