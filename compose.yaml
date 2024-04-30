@@ -1,0 +1,19 @@
+services:
+  capy_fe:
+    build: ./frontend/
+    ports:
+      - "443:3000"
+    networks:
+      - app-network
+    environment:
+      - NEXT_PUBLIC_BACKEND_URL=http://CAPYBARAbackend:5000
+
+  capy_be:
+    build: ./backend/
+    ports:
+      - "5000:5000"
+    networks:
+    - app-network
+
+networks:
+  app-network: {}
