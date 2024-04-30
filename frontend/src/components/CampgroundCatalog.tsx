@@ -11,10 +11,9 @@ export default async function CampgroundCatalog({
   return (
     <div className="flex flex-row flex-wrap place-items-around justify-around">
       {campgroundJsonReady.data.map((campgroundItem: CampgroundItem) => (
-        <div id="campground-selected-card" key={campgroundItem._id} className="min-w-[300px] w-1/2 my-10 px-[2%]">
-          <Link
+          <Link key={campgroundItem._id}
             href={`/campground/${campgroundItem._id}`}
-            id={campgroundItem._id}
+            id={campgroundItem._id} className="min-w-[300px] w-1/2 my-10 px-[2%]"
           >
             <Card
               campgroundName={campgroundItem.name}
@@ -22,7 +21,6 @@ export default async function CampgroundCatalog({
               campgroundProvince={campgroundItem.province}
             />
           </Link>
-          </div>
       ))}
     </div>
   );
