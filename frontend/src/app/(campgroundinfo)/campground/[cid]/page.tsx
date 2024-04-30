@@ -72,7 +72,7 @@ export default async function CampgroundDetailPage({
             <div className="text-md">{campgroundDetail.data.telephone}</div>
           </div>
 
-          <div className="text-center my-5">
+          <div id="announcement-card" className="announcement-card text-center my-5">
             <div className="h-[300px] overflow-y-auto mt-10">
               <div className="bg-emerald-100 rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
                 <div className="flex flex-row">
