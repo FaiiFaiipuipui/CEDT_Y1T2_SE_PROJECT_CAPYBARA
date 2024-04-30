@@ -159,6 +159,7 @@
  *      name: Announcement APIs
  *      description: APIs for getting, creating, updating, and deleting announcements.
  */
+
 /**
  * @swagger
  *  paths:
@@ -316,6 +317,7 @@
  *      name: Transaction APIs
  *      description: APIs for getting, creating, updating, and deleting transactions.
  */
+
 /**
  * @swagger
  *  paths:
@@ -455,6 +457,7 @@
  *      name: PromptpayQR APIs
  *      description: A promptpayQR for a transaction.
  */
+
 /**
  * @swagger
  * paths:
@@ -490,7 +493,6 @@
  *        500:
  *          description: Cannot create a promptpayQR for a transaction.
  */
-/**
 
 /** Transaction Slip */
 
@@ -500,6 +502,7 @@
  *      name: Transaction Slip APIs
  *      description: API for getting, and creating for transaction slips.
  */
+
 /**
  * @swagger
  *  paths:
@@ -610,14 +613,28 @@
  *        content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/User'
+ *                  required:
+ *                      - name
+ *                      - telephone
+ *                      - email
+ *                      - password
+ *                  properties:
+ *                      name:
+ *                          type: string
+ *                      telephone:
+ *                          type: string
+ *                      email:
+ *                          type: string
+ *                      password:
+ *                          type: string
+ *                      role:
+ *                          type: string
+ *                          default: "user"
  *      responses:
  *        200:
  *          description: Register successfully.
- *          content:
- *              application/json:
- *        400:
- *          description: Cannot create a the user's account.
+ *        500:
+ *          description: Cannot create the user's account.
  */
 /**
  * @swagger
@@ -647,33 +664,34 @@
  *          description: Not found user's account.
  *        401:
  *          description: Password incorrect.
+ *        500:
+ *          description: Cannot login to this system.
  */
 /**
  * @swagger
  * paths:
- *  /auth/login:
- *    post:
- *      summary: API for login.
+ *  /auth/me:
+ *    get:
+ *      summary: API for get user's information.
  *      tags:
  *        - User APIs
- *      requestBody:
- *        required: true
- *        content:
- *            application/json:
- *              schema:
- *                  required:
- *                    - email
- *                    - password
- *                  properties:
- *                      email:
- *                          type: string
- *                      password:
- *                          type: string
+ *      security:
+ *        - BearerAuth: []
  *      responses:
  *        200:
- *          description: Login successfully.
- *        400:
- *          description: Not found user's account.
- *        401:
- *          description: Password incorrect.
+ *          description: Get user's information successfully.
+ */
+/**
+ * @swagger
+ * paths:
+ *  /auth/logout:
+ *    get:
+ *      summary: API for logout.
+ *      tags:
+ *        - User APIs
+ *      security:
+ *        - BearerAuth: []
+ *      responses:
+ *        200:
+ *          description: Logout successfully.
  */
