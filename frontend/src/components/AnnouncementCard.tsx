@@ -56,10 +56,10 @@ export default function AnnouncementCard({
   return (
     <div className="">
       {!hidden ? (
-        <div className="bg-white rounded-[20px] py-[6%] px-10 my-5 max-w-full min-w-sm w-full border-lg border-green-500">
+        <div className="announcement-small-card bg-white rounded-[20px] py-[6%] px-10 my-5 max-w-full min-w-sm w-full border-lg border-green-500">
           <div className="text-left font-semibold text-xl pb-2">{title}</div>
           <div className="border-t-2 border-black pb-2"></div>
-          <div className="text-sm font-semibold text-left pb-5">
+          <div className="campground-announcement-name text-sm font-semibold text-left pb-5">
             {campground}
           </div>
           <div className="text-sm text-left pb-5">{content}</div>
