@@ -11,7 +11,7 @@ describe('Test getting announcements', () => {
 
     cy.get('button').contains('CAMPGROUND').click();
 
-    cy.get('#announcement-card').should('have.length.greaterThan', 0);
+    cy.get('.announcement-small-card').should('have.length.greaterThan', 0);
   });
 
   it('Announcements not exist in that campground', () => {
