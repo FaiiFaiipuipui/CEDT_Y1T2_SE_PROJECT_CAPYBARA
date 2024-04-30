@@ -2,7 +2,12 @@
 import React, { useState } from "react";
 import { Session } from "next-auth";
 import TransactionCard from "./TransactionCard";
-import { PaymentJson, PaymentItem, AppointmentJson, AppointmentItem } from "interface";
+import {
+  PaymentJson,
+  PaymentItem,
+  AppointmentJson,
+  AppointmentItem,
+} from "interface";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -27,7 +32,6 @@ export default function TransactionCatalog({
   session: Session;
   role: string;
 }) {
-
   const [statusFilter, setStatusFilter] = useState("Default");
   const statusList = [
     "Default",
@@ -111,13 +115,12 @@ export default function TransactionCatalog({
           </div>
           <div className="w-1/5"></div>
         </div>
-        {
-        statusFilter === "Default" ? (
+        {statusFilter === "Default" ? (
           <div>
-            {appointments.map(apptItem => (
+            {appointments.map((apptItem) => (
               <TransactionCard
                 key={apptItem._id}
-                user={apptItem.user.name}
+                user={apptItem.user?.name}
                 campground={apptItem.campground}
                 date={new Date(apptItem.apptDate)}
                 transaction={apptItem.transaction}
@@ -128,8 +131,10 @@ export default function TransactionCatalog({
         ) : (
           <div>
             {appointments
-              .filter(apptItem => apptItem.transaction.status === statusFilter)
-              .map(apptItem => (
+              .filter(
+                (apptItem) => apptItem.transaction.status === statusFilter
+              )
+              .map((apptItem) => (
                 <TransactionCard
                   key={apptItem._id}
                   user={apptItem.user.name}
@@ -141,7 +146,6 @@ export default function TransactionCatalog({
               ))}
           </div>
         )}
-
       </div>
     </main>
   );

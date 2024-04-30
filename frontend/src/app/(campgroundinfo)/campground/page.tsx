@@ -19,38 +19,39 @@ export default async function Campground() {
   const profile = await getUserDashboard(session.user.token);
   if (!campgrounds) return null;
   return (
-    <main className="text-center p-5 mx-[4%] flex flex-row">
-      <div className="bg-cadetblue rounded-[20px] py-2 pl-10 pr-6 my-10 w-[35%] flex flex-col h-full">
-        <div className="flex flex-col my-[3%] h-[700px] overflow-y-auto pr-2">
-          <Announcement />
-          <AnnouncementCatalog announcementJson={announcements} />
-          <CreateAnnouncementCard />
-          <EditAnnouncementCard />
+    <main className="text-center p-5 mx-[4%] flex flex-row ">
+      <div className="fixed  bg-cadetblue rounded-[20px]  pl-10 pr-6  w-[30%] flex flex-col h-[80%]">
+        <Announcement />
+        <div className=" flex flex-col my-[3%] h-[700px] overflow-y-auto pr-2">
+          <AnnouncementCatalog announcementJson={announcements} userRole={profile.data.role}/>
         </div>
       </div>
 
-      <div className="ml-[5%]">
-        <div className="text-4xl font-bold mt-10 mb-5 text-left">
-          Campground
+      <div className="absolute right-16 w-[57%] white overflow-y-auto">
+        <div className="sticky flex flex-row justify-between items-center mt-10 mb-5">
+          <div className="text-4xl font-bold text-left">Campground</div>
+
+          {profile.data.role === "admin" ? (
+            <Link href="/campground/manage/add">
+              <button className="bg-emerald-500 px-4 py-1 text-white font-medium rounded-full hover:bg-white hover:text-emerald-500 border-[2px] border-emerald-500">
+                Add Campground
+              </button>
+            </Link>
+          ) : null}
         </div>
 
-        {profile.data.role == "admin" ? (
-          <Link href="/campground/manage/add">
-            <button className="absolute top-[17%] right-[6%] bg-emerald-500 px-4 py-1 text-white font-medium rounded-full hover:bg-white hover:text-emerald-500 border-[2px] border-emerald-500">
-              Add Campground
-            </button>
-          </Link>
-        ) : null}
-        <Suspense
-          fallback={
-            <p>
-              Loading...
-              <LinearProgress />
-            </p>
-          }
-        >
-          <CampgroundCatalog campgroundJson={campgrounds} />
-        </Suspense>
+        <div className="mt-2">
+          <Suspense
+            fallback={
+              <p>
+                Loading...
+                <LinearProgress />
+              </p>
+            }
+          >
+            <CampgroundCatalog campgroundJson={campgrounds} />
+          </Suspense>
+        </div>
       </div>
     </main>
   );
