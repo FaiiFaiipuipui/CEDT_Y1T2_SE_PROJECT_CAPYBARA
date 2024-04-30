@@ -212,29 +212,49 @@
  */
 /**
  * @swagger
- *  paths:
- *    /announcements:
- *      post:
- *        summary: API for creating an announcement.
- *        tags:
- *          - Announcement APIs
- *        security:
- *          - BearerAuth: []
- *        requestBody:
- *          required: true
- *          content:
- *              application/json:
- *                schema:
- *                  $ref: '#/components/schemas/Announcement'
- *        responses:
- *          201:
- *            description: An announcements was successfully created.
- *            content:
- *              application/json:
- *                schema:
- *                    $ref: '#/components/schemas/Announcement'
- *          500:
- *            description: Cannot create an announcement.
+ * paths:
+ *   /announcements:
+ *     post:
+ *       summary: API for creating an announcement.
+ *       tags:
+ *         - Announcement APIs
+ *       security:
+ *         - BearerAuth: []
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required:
+ *                 - title
+ *                 - content
+ *                 - startDate
+ *                 - campground
+ *                 - author
+ *               properties:
+ *                 title:
+ *                   type: string   
+ *                 content:
+ *                   type: string   
+ *                 startDate:
+ *                   type: string
+ *                 endDate:
+ *                   type: string
+ *                 campground:
+ *                   type: string   
+ *                 author:
+ *                   type: string   
+ *       responses:
+ *         201:
+ *           description: An announcements was successfully created.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 items:
+ *                   $ref: '#/components/schemas/Announcement'
+ *         500:
+ *           description: Cannot create an announcement.
  */
 /**
  * @swagger
@@ -256,8 +276,20 @@
  *          required: true
  *          content:
  *              application/json:
- *                schema:
- *                  $ref: '#/components/schemas/Announcement'
+ *                  type: object
+ *                  properties:
+ *                      title:
+ *                          type: string   
+ *                      content:
+ *                          type: string   
+ *                      startDate:
+ *                          type: string
+ *                      endDate:
+ *                          type: string
+ *                      campground:
+ *                          type: string   
+ *                      author:
+ *                          type: string   
  *        responses:
  *          200:
  *            description: An announcements was successfully updated.
@@ -546,10 +578,11 @@
  *                  schema:
  *                      type: object
  *                      required: 
- *                          - transactionId
+ *                          - slip_image
  *                      properties:
- *                          transactionId:
+ *                          slip_image:
  *                              type: string
+ *                              format: byte
  *      responses:
  *        201:
  *          description: A transaction slip was successfully created.
