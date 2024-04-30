@@ -184,7 +184,7 @@ describe("announcement creation (admin)", () => {
         author: "Som",
       })
       .auth(adminJWT, { type: "bearer" })
-      .expect(401);
+      .expect(400);
   });
 
   it("TC9 should FAIL to create announcement", async () => {
@@ -202,7 +202,7 @@ describe("announcement creation (admin)", () => {
         author: "Som",
       })
       .auth(adminJWT, { type: "bearer" })
-      .expect(401);
+      .expect(400);
   });
 
   it("TC10 should SUCCEED in creating announcement", async () => {
