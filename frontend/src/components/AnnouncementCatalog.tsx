@@ -9,13 +9,13 @@ export default async function AnnouncementCatalog({
 }) {
   const announcementJsonReady = await announcementJson;
   console.log(announcementJsonReady);
-  const announcementJsonFiltered = announcementJsonReady?.data.filter(
+  const announcementJsonFiltered = (userRole !== 'admin') ? announcementJsonReady?.data.filter(
     (announcementItem: AnnouncementItem) => {
       const startDate = new Date(announcementItem.startDate);
       const endDate = new Date(announcementItem.endDate);
       console.log(announcementItem.title);
       console.log("Now: ", Date.now() - (Date.now() % 86400000));
-      console.log("sta: ", startDate.getTime());
+      console.log("Sta: ", startDate.getTime());
       console.log("End: ", endDate.getTime());
       const afterStartRange = Date.now() - (Date.now() % 86400000) >= startDate.getTime(); // StartDate is greater than midnight of today (calculated by: Now in millisecond - millisecond from today midnight till now)
       console.log("afterStartRange: ", afterStartRange);
@@ -24,7 +24,7 @@ export default async function AnnouncementCatalog({
       console.log("\n");
       return afterStartRange && beforeEndRange;
     }
-  );
+  ) : announcementJsonReady.data;
 
   console.log(announcementJsonFiltered.length);
 
