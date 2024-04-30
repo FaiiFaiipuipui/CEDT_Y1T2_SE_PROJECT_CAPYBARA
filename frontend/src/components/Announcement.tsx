@@ -21,7 +21,7 @@ export default function Announcement({ profile }: { profile: any }) {
       <div className="sticky flex flex-row">
         <div className="text-4xl font-bold my-10 text-left">Announcement</div>
         {profile.data.role === "admin" ? (
-          <button
+          <button id="createAnncButton"
             onClick={(e) => {
               console.log(createButtonIsClicked);
               openCreateAnnouncementCard();

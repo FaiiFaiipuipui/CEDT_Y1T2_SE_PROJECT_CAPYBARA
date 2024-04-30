@@ -1,0 +1,11 @@
+{
+    "title": "‘ข่าวด่วน’",
+    "content": "เตือนภัย ช่วงนี้อาจมีพายุฤดูร้อน…",
+    "campground": "อุทยานแห่งชาติทะเลบัน",
+    "startDate" : "2026-05-01",
+    "endDate" : "2026-06-01",
+    "startDateBeforeToday" : "2024-01-01",
+    "startDateBeToday" : "2024-04-30",
+    "startDateAfterEndDate" : "2026-07-01",
+    "startDateBeEndDate" : "2026-06-01"
+}
