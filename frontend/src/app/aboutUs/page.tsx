@@ -102,7 +102,7 @@ function scrollToElement(id) {
             </div>
 
             <div id="Model">
-                <RightMemberCard Name="Panisara Kanjanachotkamol" role="Cool designer" description="Introducing Panisara K., the epitome of hard work and dedication. Her unwavering commitment to excellence shines through in every task she undertakes. With her precision and drive, she&apos;s an invaluable asset to our team."
+                <RightMemberCard Name="Panisara Kanjanachotkamol" role="Cool designer" description="Meet Panisara K., another talented UI designer on our team, specializing in Figma. She adds her touch to the frontend code, bringing our designs to life with precision and creativity."
                 workList={["Implement API for generating payment QR code.",
                 "Design payment page.",
                 "Implement payment creation function.",
@@ -117,7 +117,7 @@ function scrollToElement(id) {
             </div>
 
             <div id="Caning">
-                <LeftMemberCard Name="Thawaree Khanjai" role="Enjoy eating code" description="Meet Thawaree, the creative mind driving the UI design of the website. With a primary focus on aesthetics and user experience, he also delves into coding to bring the vision to life. He finds pleasure in being part of this front-end development practice project."
+                <LeftMemberCard Name="Thawaree Khanjai" role="Enjoy eating code" description="Introducing Thawaree, the backbone of our backend development. With her dedication and expertise, she can craft the backend overnight, ensuring our website runs smoothly."
                 workList={["Alter campground schema to include pricing.",
                 "Implement payment creation function",
                 "Implement API for admin to get all and get one transaction.",
@@ -130,7 +130,7 @@ function scrollToElement(id) {
             </div>
 
             <div id="Nair">
-                <RightMemberCard Name="Boonda Panichakul" role="Cute catty" description="Introducing Boonda, the epitome of hard work and dedication. Her unwavering commitment to excellence shines through in every task she undertakes. With her precision and drive, she&apos;s an invaluable asset to our team."
+                <RightMemberCard Name="Boonda Panichakul" role="Cute catty" description="Say hello to Boonda, our frontend integration specialist. She excels in bridging the gap between frontend and backend, listening attentively to ensure seamless integration and functionality."
                 workList={["Design payment page.",
                 "Create payment page.",
                 "Implement get user's transaction.",
@@ -142,7 +142,7 @@ function scrollToElement(id) {
             </div>
 
             <div id="Cherry">
-                <LeftMemberCard Name="Panisara Chakkaew" role="Is sweet fruit" description="Meet Panisara C., the creative mind driving the UI design of the website. With a primary focus on aesthetics and user experience, he also delves into coding to bring the vision to life. He finds pleasure in being part of this front-end development practice project."
+                <LeftMemberCard Name="Panisara Chakkaew" role="Is sweet fruit" description="Say hi to Panisara C., our vibrant backend expert and integration guru. She not only brings color to our team but also joy. Her positivity and skills make everyone's day brighter."
                 workList={["Alter campground schema to include pricing.",
                 "Implement API for tourist to submit the payment.",
                 "Alter dashboard page.",
@@ -154,7 +154,7 @@ function scrollToElement(id) {
             </div>
             
             <div id="Yiwah">
-                <RightMemberCard Name="Patsaporn Kaewkong" role="Night owl" description="Introducing Patsaporn, the epitome of hard work and dedication. Her unwavering commitment to excellence shines through in every task she undertakes. With her precision and drive, she&apos;s an invaluable asset to our team."
+                <RightMemberCard Name="Patsaporn Kaewkong" role="Night owl" description="Meet Patsaporn, the all-rounder of our team. She works hard and plays even harder. Beyond her dedication to work, she loves organizing team gaming sessions, fostering a fun and lively atmosphere."
                 workList={["Implement QR code generation function.",
                 "Create dynamics individual transaction page.",
                 "Implement API for tourist to resubmit the payment.",
@@ -168,7 +168,7 @@ function scrollToElement(id) {
             </div>
             
             <div id="Anda">
-                <LeftMemberCard Name="Varinthorn Chatburapachai" role="Invisible man" description="Meet Varinthorn, the creative mind driving the UI design of the website. With a primary focus on aesthetics and user experience, he also delves into coding to bring the vision to life. He finds pleasure in being part of this front-end development practice project."
+                <LeftMemberCard Name="Varinthorn Chatburapachai" role="Invisible man" description="Last but not least, Varinthorn, our speedy frontend developer. She completes tasks swiftly and is always ready to lend a hand to her teammates, ensuring our projects move forward smoothly."
                 workList={["Design payment schema.",
                 "Create payment page.",
                 "Design dynamics individual transaction page.",
