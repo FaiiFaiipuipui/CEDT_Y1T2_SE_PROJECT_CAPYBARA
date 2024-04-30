@@ -1,5 +1,6 @@
 describe('Test getting announcements', () => {
   it('Get all announcements', () => {
+    cy.viewport(1440, 800);
     cy.visit('http://localhost:3000');
 
     cy.get('button').contains('SIGN IN').click();

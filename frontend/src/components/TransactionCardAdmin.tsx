@@ -177,7 +177,7 @@ export default function TransactionCardAdmin({
             </div>
           </div>
         </div>
-        {value === "VERIFYING" ? (
+        {status === "VERIFYING" ? (
           <div className="min-h-[550px] w-[25%] min-w-[350px] border border-2  rounded-[50px] pt-[30px] px-[20px] text-center">
             <p className="text-[32px] font-semibold">Transaction Status</p>
             <hr />
@@ -201,7 +201,7 @@ export default function TransactionCardAdmin({
           </div>
         ) : null}
       </div>
-      {value === "VERIFYING" ? (
+      {status === "VERIFYING" ? (
         <div className="flex flex-row justify-center items-center mt-10 space-x-[100px]">
           <Link href={`/dashboard`}>
             <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:shadow-xl">

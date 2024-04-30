@@ -1,6 +1,7 @@
 import "cypress-file-upload";
 describe("Test create transaction function", () => {
   beforeEach(() => {
+    cy.viewport(1440, 800);
     cy.visit("http://localhost:3000");
 
     cy.get("button").contains("SIGN IN").click();

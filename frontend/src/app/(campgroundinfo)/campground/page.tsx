@@ -22,7 +22,7 @@ export default async function Campground() {
   return (
     <main className="text-center p-5 mx-[4%] flex flex-row ">
       <div className="fixed  bg-cadetblue rounded-[20px]  pl-10 pr-6  w-[30%] flex flex-col h-[80%]">
-        <Announcement />
+        <Announcement profile={profile} />
         <div className=" flex flex-col my-[3%] h-[700px] overflow-y-auto pr-2">
           <AnnouncementCatalog
             announcementJson={announcements}
