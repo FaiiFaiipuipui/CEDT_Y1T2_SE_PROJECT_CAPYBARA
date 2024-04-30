@@ -17,6 +17,7 @@ export default async function Campground() {
   const announcements = getAnnouncements();
   const session = await getServerSession(authOptions);
   const profile = await getUserDashboard(session.user.token);
+
   if (!campgrounds) return null;
   return (
     <main className="text-center p-5 mx-[4%] flex flex-row ">
