@@ -1,5 +1,3 @@
-//"use client";
-
 import Image from "next/image";
 import getCampground from "@/libs/getCampground";
 import Link from "next/link";
@@ -11,6 +9,8 @@ import AnnouncementCatalog from "@/components/AnnouncementCatalog";
 import EditAnnouncementCard from "@/components/EditAnnouncementCard";
 import CreateAnnouncementCard from "@/components/CreateAnnouncementCard";
 import getAnnouncement from "@/libs/getAnnouncement";
+import { AnnouncementItemForCreateAndEdit } from "interface";
+import Announcement from "@/components/Announcement";
 
 export default async function CampgroundDetailPage({
   params,

@@ -40,6 +40,7 @@ export default function EditAnnouncementCard({
   );
   const [fieldMissing, setFieldMissing] = useState<Set<string>>(new Set());
   const [checkSubmmit, setCheckSubmit] = useState<boolean>(false);
+
   const [noEndDate, setNoEndDate] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedContent, setEditedContent] = useState(content);
@@ -76,7 +77,6 @@ export default function EditAnnouncementCard({
   const update = () => {
     try {
       if (session.user.token) {
-        console.log("Pass here");
         const addAnnouncement = async () => {
           try {
             await updateAnnouncement(
@@ -115,11 +115,6 @@ export default function EditAnnouncementCard({
             | Created At : {createAtForAdmin.toDateString()}
           </div>
         </div>
-        {/* <CampGroundSelection
-          onSelection={handleOptionChange}
-          defaultSelected={campgroundName}
-          defaultId={campgroundName}
-        /> */}
         <div className="text-left">{campgroundName}</div>
       </div>
       <div className="flex flex-row">
@@ -250,7 +245,6 @@ export default function EditAnnouncementCard({
                 session.user.token
               );
               console.log("00000000000");
-
               update();
               toggle();
             }}
