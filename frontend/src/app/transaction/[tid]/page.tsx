@@ -61,7 +61,7 @@ export default async function TransactionPage({
               ) : profile.data.role === "admin" ? (
                 <div className="w-full space-y-[70px]">
                   <TransactionCardAdmin
-                  token={session.user.token}
+                    token={session.user.token}
                     status={status}
                     transaction={transaction}
                     imgBase={imgData}

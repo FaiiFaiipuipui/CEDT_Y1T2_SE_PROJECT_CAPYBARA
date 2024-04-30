@@ -93,6 +93,15 @@ export default function TransactionCard({
             </Link>
           ) : transaction.status === "WAITING" ? (
             <div className="w-1/5"></div>
+          ) : transaction.status === "VERIFYING" && role === "admin" ? (
+            <Link href={`/transaction/${transaction._id}`} className="w-1/5">
+              <button
+                className="justify-center bg-fern border-[2px] border-fern px-6 py-1 text-white font-medium rounded-full hover:shadow-lg"
+                data-testid={`edit-button-${user}`}
+              >
+                Verify
+              </button>
+            </Link>
           ) : transaction.status === "VERIFYING" ||
             transaction.status === "COMPLETED" ||
             role === "admin" ? (

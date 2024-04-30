@@ -16,6 +16,7 @@ export default function AnnouncementCard({
   campgroundId,
   announcementId,
   userRole,
+  createdAt,
 }: {
   title: string;
   campground: string;
@@ -25,6 +26,7 @@ export default function AnnouncementCard({
   campgroundId: string;
   announcementId: string;
   userRole: string;
+  createdAt: Date;
 }) {
   const [hidden, setHidden] = useState<boolean>(false);
   const toggle = () => {
@@ -52,29 +54,35 @@ export default function AnnouncementCard({
   };
 
   return (
-    <div className="">
+    <div id="announcement-card" className="">
       {!hidden ? (
-        <div className="bg-white rounded-[20px] py-[6%] px-10 my-5 max-w-full min-w-sm w-full border-lg border-green-500">
+        <div className="announcement-small-card bg-white rounded-[20px] py-[6%] px-10 my-5 max-w-full min-w-sm w-full border-lg border-green-500">
           <div className="text-left font-semibold text-xl pb-2">{title}</div>
           <div className="border-t-2 border-black pb-2"></div>
-          <div className="text-sm font-semibold text-left pb-5">
+          <div className="campground-announcement-name text-sm font-semibold text-left pb-5">
             {campground}
           </div>
           <div className="text-sm text-left pb-5">{content}</div>
           <div className="flex flex-row justify-between items-center">
             {userRole !== "admin" ? null : (
-              <div className="text-sm font-semibold text-left">
-                start at {startDate.toDateString()}
+              <div className="text-sm font-semibold text-center border-solid ">
+                Start at{" "}
+                <div className="text-xs font-normal">
+                  {startDate.toDateString()}
+                </div>
               </div>
             )}
             {!isNaN(new Date(endDate).getTime()) &&
             new Date(endDate).getTime() !== 0 ? (
-              <div className="text-sm font-semibold text-left">
-                until {endDate.toDateString()}
+              <div className="text-sm font-semibold text-center">
+                Until{" "}
+                <div className="text-xs font-normal">
+                  {endDate.toDateString()}
+                </div>
               </div>
             ) : (
-              <div className="text-sm font-semibold pb-2 text-left pr-[33%]">
-                until -
+              <div className="text-sm font-semibold text-center">
+                Until <div className="text-xs font-normal">-</div>
               </div>
             )}
 
@@ -100,6 +108,7 @@ export default function AnnouncementCard({
                   </svg>
                 </button>
                 <button
+                  id="announcement-delete-button"
                   onClick={(e) => {
                     confirmDelete(e);
                   }}
@@ -131,6 +140,7 @@ export default function AnnouncementCard({
           startDate={startDate}
           endDate={endDate}
           announcementId={announcementId}
+          createdAt={createdAt}
         />
       )}
     </div>

@@ -11,7 +11,7 @@ export default function Card({
   campgroundProvince: string;
 }) {
   return (
-    <InteractiveCard>
+    <InteractiveCard >
       <div className="w-full h-[70%] relative rounded-t-lg">
         <Image
           src={imgSrc}
@@ -21,7 +21,7 @@ export default function Card({
         />
       </div>
       <div className="w-full h-[30%] p-[10px] text-base mt-[10px]">
-        <div>{campgroundName}</div>
+        <div id="campground-name" className="campground-name">{campgroundName}</div>
         <div>จังหวัด{campgroundProvince}</div>
       </div>
     </InteractiveCard>
