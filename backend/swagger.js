@@ -380,20 +380,6 @@
  *          schema:
  *            type: string
  *          required: true
- *      requestBody:
- *        required: true
- *        content:
- *            application/json:
- *                  schema:
- *                      type: object
- *                      required: 
- *                          - user
- *                          - appointment
- *                      properties:
- *                          user:
- *                              type: string
- *                          appointment:
- *                              type: string
  *      responses:
  *        201:
  *          description: A transaction was successfully created.
