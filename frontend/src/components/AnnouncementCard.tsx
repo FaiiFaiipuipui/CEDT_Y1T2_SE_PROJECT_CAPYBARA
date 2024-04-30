@@ -16,6 +16,7 @@ export default function AnnouncementCard({
   campgroundId,
   announcementId,
   userRole,
+  createdAt,
 }: {
   title: string;
   campground: string;
@@ -25,6 +26,7 @@ export default function AnnouncementCard({
   campgroundId: string;
   announcementId: string;
   userRole: string;
+  createdAt: Date;
 }) {
   const [hidden, setHidden] = useState<boolean>(false);
   const toggle = () => {
@@ -62,15 +64,27 @@ export default function AnnouncementCard({
           </div>
           <div className="text-sm text-left pb-5">{content}</div>
           <div className="flex flex-row justify-between items-center">
-            {(!isNaN(new Date(endDate).getTime()) && new Date(endDate).getTime() !== 0) ? (
-          <div className="text-sm font-semibold text-left">
-                until {endDate.toDateString()}
+            {userRole !== "admin" ? null : (
+              <div className="text-sm font-semibold text-center border-solid ">
+                Start at{" "}
+                <div className="text-xs font-normal">
+                  {startDate.toDateString()}
+                </div>
               </div>
-        ) : (
-          <div className="text-sm font-semibold pb-2 text-left pr-[33%]">
-            until -
-          </div>
-        )}
+            )}
+            {!isNaN(new Date(endDate).getTime()) &&
+            new Date(endDate).getTime() !== 0 ? (
+              <div className="text-sm font-semibold text-center">
+                Until{" "}
+                <div className="text-xs font-normal">
+                  {endDate.toDateString()}
+                </div>
+              </div>
+            ) : (
+              <div className="text-sm font-semibold text-center">
+                Until <div className="text-xs font-normal">-</div>
+              </div>
+            )}
 
             {userRole === "admin" ? (
               <div className="flex flex-row z-30">
@@ -125,6 +139,7 @@ export default function AnnouncementCard({
           startDate={startDate}
           endDate={endDate}
           announcementId={announcementId}
+          createdAt={createdAt}
         />
       )}
     </div>
