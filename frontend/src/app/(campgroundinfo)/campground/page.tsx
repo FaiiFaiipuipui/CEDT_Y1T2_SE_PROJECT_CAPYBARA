@@ -32,28 +32,31 @@ export default async function Campground() {
         </div>
       </div>
 
-      <div className="ml-[5%]">
-        <div className="text-4xl font-bold mt-10 mb-5 text-left">
-          Campground
+      <div className="absolute right-16 w-[57%] white overflow-y-auto">
+        <div className="sticky flex flex-row justify-between items-center mt-10 mb-5">
+          <div className="text-4xl font-bold text-left">Campground</div>
+
+          {profile.data.role === "admin" ? (
+            <Link href="/campground/manage/add">
+              <button className="bg-emerald-500 px-4 py-1 text-white font-medium rounded-full hover:bg-white hover:text-emerald-500 border-[2px] border-emerald-500">
+                Add Campground
+              </button>
+            </Link>
+          ) : null}
         </div>
 
-        {profile.data.role == "admin" ? (
-          <Link href="/campground/manage/add">
-            <button className="absolute top-[17%] right-[6%] bg-emerald-500 px-4 py-1 text-white font-medium rounded-full hover:bg-white hover:text-emerald-500 border-[2px] border-emerald-500">
-              Add Campground
-            </button>
-          </Link>
-        ) : null}
-        <Suspense
-          fallback={
-            <p>
-              Loading...
-              <LinearProgress />
-            </p>
-          }
-        >
-          <CampgroundCatalog campgroundJson={campgrounds} />
-        </Suspense>
+        <div className="mt-2">
+          <Suspense
+            fallback={
+              <p>
+                Loading...
+                <LinearProgress />
+              </p>
+            }
+          >
+            <CampgroundCatalog campgroundJson={campgrounds} />
+          </Suspense>
+        </div>
       </div>
     </main>
   );

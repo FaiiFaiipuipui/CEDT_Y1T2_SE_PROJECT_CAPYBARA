@@ -1,16 +1,56 @@
+"use client";
+import deleteAnnouncement from "@/libs/deleteAnnouncement";
 import { AnnouncementItem, AnnouncementJson } from "interface";
+import { useState } from "react";
+import EditAnnouncementCard from "./EditAnnouncementCard";
+import { useSession } from "next-auth/react";
+import { getUserDashboard } from "@/libs";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export default async function AnnouncementCard({
+export default function AnnouncementCard({
   title,
   campground,
   content,
+  startDate,
   endDate,
+  campgroundId,
+  announcementId,
+  userRole,
 }: {
   title: string;
   campground: string;
   content: string;
+  startDate: Date;
   endDate: Date;
+  campgroundId: string;
+  announcementId: string;
+  userRole: string;
 }) {
+  const [hidden, setHidden] = useState<boolean>(false);
+  const toggle = () => {
+    setHidden(!hidden);
+  };
+  const { data: session } = useSession();
+
+  const onSubmitDelete = () => {
+    try {
+      const deleteOne = async () => {
+        await deleteAnnouncement(announcementId, session.user.token);
+      };
+      deleteOne();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const confirmDelete = (e) => {
+    e.stopPropagation();
+    if (window.confirm("Do you confirm your deletion?")) {
+      onSubmitDelete();
+      alert("Successfully delete Announcement");
+    }
+  };
+
   return (
     <div className="bg-white rounded-[20px] py-[6%] px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
       <div className="text-left font-semibold text-xl pb-2">{title}</div>

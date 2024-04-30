@@ -7,7 +7,11 @@ export const getPollute = async () => {
   return campgrounds;
 };
 
-function CampGroundSelection({ onSelection }: { onSelection: Function }) {
+function CampGroundSelection({
+  onSelection
+}: {
+  onSelection: Function;
+}) {
   const [campgrounds, setCampgrounds] = useState<CampgroundJson | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -29,7 +33,7 @@ function CampGroundSelection({ onSelection }: { onSelection: Function }) {
         className="bg-white border-[2px] border-gray-500 rounded-lg w-full py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
       >
         <option value="Loading..." defaultValue={"Loading..."} hidden>
-          Loading...
+          Selected Campground
         </option>
       </select>
     );
@@ -46,7 +50,7 @@ function CampGroundSelection({ onSelection }: { onSelection: Function }) {
       }}
     >
       <option value={"default"} key={"default"} hidden>
-        Please Select the campground
+        
       </option>
       {campgrounds &&
         campgrounds.data.map((campgroundObj: CampgroundItem) => {
