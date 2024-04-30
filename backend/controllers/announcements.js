@@ -71,9 +71,16 @@ exports.getAnnouncement = async (req, res, next) => {
 // @access:  Private
 exports.createAnnouncement = async (req, res, next) => {
   try {
-    if (req.body.endDate < req.body.startDate) {
-      return res.status(401).json({ success: false, message: "End date's time must be after start date's time" });
+    if (req.body.endDate != "") {
+      if (req.body.endDate < req.body.startDate) {
+        return res.status(400).json({
+          success: false,
+          message: "End date's time must be after start date's time",
+        });
+      }
     }
+
+    // Add more input validation here...
 
     const announcement = await Announcement.create(req.body);
     res.status(201).json({
@@ -81,6 +88,7 @@ exports.createAnnouncement = async (req, res, next) => {
       data: announcement,
     });
   } catch (err) {
+    console.error(err); // Log the error
     res.status(500).json({
       success: false,
       message: "Cannot create Announcement",
