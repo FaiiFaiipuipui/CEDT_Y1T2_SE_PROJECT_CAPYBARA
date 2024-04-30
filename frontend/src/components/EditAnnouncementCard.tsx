@@ -78,19 +78,24 @@ export default function EditAnnouncementCard({
       if (session.user.token) {
         console.log("Pass here");
         const addAnnouncement = async () => {
-          await updateAnnouncement(
-            editedTitle,
-            editedContent,
-            editedStartDate,
-            editedEndDate,
-            campgroundId,
-            announcementId,
-            session.user.token
-          );
+          try {
+            await updateAnnouncement(
+              editedTitle,
+              editedContent,
+              editedStartDate,
+              editedEndDate,
+              campgroundId,
+              announcementId,
+              session.user.token
+            );
+          } catch (error) {
+            console.log(error);
+          }
+
           console.log("Pass here Too");
-          await addAnnouncement();
-          alert("Successfully updated announcement");
         };
+        addAnnouncement();
+        alert("Successfully updated announcement");
       }
     } catch (err) {
       alert("Error");
@@ -101,7 +106,10 @@ export default function EditAnnouncementCard({
   return (
     <div className="bg-white rounded-[20px] py-[6%] px-10 my-5 max-w-lg min-w-sm w-full ">
       <div className="flex flex-col mb-2 ">
-        <div className="text-left text-lg font-medium mb-5">
+        <div
+          className="text-left text-lg font-medium mb-5"
+          onClick={() => console.log(session)}
+        >
           Edit an announcement
           <div className="text-xs text-gray-400 py-1">
             | Created At : {createAtForAdmin.toDateString()}
@@ -157,10 +165,11 @@ export default function EditAnnouncementCard({
             className="bg-white border-[2px] border-gray-500 rounded-lg w-[90%] text-sm py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
             defaultValue={currentEndDate}
             onChange={(e) => {
+              console.log(endDate);
               const newEndDate = new Date(e.target.value);
               setEditedEndDate(newEndDate);
               console.log("Here End DAte on Cganeg");
-              console.log(newEndDate);
+              console.log(newEndDate.toString);
               console.log(editedStartDate);
               checkFillTheField(e, "End Date");
               if (newEndDate !== null && newEndDate < editedStartDate) {
