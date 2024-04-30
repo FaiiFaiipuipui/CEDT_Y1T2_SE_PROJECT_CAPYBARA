@@ -62,15 +62,21 @@ export default function AnnouncementCard({
           </div>
           <div className="text-sm text-left pb-5">{content}</div>
           <div className="flex flex-row justify-between items-center">
-            {(!isNaN(new Date(endDate).getTime()) && new Date(endDate).getTime() !== 0) ? (
-          <div className="text-sm font-semibold text-left">
+            {userRole !== "admin" ? null : (
+              <div className="text-sm font-semibold text-left">
+                start at {startDate.toDateString()}
+              </div>
+            )}
+            {!isNaN(new Date(endDate).getTime()) &&
+            new Date(endDate).getTime() !== 0 ? (
+              <div className="text-sm font-semibold text-left">
                 until {endDate.toDateString()}
               </div>
-        ) : (
-          <div className="text-sm font-semibold pb-2 text-left pr-[33%]">
-            until -
-          </div>
-        )}
+            ) : (
+              <div className="text-sm font-semibold pb-2 text-left pr-[33%]">
+                until -
+              </div>
+            )}
 
             {userRole === "admin" ? (
               <div className="flex flex-row z-30">

@@ -24,8 +24,8 @@ export default function EditAnnouncementCard({
   endDate: Date;
   announcementId: string;
 }) {
-  var currentStartDate = startDate.toISOString().slice(0,10);
-  var currentEndDate = endDate.toISOString().slice(0,10);
+  var currentStartDate = startDate.toISOString().slice(0, 10);
+  var currentEndDate = endDate ? endDate.toISOString().slice(0, 10) : '';
 
   const [editedStartDate, setStartDate] = useState<Date>(new Date(currentStartDate));
   const [editedEndDate, setEndDate] = useState<Date>(new Date(currentEndDate));
@@ -50,24 +50,29 @@ export default function EditAnnouncementCard({
   };
 
   const update = () => {
-    try{
+    try {
       if (session.user.token) {
-        const addAnnouncement = async() => await updateAnnouncement(
-          editedTitle,
-          editedContent,
-          editedStartDate,
-          editedEndDate,
-          campgroundId,
-          announcementId,
-          session.user.token
-        );
-        addAnnouncement();
-        alert('Successfully update announcement');
+        if (editedEndDate !== null && editedEndDate < editedStartDate) {
+          alert("End date cannot be earlier than start date");
+        } else {
+          const addAnnouncement = async () =>
+            await updateAnnouncement(
+              editedTitle,
+              editedContent,
+              editedStartDate,
+              editedEndDate,
+              campgroundId,
+              announcementId,
+              session.user.token
+            );
+          addAnnouncement();
+          alert("Successfully updated announcement");
+        }
       }
     } catch (err) {
       console.log(err);
     }
-  };
+  };  
 
   return (
     <div className="bg-white rounded-[20px] py-[6%] px-10 my-5 max-w-lg min-w-sm w-full ">
@@ -93,7 +98,12 @@ export default function EditAnnouncementCard({
             placeholder="Select the date here"
             className="bg-white border-[2px] border-gray-500 rounded-lg w-[90%] text-sm py-2 px-4 mt-2 text-gray-700 focus:outline-none focus:border-emerald-500"
             defaultValue={currentStartDate}
-            onChange={(e) => setStartDate(new Date(e.target.value))}
+            onChange={(e) => {
+              e.target.value < currentStartDate
+                ? (e.target.value = currentStartDate)
+                : e.target.value;
+              setStartDate(new Date(e.target.value));
+            }}
           ></input>
         </div>
         <div className="flex flex-col">
@@ -122,14 +132,14 @@ export default function EditAnnouncementCard({
         title="textArea"
         placeholder="Please enter your announcement here"
         defaultValue={title}
-        onChange={(e)=>setEditedTitle(e.target.value)}
+        onChange={(e) => setEditedTitle(e.target.value)}
       ></textarea>
       <textarea
         className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-4 mb-4"
         title="textArea"
         placeholder="Please enter your announcement here"
         defaultValue={content}
-        onChange={(e)=>setEditedContent(e.target.value)}
+        onChange={(e) => setEditedContent(e.target.value)}
       ></textarea>
       <div className="flex flex-wrap">
         <div className="flex flex-row right-0">
@@ -155,7 +165,10 @@ export default function EditAnnouncementCard({
           </button>
           <button
             className="bg-fern border-[2px] border-fern px-3 mr-2 text-white font-medium rounded-full"
-            onClick={() => {update(); toggle();}}
+            onClick={() => {
+              update();
+              toggle();
+            }}
           >
             OK
           </button>

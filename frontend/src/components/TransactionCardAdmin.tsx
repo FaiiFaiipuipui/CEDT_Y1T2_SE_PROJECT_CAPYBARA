@@ -50,9 +50,13 @@ export default function TransactionCardAdmin({
   };
 
   const handleSubmit = () => {
-    const updateStatus = updateTransaction(transaction._id, token, value);
+    if (value !== "VERIFYING") {
+      const updateStatus = updateTransaction(transaction._id, token, value);
 
-    router.push("/dashboard");
+      router.push("/dashboard");
+    } else {
+      alert("Please select transaction status!");
+    }
   };
 
   return (
@@ -186,12 +190,12 @@ export default function TransactionCardAdmin({
             <FormControlLabel
               value="COMPLETED"
               label="Completed"
-              control={<Radio />}
+              control={<Radio data-testid="completed-radio" />}
             />
             <FormControlLabel
               value="REJECTED"
               label="Rejected"
-              control={<Radio />}
+              control={<Radio data-testid="rejected-radio" />}
             />
           </RadioGroup>
         </div>
