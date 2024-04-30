@@ -24,7 +24,6 @@
  *        startDate:
  *          type: string
  *          format: date-time
- *          default: Date.now
  *          description: Start date for announcing
  *        endDate:
  *          type: string
@@ -39,7 +38,6 @@
  *        createdAt:
  *          type: string
  *          format: date-time
- *          default: Date.now
  *          description: Created time
  *    Transaction:
  *      type: object
@@ -84,11 +82,6 @@
  *        appointment:
  *          type: string
  *          description: ID of appointment that linked to the transaction
- *        createdAt:
- *          type: string
- *          format: date-time
- *          default: Date.now
- *          description: Created time 
  *    TransactionSlip:
  *      type: object
  *      required:
@@ -106,16 +99,10 @@
  *        submit_time:
  *          type: string
  *          format: date-time
- *          default: Date.now
  *          description: Timestamp
  *        payment_id:
  *          type: string
  *          description: ID of the transaction which owns the transaction slip
- *        createdAt:
- *          type: string
- *          format: date-time
- *          default: Date.now
- *          description: Created time
  *    User:
  *      type: object
  *      required:
@@ -147,7 +134,6 @@
  *        createdAt:
  *          type: string
  *          format: date-time
- *          default: Date.now
  *          description: Created time
  */
 
@@ -441,7 +427,7 @@
  * @swagger
  *  tags:
  *      name: PromptpayQR APIs
- *      description: A promptpayQR for a transaction.
+ *      description: APIs creating promptpayQR for a transaction.
  */
 
 /**
@@ -567,8 +553,6 @@
  *      responses:
  *        201:
  *          description: A transaction slip was successfully created.
- *          content:
- *            application/json:
  *        400:
  *          description: Cannot create a transaction slip for this transactionId.
  *        404:
