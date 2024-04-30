@@ -50,9 +50,13 @@ export default function TransactionCardAdmin({
   };
 
   const handleSubmit = () => {
-    const updateStatus = updateTransaction(transaction._id, token, value);
+    if (value !== "VERIFYING") {
+      const updateStatus = updateTransaction(transaction._id, token, value);
 
-    router.push("/dashboard");
+      router.push("/dashboard");
+    } else {
+      alert("Please select transaction status!");
+    }
   };
 
   return (
@@ -173,43 +177,46 @@ export default function TransactionCardAdmin({
             </div>
           </div>
         </div>
+        {status === "VERIFYING" ? (
+          <div className="min-h-[550px] w-[25%] min-w-[350px] border border-2  rounded-[50px] pt-[30px] px-[20px] text-center">
+            <p className="text-[32px] font-semibold">Transaction Status</p>
+            <hr />
+            <RadioGroup
+              name="transactionStatus"
+              sx={{ margin: "10px 0px 0px 20px" }}
+              value={value}
+              onChange={handleRadioChange}
+            >
+              <FormControlLabel
+                value="COMPLETED"
+                label="Completed"
+                control={<Radio data-testid="completed-radio" />}
+              />
+              <FormControlLabel
+                value="REJECTED"
+                label="Rejected"
+                control={<Radio data-testid="rejected-radio" />}
+              />
+            </RadioGroup>
+          </div>
+        ) : null}
+      </div>
+      {status === "VERIFYING" ? (
+        <div className="flex flex-row justify-center items-center mt-10 space-x-[100px]">
+          <Link href={`/dashboard`}>
+            <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:shadow-xl">
+              Back
+            </button>
+          </Link>
 
-        <div className="min-h-[550px] w-[25%] min-w-[350px] border border-2  rounded-[50px] pt-[30px] px-[20px] text-center">
-          <p className="text-[32px] font-semibold">Transaction Status</p>
-          <hr />
-          <RadioGroup
-            name="transactionStatus"
-            sx={{ margin: "10px 0px 0px 20px" }}
-            value={value}
-            onChange={handleRadioChange}
+          <button
+            className="bg-emerald-500 border-[2px] border-emerald-500 px-10 py-1 mr-10 text-white font-medium rounded-full hover:shadow-xl"
+            onClick={handleSubmit}
           >
-            <FormControlLabel
-              value="COMPLETED"
-              label="Completed"
-              control={<Radio data-testid="completed-radio" />}
-            />
-            <FormControlLabel
-              value="REJECTED"
-              label="Rejected"
-              control={<Radio data-testid="rejected-radio" />}
-            />
-          </RadioGroup>
-        </div>
-      </div>
-      <div className="flex flex-row justify-center items-center mt-10 space-x-[100px]">
-        <Link href={`/dashboard`}>
-          <button className="bg-white border-[2px] border-emerald-500 px-10 py-1 mr-10 text-emerald-500 font-medium rounded-full hover:shadow-xl">
-            Back
+            Submit
           </button>
-        </Link>
-
-        <button
-          className="bg-emerald-500 border-[2px] border-emerald-500 px-10 py-1 mr-10 text-white font-medium rounded-full hover:shadow-xl"
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
-      </div>
+        </div>
+      ) : null}
     </main>
   );
 }

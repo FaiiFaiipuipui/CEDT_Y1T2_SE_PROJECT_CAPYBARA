@@ -4,7 +4,7 @@
   "description": "2110503 Software development final project",
   "main": "server.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --testTimeout=5000 --detectOpenHandles  --watchAll --maxWorkers=1",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=5000 --detectOpenHandles  --watchAll",
     "dev": "nodemon server.js"
   },
   "author": "Gift, Champ, Puifaii, Anda, Yiwha, Nene, Cherry, Model, Kaning",
@@ -30,6 +30,8 @@
     "mongoose": "^8.2.0",
     "promptpay-qr": "^0.5.0",
     "qrcode": "^1.5.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "time-stamps": "^1.0.0"
   },
   "devDependencies": {
