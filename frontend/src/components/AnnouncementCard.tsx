@@ -77,6 +77,11 @@ export default function AnnouncementCard({
                 until -
               </div>
             )}
+            ) : (
+              <div className="text-sm font-semibold pb-2 text-left pr-[33%]">
+                until -
+              </div>
+            )}
 
             {userRole === "admin" ? (
               <div className="flex flex-row z-30">
