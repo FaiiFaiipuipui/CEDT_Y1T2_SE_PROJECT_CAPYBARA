@@ -54,7 +54,7 @@ export default function AnnouncementCard({
   };
 
   return (
-    <div className="">
+    <div id="announcement-card" className="">
       {!hidden ? (
         <div className="bg-white rounded-[20px] py-[6%] px-10 my-5 max-w-full min-w-sm w-full border-lg border-green-500">
           <div className="text-left font-semibold text-xl pb-2">{title}</div>
@@ -108,6 +108,7 @@ export default function AnnouncementCard({
                   </svg>
                 </button>
                 <button
+                  id="announcement-delete-button"
                   onClick={(e) => {
                     confirmDelete(e);
                   }}
