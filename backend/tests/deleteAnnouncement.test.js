@@ -1,5 +1,3 @@
-const AnnouncementController = require('../controllers/announcements');
-const Announcement = require("../models/Announcement");
 let request = require('supertest');
 const mongoose = require('mongoose')
 const express = require('express');
@@ -25,7 +23,7 @@ beforeEach(async () => {
         })
         .expect(200)
     token = userLogin.body.token;
-    console.log(token);
+    // console.log(token);
 });
 describe('Check delete an announcement', () => {
     it('Valid Announcement ID', async () => {
@@ -45,18 +43,26 @@ describe('Check delete an announcement', () => {
             .expect(201);
 
         // announcementId = resAnnouncement.body._id;
-        console.log(resAnnouncement.body._id);
+        const announcement = await resAnnouncement._body.data;
+        announcementId = announcement._id;
+        // console.log(announcementId);
 
-        // const resDelete = await request
-        //     .delete(`/api/v1/announcements/${announcementId}`)
-        //     .set('Accept', 'application/json')
-        //     .auth(token, { type: 'bearer' })
-        //     .expect(200);
+        const resDelete = await request
+            .delete(`/api/v1/announcements/${announcementId}`)
+            .set('Accept', 'application/json')
+            .auth(token, { type: 'bearer' })
+            .expect(200);
 
         // console.log(resDelete);
     });
-});
-afterAll(done => {
-    server.close(done);
-});
+    it('Invalid Announcement ID', async () => {
+
+        const resDelete = await request
+            .delete(`/api/v1/announcements/452f666a8f2b694e6011174b`)
+            .set('Accept', 'application/json')
+            .auth(token, { type: 'bearer' })
+            .expect(404);
+
+    });
+},10000);
 
