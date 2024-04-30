@@ -70,8 +70,10 @@ export default function EditAnnouncementCard({
   };
 
   const handleNoEndDateChange = (e) => {
-    setNoEndDate(e.target.checked);
+    const noEndDate = e.target.checked;
+    setNoEndDate(noEndDate);
     setEditedEndDate(null);
+    console.log("No end date");
   };
 
   const update = () => {
@@ -166,6 +168,7 @@ export default function EditAnnouncementCard({
               console.log("Here End DAte on Cganeg");
               console.log(newEndDate.toString);
               console.log(editedStartDate);
+              if(noEndDate) handleNoEndDateChange
               checkFillTheField(e, "End Date");
               if (newEndDate !== null && newEndDate < editedStartDate) {
                 setCheckEndDate(false);
@@ -223,14 +226,14 @@ export default function EditAnnouncementCard({
             className="bg-fern border-[2px] border-fern px-3 mr-2 text-white font-medium rounded-full"
             onClick={() => {
               if (!checkStartDate) {
-                alert("The Start date is eariler than the Created date");
+                alert("startDate must be a day before the day announcement created");
                 return;
               }
-              if (!checkEndDate) {
-                alert("The End date is eariler than the Start date");
+              if (!checkEndDate && !noEndDate) {
+                alert("startDate must be a day before endDate");
                 return;
               }
-              if (!checkSubmmit) {
+              if (!checkSubmmit && !noEndDate) {
                 alertFill(fieldMissing);
                 return;
               }
