@@ -17,18 +17,16 @@ export default async function Campground() {
   const announcements = getAnnouncements();
   const session = await getServerSession(authOptions);
   const profile = await getUserDashboard(session.user.token);
-
-  console.log(profile.data.name);
-
   if (!campgrounds) return null;
-
   return (
-    <main className="text-center p-5 mx-[4%] flex flex-row">
-      <div className="bg-cadetblue rounded-[20px] py-2 pl-10 pr-6 my-10 w-[35%] flex flex-col h-full">
-        <div className="flex flex-col my-[3%] h-[700px] overflow-y-auto pr-2">
-          <Announcement profile={profile} />
-          <AnnouncementCatalog announcementJson={announcements} />
-          <EditAnnouncementCard />
+    <main className="text-center p-5 mx-[4%] flex flex-row ">
+      <div className="fixed  bg-cadetblue rounded-[20px]  pl-10 pr-6  w-[30%] flex flex-col h-[80%]">
+        <Announcement profile={profile} />
+        <div className=" flex flex-col my-[3%] h-[700px] overflow-y-auto pr-2">
+          <AnnouncementCatalog
+            announcementJson={announcements}
+            userRole={profile.data.role}
+          />
         </div>
       </div>
 

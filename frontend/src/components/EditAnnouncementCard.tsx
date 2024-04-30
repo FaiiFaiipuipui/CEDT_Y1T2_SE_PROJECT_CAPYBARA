@@ -24,8 +24,8 @@ export default function EditAnnouncementCard({
   endDate: Date;
   announcementId: string;
 }) {
-  var currentStartDate = startDate.toISOString().slice(0, 10);
-  var currentEndDate = endDate.toISOString().slice(0, 10);
+  var currentStartDate = startDate?.toISOString().slice(0, 10);
+  var currentEndDate = endDate?.toISOString().slice(0, 10);
 
   const [editedStartDate, setStartDate] = useState<Date>(
     new Date(currentStartDate)
@@ -78,11 +78,6 @@ export default function EditAnnouncementCard({
         <div className="text-left text-lg font-medium mb-2">
           Edit an announcement
         </div>
-        {/* <CampGroundSelection
-          onSelection={handleOptionChange}
-          defaultSelected={campgroundName}
-          defaultId={campgroundName}
-        /> */}
         <div className="text-left">{campgroundName}</div>
       </div>
       <div className="flex flex-row">

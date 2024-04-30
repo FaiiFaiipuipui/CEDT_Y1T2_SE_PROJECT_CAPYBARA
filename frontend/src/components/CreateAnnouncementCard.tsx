@@ -44,10 +44,15 @@ export default function CreateAnnouncementCard({
       };
       if (endDate !== null) {
         announcementItem.endDate = endDate;
+        if (startDate > endDate)
+          return alert("Start date has to be before end date");
       }
 
-      if (startDate < new Date(Date.now())) {
-        announcementItem.startDate = new Date(Date.now());
+      if (startDate < new Date(Date.now() - (Date.now() % 86400000))) {
+        announcementItem.startDate = new Date(
+          Date.now() - (Date.now() % 86400000)
+        );
+        return alert("Invalid start date");
       }
 
       try {

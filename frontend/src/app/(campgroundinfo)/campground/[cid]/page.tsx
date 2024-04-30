@@ -77,8 +77,10 @@ export default async function CampgroundDetailPage({
               <div className="bg-emerald-100 rounded-[20px] py-6 px-10 my-5 max-w-lg min-w-sm w-full border-lg border-green-500">
                 <div className="flex flex-row"></div>
                 <Announcement profile={profile} />
-                <AnnouncementCatalog announcementJson={announcement} />
-                <EditAnnouncementCard />
+                <AnnouncementCatalog
+                  announcementJson={announcement}
+                  userRole={profile.data.role}
+                />
               </div>
             </div>
           </div>
