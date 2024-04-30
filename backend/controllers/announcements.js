@@ -71,7 +71,7 @@ exports.getAnnouncement = async (req, res, next) => {
 // @access:  Private
 exports.createAnnouncement = async (req, res, next) => {
   try {
-    if(req.body.endDate != ""){
+    if(req.body.endDate !== ""){
       if (req.body.endDate < req.body.startDate) {
         return res.status(400).json({ success: false, message: "End date's time must be after start date's time" });
       }
@@ -124,7 +124,7 @@ exports.updateAnnouncement = async (req, res, next) => {
 };
 
 // @desc    Delete announcement
-// @route   DELETE /api/v1/announcement/:id
+// @route   DELETE /api/v1/announcements/:id
 // @access  Private
 exports.deleteAnnouncement = async (req, res, next) => {
   try {
