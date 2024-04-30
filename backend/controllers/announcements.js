@@ -71,8 +71,12 @@ exports.getAnnouncement = async (req, res, next) => {
 // @access:  Private
 exports.createAnnouncement = async (req, res, next) => {
   try {
-    if (req.body.endDate < req.body.startDate) {
+    if (Date.parse(req.body.endDate) < Date.parse(req.body.startDate)) {
       return res.status(401).json({ success: false, message: "End date's time must be after start date's time" });
+    }
+
+    if (Date.parse(req.body.startDate) <=  Date.now() - (Date.now() % (86400 * 1000))) {
+      return res.status(401).json({ success: false, message: "start date's must be today or after" });
     }
 
     const announcement = await Announcement.create(req.body);
