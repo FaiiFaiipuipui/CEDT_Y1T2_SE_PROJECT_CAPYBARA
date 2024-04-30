@@ -8,7 +8,6 @@
  *        - title
  *        - content
  *        - startDate
- *        - endDate
  *        - campground
  *        - author
  *      properties:
@@ -68,9 +67,11 @@
  *          type: array
  *          items:
  *              type: string
+ *          default: []
  *          description: ID of transaction slips that have submitted by the user
  *        successful_payment_slip_image:
  *          type: string
+ *          default: null
  *          description: ID of the transaction slip, applicable only when the transaction status is "COMPLETED"
  *        campground:
  *          type: string
@@ -81,15 +82,10 @@
  *        appointment:
  *          type: string
  *          description: ID of appointment that linked to the transaction
- *        createdAt:
- *          type: string
- *          format: date-time
- *          description: Created time 
  *    TransactionSlip:
  *      type: object
  *      required:
  *        - slip_image
- *        - submit_time
  *        - payment_id
  *      properties:
  *        id:
@@ -107,17 +103,12 @@
  *        payment_id:
  *          type: string
  *          description: ID of the transaction which owns the transaction slip
- *        createdAt:
- *          type: string
- *          format: date-time
- *          description: Created time
  *    User:
  *      type: object
  *      required:
  *        - name
  *        - telephone
  *        - email
- *        - role
  *        - password
  *      properties:
  *        id:
@@ -136,6 +127,7 @@
  *        role:
  *          type: string
  *          description: The user's role ["user", "admin"]
+ *          default: "user"
  *        password:
  *          type: string
  *          description: The user's password for login
@@ -153,6 +145,7 @@
  *      name: Announcement APIs
  *      description: APIs for getting, creating, updating, and deleting announcements.
  */
+
 /**
  * @swagger
  *  paths:
@@ -219,29 +212,49 @@
  */
 /**
  * @swagger
- *  paths:
- *    /announcements:
- *      post:
- *        summary: API for creating an announcement.
- *        tags:
- *          - Announcement APIs
- *        security:
- *          - BearerAuth: []
- *        requestBody:
- *          required: true
- *          content:
- *              application/json:
- *                schema:
- *                  $ref: '#/components/schemas/Announcement'
- *        responses:
- *          201:
- *            description: An announcements was successfully created.
- *            content:
- *              application/json:
- *                schema:
- *                    $ref: '#/components/schemas/Announcement'
- *          500:
- *            description: Cannot create an announcement.
+ * paths:
+ *   /announcements:
+ *     post:
+ *       summary: API for creating an announcement.
+ *       tags:
+ *         - Announcement APIs
+ *       security:
+ *         - BearerAuth: []
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required:
+ *                 - title
+ *                 - content
+ *                 - startDate
+ *                 - campground
+ *                 - author
+ *               properties:
+ *                 title:
+ *                   type: string   
+ *                 content:
+ *                   type: string   
+ *                 startDate:
+ *                   type: string
+ *                 endDate:
+ *                   type: string
+ *                 campground:
+ *                   type: string   
+ *                 author:
+ *                   type: string   
+ *       responses:
+ *         201:
+ *           description: An announcements was successfully created.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 items:
+ *                   $ref: '#/components/schemas/Announcement'
+ *         500:
+ *           description: Cannot create an announcement.
  */
 /**
  * @swagger
@@ -263,8 +276,20 @@
  *          required: true
  *          content:
  *              application/json:
- *                schema:
- *                  $ref: '#/components/schemas/Announcement'
+ *                  type: object
+ *                  properties:
+ *                      title:
+ *                          type: string   
+ *                      content:
+ *                          type: string   
+ *                      startDate:
+ *                          type: string
+ *                      endDate:
+ *                          type: string
+ *                      campground:
+ *                          type: string   
+ *                      author:
+ *                          type: string   
  *        responses:
  *          200:
  *            description: An announcements was successfully updated.
@@ -310,6 +335,7 @@
  *      name: Transaction APIs
  *      description: APIs for getting, creating, updating, and deleting transactions.
  */
+
 /**
  * @swagger
  *  paths:
@@ -372,20 +398,6 @@
  *          schema:
  *            type: string
  *          required: true
- *      requestBody:
- *        required: true
- *        content:
- *            application/json:
- *                  schema:
- *                      type: object
- *                      required: 
- *                          - user
- *                          - appointment
- *                      properties:
- *                          user:
- *                              type: string
- *                          appointment:
- *                              type: string
  *      responses:
  *        201:
  *          description: A transaction was successfully created.
@@ -447,8 +459,9 @@
  * @swagger
  *  tags:
  *      name: PromptpayQR APIs
- *      description: A promptpayQR for a transaction.
+ *      description: APIs creating promptpayQR for a transaction.
  */
+
 /**
  * @swagger
  * paths:
@@ -484,7 +497,6 @@
  *        500:
  *          description: Cannot create a promptpayQR for a transaction.
  */
-/**
 
 /** Transaction Slip */
 
@@ -494,6 +506,7 @@
  *      name: Transaction Slip APIs
  *      description: API for getting, and creating for transaction slips.
  */
+
 /**
  * @swagger
  *  paths:
@@ -565,15 +578,14 @@
  *                  schema:
  *                      type: object
  *                      required: 
- *                          - transactionId
+ *                          - slip_image
  *                      properties:
- *                          transactionId:
+ *                          slip_image:
  *                              type: string
+ *                              format: byte
  *      responses:
  *        201:
  *          description: A transaction slip was successfully created.
- *          content:
- *            application/json:
  *        400:
  *          description: Cannot create a transaction slip for this transactionId.
  *        404:
@@ -604,14 +616,28 @@
  *        content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/User'
+ *                  required:
+ *                      - name
+ *                      - telephone
+ *                      - email
+ *                      - password
+ *                  properties:
+ *                      name:
+ *                          type: string
+ *                      telephone:
+ *                          type: string
+ *                      email:
+ *                          type: string
+ *                      password:
+ *                          type: string
+ *                      role:
+ *                          type: string
+ *                          default: "user"
  *      responses:
  *        200:
  *          description: Register successfully.
- *          content:
- *              application/json:
- *        400:
- *          description: Cannot create a the user's account.
+ *        500:
+ *          description: Cannot create the user's account.
  */
 /**
  * @swagger
@@ -641,33 +667,34 @@
  *          description: Not found user's account.
  *        401:
  *          description: Password incorrect.
+ *        500:
+ *          description: Cannot login to this system.
  */
 /**
  * @swagger
  * paths:
- *  /auth/login:
- *    post:
- *      summary: API for login.
+ *  /auth/me:
+ *    get:
+ *      summary: API for get user's information.
  *      tags:
  *        - User APIs
- *      requestBody:
- *        required: true
- *        content:
- *            application/json:
- *              schema:
- *                  required:
- *                    - email
- *                    - password
- *                  properties:
- *                      email:
- *                          type: string
- *                      password:
- *                          type: string
+ *      security:
+ *        - BearerAuth: []
  *      responses:
  *        200:
- *          description: Login successfully.
- *        400:
- *          description: Not found user's account.
- *        401:
- *          description: Password incorrect.
+ *          description: Get user's information successfully.
+ */
+/**
+ * @swagger
+ * paths:
+ *  /auth/logout:
+ *    get:
+ *      summary: API for logout.
+ *      tags:
+ *        - User APIs
+ *      security:
+ *        - BearerAuth: []
+ *      responses:
+ *        200:
+ *          description: Logout successfully.
  */
