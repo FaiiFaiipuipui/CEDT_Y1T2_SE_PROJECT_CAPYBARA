@@ -26,7 +26,7 @@ export default async function AnnouncementCatalog({
     }
   ) : announcementJsonReady.data;
 
-  console.log(announcementJsonFiltered.length);
+  // console.log(announcementJsonFiltered.length);
 
   return (
     <main>
