@@ -62,6 +62,11 @@ export default function AnnouncementCard({
           </div>
           <div className="text-sm text-left pb-5">{content}</div>
           <div className="flex flex-row justify-between items-center">
+            {userRole !== "admin" ? null : (
+              <div className="text-sm font-semibold text-left">
+                start at {startDate.toDateString()}
+              </div>
+            )}
             {!isNaN(new Date(endDate).getTime()) &&
             new Date(endDate).getTime() !== 0 ? (
               <div className="text-sm font-semibold text-left">
