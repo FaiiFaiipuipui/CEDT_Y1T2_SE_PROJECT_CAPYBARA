@@ -1,4 +1,4 @@
-/*describe('Test create announcement function by user role', () => {
+describe('Test create announcement function by user role', () => {
     beforeEach(() => {
         cy.visit('http://localhost:3000', { timeout: 30000 })
         cy.get('button').contains('SIGN IN').click()
@@ -14,7 +14,7 @@
     it('Create announcement button should not exist', () => {
         cy.get('button[id="createAnncButton"]').should('not.exist')
     })
-})*/
+})
 
 describe('Test create announcement function by admin role', () => {
     beforeEach(() => {
