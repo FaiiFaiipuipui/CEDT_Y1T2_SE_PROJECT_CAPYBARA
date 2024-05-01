@@ -5,7 +5,7 @@ describe("Test create transaction function", () => {
     cy.visit("http://localhost:3000");
 
     cy.get("button").contains("SIGN IN").click();
-    cy.get("input[name=email]").type("user12345@gmail.com");
+    cy.get("input[name=email]").type("user@gmail.com");
     cy.get("input[name=password]").type("user12345");
     cy.get("button").contains("Login").click();
     cy.wait(3000);

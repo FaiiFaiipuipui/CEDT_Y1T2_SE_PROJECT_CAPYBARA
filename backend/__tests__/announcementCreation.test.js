@@ -169,7 +169,8 @@ describe("announcement creation (admin)", () => {
       .expect(500);
   });
 
-  it("TC8 should FAIL to create announcement", async () => { //GOT 201
+  it("TC8 should FAIL to create announcement", async () => {
+    //GOT 201
     let announcementID;
 
     const res = await request

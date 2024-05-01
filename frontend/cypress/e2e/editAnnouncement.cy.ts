@@ -81,6 +81,7 @@ describe("Test create transaction function", () => {
     ).click();
     cy.wait(1000);
     cy.get('input[id="enddate"]').clear();
+    cy.get('input[id="noEndDateCheckbox"]').click();
     cy.get(".bg-fern").click();
 
     cy.on("window:alert", (str) => {
@@ -128,9 +129,7 @@ describe("Test create transaction function", () => {
     cy.get(".bg-fern").click();
 
     cy.on("window:alert", (str) => {
-      expect(str).to.equal(
-        "startDate must be a day before the day announcement created"
-      );
+      expect(str).to.equal("startDate must be a day before endDate");
     });
   });
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1714532815198" clover="3.2.0">
+  <project timestamp="1714532815199" name="All files">
+    <metrics statements="13" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0" elements="15" coveredelements="7" complexity="0" loc="13" ncloc="13" packages="1" files="1" classes="1"/>
+    <file name="Campground.js" path="/Users/tippaphanunkungwarnkanok/CEDT/SE/Project/CEDT_Y1T2_SE_PROJECT_CAPYBARA/backend/models/Campground.js">
+      <metrics statements="13" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="58" count="1" type="stmt"/>
+      <line num="62" count="0" type="stmt"/>
+      <line num="63" count="0" type="stmt"/>
+      <line num="64" count="0" type="stmt"/>
+      <line num="69" count="1" type="stmt"/>
+      <line num="73" count="0" type="stmt"/>
+      <line num="74" count="0" type="stmt"/>
+      <line num="75" count="0" type="stmt"/>
+      <line num="80" count="1" type="stmt"/>
+      <line num="88" count="1" type="stmt"/>
+      <line num="95" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
