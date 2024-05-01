@@ -75,12 +75,6 @@ exports.createAnnouncement = async (req, res, next) => {
       return res.status(400).json({ success: false, message: "End date's time must be at or after start date's time" });
     }
 
-    if (Date.parse(req.body.startDate) <=  Date.now() - (Date.now() % (86400 * 1000))) {
-      return res.status(400).json({ success: false, message: "start date's must be today or after" });
-    }
-
-    // Add more input validation here...
-
     const announcement = await Announcement.create(req.body);
     res.status(201).json({
       success: true,

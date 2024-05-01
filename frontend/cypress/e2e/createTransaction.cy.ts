@@ -1,6 +1,7 @@
 import "cypress-file-upload";
 describe("Test create transaction function", () => {
   beforeEach(() => {
+    cy.viewport(1440, 800);
     cy.visit("http://localhost:3000");
 
     cy.get("button").contains("SIGN IN").click();
@@ -34,7 +35,7 @@ describe("Test create transaction function", () => {
       expect(str).to.equal("Please upload Slip");
     });
   });
-
+ 
   it("Upload not image file type to a transaction", () => {
     cy.get("button").contains("DASHBOARD").click();
     cy.wait(1000);

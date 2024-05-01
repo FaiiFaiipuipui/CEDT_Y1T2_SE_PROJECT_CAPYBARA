@@ -5,6 +5,7 @@ const userPassword = "123456";
 
 describe("Test edit transaction function", () => {
   beforeEach(() => {
+    cy.viewport(1440, 800);
     cy.visit("http://localhost:3000");
     cy.get("button").contains("SIGN IN").click();
     cy.get("input[name=email]").type(`${userName}@gmail.com`);

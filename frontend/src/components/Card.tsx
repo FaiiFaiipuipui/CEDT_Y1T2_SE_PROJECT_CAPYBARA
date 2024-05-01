@@ -12,7 +12,7 @@ export default function Card({
 }) {
   return (
     <InteractiveCard >
-      <div id="campground-card" className="campground-card w-full h-[70%] relative rounded-t-lg">
+      <div className="w-full h-[70%] relative rounded-t-lg">
         <Image
           src={imgSrc}
           alt="Campground Picture"
@@ -20,8 +20,8 @@ export default function Card({
           className="object-cover rounded-t-lg"
         />
       </div>
-      <div id="campground-name" className="w-full h-[30%] p-[10px] text-base mt-[10px]">
-        <div>{campgroundName}</div>
+      <div className="w-full h-[30%] p-[10px] text-base mt-[10px]">
+        <div id="campground-name" className="campground-name">{campgroundName}</div>
         <div>จังหวัด{campgroundProvince}</div>
       </div>
     </InteractiveCard>

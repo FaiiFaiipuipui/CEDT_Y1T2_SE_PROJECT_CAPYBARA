@@ -101,6 +101,7 @@ export default function CreateAnnouncementCard({
           Create an announcement
         </div>
         <textarea
+          id="title"
           className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-4 mb-4"
           title="textArea"
           placeholder="Please enter your title here"
@@ -109,6 +110,7 @@ export default function CreateAnnouncementCard({
           }}
         ></textarea>
         <textarea
+          id="content"
           className="text-sm max-w-lg min-w-sm min-h-14 w-full border rounded-md p-2 bg-gray-100 border-1 border-cadetblue mt-4 mb-4"
           title="textArea"
           placeholder="Please enter your announcement here"
@@ -174,7 +176,7 @@ export default function CreateAnnouncementCard({
           >
             Cancel
           </button>
-          <button
+          <button id="OK"
             className="bg-fern border-[2px] border-fern px-3 mr-2 mt-5 text-white font-medium rounded-full"
             onClick={() => onSubmit()}
           >
