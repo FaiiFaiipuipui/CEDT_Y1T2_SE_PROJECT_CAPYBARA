@@ -9,7 +9,7 @@ services:
   capy_fe:
     build: ./frontend/
     ports:
-      - "107:3000"
+      - "3000:3000"
     networks:
       - app-network
       # change NEXT_PUBLIC_BACKEND_URL to http://capy_be:5000 in frontend .env file
