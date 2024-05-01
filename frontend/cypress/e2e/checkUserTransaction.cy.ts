@@ -76,6 +76,7 @@ describe("Test check user transaction", () => {
     cy.url().should("eq", "http://localhost:3000/dashboard");
     cy.get("button").contains("SIGN OUT").click();
     cy.get("button").contains("Sign out").click();
+    cy.wait(5000);
   });
 
   it("Completed transaction status test", () => {
