@@ -5,7 +5,7 @@
     "startDate" : "2026-05-01",
     "endDate" : "2026-06-01",
     "startDateBeforeToday" : "2024-01-01",
-    "startDateBeToday" : "2024-04-30",
+    "startDateBeToday" : "2024-05-01",
     "startDateAfterEndDate" : "2026-07-01",
     "startDateBeEndDate" : "2026-06-01"
 }
